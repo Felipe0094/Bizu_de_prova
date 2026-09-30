@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planejamento Estratégico — Dossiê de Estudo | CCEM 2026</title>
+<style>
+:root{
+  --bg:#141B22; --panel:#1C262F; --panel-2:#222E38;
+  --ink:#EAE6DC; --ink-dim:#A9B2B8;
+  --gold:#C9A227; --gold-dim:#8F7420;
+  --olive:#6B7B4A; --olive-dim:#4B5A34;
+  --rust:#A85434; --rust-dim:#7A3B24;
+  --blue:#5C8AA8;
+  --line:#33404A; --radius:3px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif;line-height:1.55;font-size:16px;}
+h1,h2,h3,h4{font-family:"Zilla Slab","Georgia",serif;font-weight:600;color:var(--ink);margin:0 0 .5em 0;}
+a{color:var(--gold);} p{margin:0 0 1em 0;}
+.wrap{display:flex;max-width:1180px;margin:0 auto;}
+nav.toc{width:230px;flex:0 0 230px;position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;padding:32px 18px 32px 24px;border-right:1px solid var(--line);}
+nav.toc .tag{font-size:11px;letter-spacing:.06em;color:var(--gold);border:1px solid var(--gold-dim);display:inline-block;padding:2px 8px;border-radius:var(--radius);margin-bottom:14px;}
+nav.toc h4{font-size:13px;color:var(--ink-dim);margin-bottom:10px;font-family:inherit;font-weight:600;}
+nav.toc ol{list-style:none;margin:0;padding:0;counter-reset:sec;}
+nav.toc li{counter-increment:sec;margin-bottom:1px;}
+nav.toc a{display:block;text-decoration:none;color:var(--ink-dim);font-size:12.5px;padding:5px 7px;border-radius:var(--radius);border-left:2px solid transparent;}
+nav.toc a::before{content:counter(sec) "  ";color:var(--gold-dim);font-weight:600;}
+nav.toc a:hover{color:var(--ink);background:var(--panel);border-left-color:var(--gold);}
+main{flex:1;min-width:0;padding:40px 44px 100px;}
+@media (max-width:860px){.wrap{flex-direction:column;}nav.toc{width:100%;flex:none;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--line);padding:20px;}nav.toc ol{columns:2;}main{padding:28px 20px 80px;}}
+.hero{padding:6px 0 34px;border-bottom:1px solid var(--line);margin-bottom:34px;}
+.hero .eyebrow{color:var(--gold);font-size:13px;margin-bottom:10px;}
+.hero h1{font-size:clamp(26px,4vw,38px);max-width:12em;}
+.hero .sub{color:var(--ink-dim);max-width:56ch;font-size:15.5px;}
+.stat-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+.stat{background:var(--panel);border:1px solid var(--line);padding:10px 16px;border-radius:var(--radius);min-width:100px;}
+.stat b{display:block;font-family:"Zilla Slab",serif;font-size:20px;color:var(--gold);}
+.stat span{font-size:11.5px;color:var(--ink-dim);}
+section{margin-bottom:58px;scroll-margin-top:20px;}
+section h2{font-size:23px;display:flex;align-items:baseline;gap:12px;}
+section h2 small{font-size:13px;color:var(--gold-dim);font-family:"IBM Plex Sans",sans-serif;font-weight:600;}
+.deck{color:var(--ink-dim);font-size:15px;max-width:72ch;margin-bottom:20px;}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;}
+.card h3{font-size:15.5px;margin-bottom:6px;}
+.card.gold{border-left:3px solid var(--gold);} .card.olive{border-left:3px solid var(--olive);} .card.rust{border-left:3px solid var(--rust);} .card.blue{border-left:3px solid var(--blue);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:700px){.two-col,.three-col{grid-template-columns:1fr;}}
+.macete{background:linear-gradient(90deg,rgba(201,162,39,.10),transparent);border:1px dashed var(--gold-dim);border-radius:var(--radius);padding:11px 16px;font-size:13.5px;margin:12px 0;}
+.macete b{color:var(--gold);}
+.trap{background:linear-gradient(90deg,rgba(168,84,52,.14),transparent);border:1px solid var(--rust-dim);border-radius:var(--radius);padding:11px 16px;font-size:13.5px;margin:12px 0;}
+.trap b{color:#E08A6A;}
+.saiba{background:linear-gradient(90deg,rgba(92,138,168,.14),transparent);border:1px solid var(--blue);border-radius:var(--radius);padding:11px 16px;font-size:13.5px;margin:12px 0;}
+.saiba b{color:var(--blue);}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 18px;}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;}
+th{background:var(--panel-2);color:var(--gold);font-weight:600;font-size:12.5px;}
+tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:20px 0;}
+.chain .box{background:var(--panel-2);border:1px solid var(--blue);color:var(--ink);padding:9px 12px;border-radius:var(--radius);font-size:12.5px;text-align:center;}
+.chain .arrow{color:var(--gold-dim);font-size:16px;}
+.pyramid{display:flex;flex-direction:column;align-items:center;gap:4px;margin:20px 0;}
+.pyr-level{color:#12181E;font-weight:600;text-align:center;padding:12px 10px;border-radius:2px;font-family:"Zilla Slab",serif;font-size:13px;}
+.pyr-1{width:32%;background:var(--gold);} .pyr-2{width:58%;background:#D9B65C;} .pyr-3{width:88%;background:#EAD8A0;}
+.pyr-cap{font-size:10.5px;font-weight:400;display:block;margin-top:2px;color:#3a3222;}
+/* Ansoff grid */
+.ansoff{display:grid;grid-template-columns:auto 1fr 1fr;gap:1px;background:var(--line);margin:18px 0;border:1px solid var(--line);}
+.ansoff div{background:var(--panel);padding:14px;font-size:13px;}
+.ansoff .hd{background:var(--panel-2);color:var(--gold);font-weight:600;text-align:center;}
+.ansoff .lbl{background:var(--panel-2);color:var(--gold);font-weight:600;display:flex;align-items:center;justify-content:center;text-align:center;}
+.ansoff .cell{cursor:default;}
+.ansoff .cell b{color:var(--gold);display:block;margin-bottom:4px;}
+.ansoff .risk-low{border-top:3px solid var(--olive);}
+.ansoff .risk-mid{border-top:3px solid var(--blue);}
+.ansoff .risk-high{border-top:3px solid var(--rust);}
+/* flip cards */
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:14px;}
+.flip{perspective:1200px;height:140px;cursor:pointer;}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;}
+.flip.flipped .flip-inner{transform:rotateY(180deg);}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;justify-content:center;}
+.face.front{background:var(--panel-2);border:1px solid var(--gold-dim);}
+.face.front span{font-size:10.5px;color:var(--gold-dim);}
+.face.front p{font-family:"Zilla Slab",serif;font-size:15px;color:var(--ink);margin:6px 0 0;}
+.face.back{background:var(--gold);color:#1A1400;transform:rotateY(180deg);}
+.face.back p{color:#1A1400;font-size:12.5px;margin:0;}
+.flip-hint{font-size:10px;color:var(--ink-dim);margin-bottom:12px;}
+/* accordion */
+details{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px;margin-bottom:10px;}
+summary{cursor:pointer;font-family:"Zilla Slab",serif;font-size:14.5px;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;}
+summary::-webkit-details-marker{display:none;}
+summary::after{content:"ver ▾";font-family:"IBM Plex Sans",sans-serif;font-size:11px;color:var(--gold-dim);}
+details[open] summary::after{content:"ocultar ▴";}
+details .answer{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:13.5px;color:var(--ink-dim);}
+/* quiz */
+.quiz-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;}
+.quiz-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:12.5px;color:var(--ink-dim);}
+#qProgressBar{height:4px;background:var(--panel-2);border-radius:2px;overflow:hidden;margin-bottom:18px;}
+#qProgressFill{height:100%;background:var(--gold);width:0%;transition:width .3s;}
+#qPrompt{font-family:"Zilla Slab",serif;font-size:17px;margin-bottom:16px;}
+.opt{display:block;width:100%;text-align:left;background:var(--panel-2);border:1px solid var(--line);color:var(--ink);padding:11px 15px;border-radius:var(--radius);margin-bottom:8px;cursor:pointer;font-size:14px;font-family:inherit;}
+.opt:hover{border-color:var(--gold-dim);}
+.opt.correct{border-color:var(--olive);background:rgba(107,123,74,.22);}
+.opt.wrong{border-color:var(--rust);background:rgba(168,84,52,.22);}
+.opt[disabled]{cursor:default;}
+#qExplain{font-size:13px;color:var(--ink-dim);background:var(--panel-2);border-left:3px solid var(--gold);padding:10px 14px;margin-top:12px;border-radius:var(--radius);display:none;}
+.qbtn-row{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;}
+button.next{background:var(--gold);color:#1A1400;border:none;padding:9px 20px;border-radius:var(--radius);font-weight:600;cursor:pointer;font-size:13.5px;}
+button.next:disabled{opacity:.35;cursor:not-allowed;}
+button.restart{background:transparent;border:1px solid var(--line);color:var(--ink-dim);padding:9px 16px;border-radius:var(--radius);cursor:pointer;font-size:12.5px;}
+#qResult{text-align:center;padding:18px 0;}
+#qResult .score{font-family:"Zilla Slab",serif;font-size:40px;color:var(--gold);}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-dim);margin:8px 0 18px;}
+.legend span{display:inline-flex;align-items:center;gap:5px;}
+.legend i{width:9px;height:9px;border-radius:2px;display:inline-block;}
+footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-dim);font-size:12.5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="toc">
+  <div class="tag">CCEM 2026 · PMERJ</div>
+  <h4>Planejamento Estratégico</h4>
+  <ol>
+    <li><a href="#cadeia">Cadeia lógica</a></li>
+    <li><a href="#fayol">Fayol &amp; PDCA</a></li>
+    <li><a href="#niveis">Níveis organizacionais</a></li>
+    <li><a href="#caput">Caput: Missão, Visão, Valores</a></li>
+    <li><a href="#swot">SWOT / FOFA</a></li>
+    <li><a href="#objetivos">Objetivo × Meta × Indicador</a></li>
+    <li><a href="#estrategias">Estratégias &amp; 5W2H × Projeto</a></li>
+    <li><a href="#monitoramento">Monitoramento, KPI &amp; desvios</a></li>
+    <li><a href="#adaptacao">Adaptação, liderança, lições</a></li>
+    <li><a href="#ansoff">Matriz de Ansoff</a></li>
+    <li><a href="#mintzberg">5 Ps de Mintzberg</a></li>
+    <li><a href="#bsc">BSC &amp; KPI × OKR</a></li>
+    <li><a href="#design">Design Thinking</a></li>
+    <li><a href="#smart">SMART × FAST</a></li>
+    <li><a href="#futuro">Futurologia &amp; Multicritério</a></li>
+    <li><a href="#flashcards">Cartões de revisão</a></li>
+    <li><a href="#quiz">Quiz de fixação</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<div class="hero">
+  <div class="eyebrow">DOSSIÊ DE ESTUDO — USO PESSOAL</div>
+  <h1>Planejamento Estratégico Institucional</h1>
+  <p class="sub">Material construído a partir das aulas, das suas anotações e do bizu, com correções dos pontos que costumam confundir, exemplos práticos e complementos de fontes originais (Mintzberg, Ansoff, Kaplan &amp; Norton, Doran, Sull &amp; Sull).</p>
+  <div class="stat-row">
+    <div class="stat"><b>7</b><span>etapas do planejamento</span></div>
+    <div class="stat"><b>5</b><span>Ps de Mintzberg</span></div>
+    <div class="stat"><b>4</b><span>quadrantes de Ansoff</span></div>
+    <div class="stat"><b>30</b><span>questões no quiz</span></div>
+  </div>
+</div>
+
+<!-- 1. CADEIA LÓGICA -->
+<section id="cadeia">
+  <h2>1. A cadeia lógica do planejamento</h2>
+  <p class="deck">Todo o conteúdo da disciplina é, na verdade, uma resposta a uma sequência de perguntas. Decorando essa cadeia, você já consegue reconstituir 80% da matéria.</p>
+  <div class="chain">
+    <div class="box">Por quê?<br><small>Escopo</small></div><span class="arrow">→</span>
+    <div class="box">Quem somos?<br><small>Missão/Visão/Valores</small></div><span class="arrow">→</span>
+    <div class="box">Onde estamos?<br><small>SWOT</small></div><span class="arrow">→</span>
+    <div class="box">Onde chegar?<br><small>Objetivo</small></div><span class="arrow">→</span>
+    <div class="box">Quanto?<br><small>Meta</small></div><span class="arrow">→</span>
+    <div class="box">Como medir?<br><small>Indicador</small></div><span class="arrow">→</span>
+    <div class="box">Como chegar?<br><small>Estratégia</small></div><span class="arrow">→</span>
+    <div class="box">Quem/quando?<br><small>Plano de ação</small></div><span class="arrow">→</span>
+    <div class="box">Executando certo?<br><small>Monitoramento</small></div><span class="arrow">→</span>
+    <div class="box">Mudou algo?<br><small>Adaptação</small></div>
+  </div>
+  <div class="macete"><b>Bizu:</b> o caput (missão, visão, valores) é definido primeiro, com a cúpula da organização. Os objetivos estratégicos são os "degraus" entre onde você está (missão) e onde quer chegar (visão) — e são construídos ouvindo vários atores de cada área, não só o topo.</div>
+</section>
+
+<!-- 2. FAYOL / PDCA -->
+<section id="fayol">
+  <h2>2. Funções administrativas (Fayol) e Ciclo PDCA</h2>
+  <p class="deck">Base histórica do planejamento como função da administração.</p>
+  <div class="three-col" style="grid-template-columns:repeat(4,1fr);">
+    <div class="card gold"><h3>Planejamento</h3><p style="font-size:13px;">Definir metas e estratégias.</p></div>
+    <div class="card olive"><h3>Organização</h3><p style="font-size:13px;">Estruturar recursos e atividades.</p></div>
+    <div class="card blue"><h3>Direção</h3><p style="font-size:13px;">Liderança e monitoramento.</p></div>
+    <div class="card rust"><h3>Controle</h3><p style="font-size:13px;">Monitoramento e ajustes.</p></div>
+  </div>
+  <div class="trap"><b>Atenção:</b> segundo Fayol, a organização tinha originalmente <b>6 funções</b>: técnicas, comerciais, financeiras, de segurança, contábeis e <b>administrativas</b> — e é só dentro da função administrativa que aparecem Planejar/Organizar/Dirigir/Controlar (PODC).</div>
+  <div class="macete"><b>Ciclo PDCA</b> (visão da Gestão de Processos, mais recente que Fayol): <b>Plan</b> (planejar metas e estratégias) → <b>Do</b> (executar as ações) → <b>Check/Control</b> (monitorar e ajustar) → repete o ciclo. É a mesma lógica do PODC, só que representada como ciclo contínuo em vez de função estática.</div>
+</section>
+
+<!-- 3. NÍVEIS -->
+<section id="niveis">
+  <h2>3. Níveis organizacionais</h2>
+  <div class="pyramid">
+    <div class="pyr-level pyr-1">ESTRATÉGICO<span class="pyr-cap">visão de longo prazo</span></div>
+    <div class="pyr-level pyr-2">TÁTICO<span class="pyr-cap">desdobramento de planos</span></div>
+    <div class="pyr-level pyr-3">OPERACIONAL<span class="pyr-cap">execução de atividades</span></div>
+  </div>
+  <p class="deck">A mesma lógica dos "3 níveis" que aparece em Processo Decisório se repete aqui: o estratégico define o rumo de longo prazo; o tático traduz isso em planos por área/departamento; o operacional executa no dia a dia.</p>
+</section>
+
+<!-- 4. CAPUT -->
+<section id="caput">
+  <h2>4. O "Caput": Missão, Visão e Valores</h2>
+  <p class="deck">Chamado de "caput" porque é a cabeça do planejamento — vem antes de tudo, definido primeiro com a cúpula da organização.</p>
+  <table>
+    <tr><th>Elemento</th><th>Ideia central</th><th>Macete</th></tr>
+    <tr><td><b>Missão</b></td><td>Propósito atual: por que a organização existe / o que ela faz hoje.</td><td>PRESENTE</td></tr>
+    <tr><td><b>Visão</b></td><td>Futuro desejado: onde a organização quer chegar. Deve ser algo alcançável.</td><td>FUTURO</td></tr>
+    <tr><td><b>Valores</b></td><td>Princípios inegociáveis que orientam decisões e comportamentos (quantos forem necessários).</td><td>PRINCÍPIOS</td></tr>
+  </table>
+  <div class="macete"><b>Exemplo prático:</b> Missão de uma unidade policial — "garantir a segurança pública e preservar a ordem na área de responsabilidade". Visão — "ser referência estadual em policiamento comunitário até 2030". Valores — transparência, honestidade, hierarquia e disciplina.</div>
+</section>
+
+<!-- 5. SWOT -->
+<section id="swot">
+  <h2>5. Diagnóstico estratégico — SWOT / FOFA</h2>
+  <table>
+    <tr><th>Ambiente</th><th>Positivo</th><th>Negativo</th></tr>
+    <tr><td><b>Interno</b></td><td>Forças</td><td>Fraquezas</td></tr>
+    <tr><td><b>Externo</b></td><td>Oportunidades</td><td>Ameaças</td></tr>
+  </table>
+  <div class="macete"><b>Regra de ouro:</b> Interno = o que a organização controla ou pode intervir diretamente. Externo = fatores que ela não controla, mas precisa analisar, antecipar e responder.</div>
+  <h3 style="margin-top:20px;">Análise cruzada</h3>
+  <div class="two-col">
+    <div class="card olive"><h3>Força × Oportunidade</h3><p style="font-size:13px;">Usar uma força para aproveitar uma oportunidade.</p></div>
+    <div class="card gold"><h3>Força × Ameaça</h3><p style="font-size:13px;">Usar uma força para se proteger de uma ameaça.</p></div>
+    <div class="card blue"><h3>Fraqueza × Oportunidade</h3><p style="font-size:13px;">Reduzir a fraqueza para conseguir aproveitar a oportunidade.</p></div>
+    <div class="card rust"><h3>Fraqueza × Ameaça</h3><p style="font-size:13px;">Reduzir vulnerabilidade diante de uma ameaça — combinação mais crítica.</p></div>
+  </div>
+  <div class="trap"><b>Pegadinha:</b> não é preciso "atacar" todos os cruzamentos ao mesmo tempo. Estratégia também é escolha e priorização — depois de montar o SWOT, analisa-se e escolhe-se os pontos de maior alavancagem.</div>
+  <div class="macete"><b>Exemplo (1º CPM):</b> Força = excelente sistema de inteligência. Ameaça = crescimento de uma modalidade criminosa específica. Cruzamento Força × Ameaça: usar a inteligência já forte para antecipar e neutralizar o crescimento criminoso.</div>
+</section>
+
+<!-- 6. OBJETIVOS -->
+<section id="objetivos">
+  <h2>6. Objetivo × Meta × Indicador</h2>
+  <table>
+    <tr><th>Elemento</th><th>Pergunta que responde</th><th>Exemplo</th></tr>
+    <tr><td><b>Objetivo</b></td><td>O que / onde quero alcançar</td><td>Aumentar a confiança da população</td></tr>
+    <tr><td><b>Meta</b></td><td>Quanto + até quando</td><td>Elevar de 65% para 75% até dez/2027</td></tr>
+    <tr><td><b>Indicador</b></td><td>Como vou medir</td><td>Índice de confiança da população</td></tr>
+  </table>
+  <div class="macete"><b>Fórmula mental:</b> Objetivo = O QUE quero alcançar | Meta = QUANTO + ATÉ QUANDO | Indicador = COMO VOU MEDIR.</div>
+  <div class="trap"><b>Correção importante:</b> o objetivo estratégico <u>não</u> é "não mensurável" — essa é uma confusão comum. O objetivo expressa o resultado pretendido (é qualitativo em sua formulação), mas pode e deve ser acompanhado por indicadores; quem fixa o número e o prazo é a meta.</div>
+  <div class="macete"><b>Exemplo passo a passo:</b> Objetivo → "Melhorar a qualidade de ensino". Estratégia → "Criar programa de monitoria e curso de qualificação de professores". Meta → "capacitar 100% dos professores em 1 ano". Indicador → nº de professores capacitados ÷ total de professores × 100. Toda meta precisa de prazo.</div>
+</section>
+
+<!-- 7. ESTRATÉGIAS -->
+<section id="estrategias">
+  <h2>7. Estratégias, Plano de Ação e Projeto</h2>
+  <div class="macete"><b>Distinção-chave:</b> Objetivo responde ONDE QUERO CHEGAR. Estratégia responde COMO VOU CHEGAR. Uma mesma meta pode exigir várias estratégias.</div>
+  <h3 style="margin-top:18px;">5W2H</h3>
+  <table>
+    <tr><th>Sigla</th><th>Pergunta</th></tr>
+    <tr><td>What</td><td>O quê?</td></tr>
+    <tr><td>Why</td><td>Por quê?</td></tr>
+    <tr><td>Where</td><td>Onde?</td></tr>
+    <tr><td>When</td><td>Quando?</td></tr>
+    <tr><td>Who</td><td>Quem?</td></tr>
+    <tr><td>How</td><td>Como?</td></tr>
+    <tr><td>How much</td><td>Quanto custa?</td></tr>
+  </table>
+  <div class="trap"><b>5W2H × Projeto:</b> ação simples, baixa complexidade, baixo custo e poucos envolvidos → 5W2H (plano de ação). Ação de alta complexidade, com múltiplos responsáveis, grande orçamento, longa duração e riscos relevantes → estruturar como <b>projeto</b>.</div>
+  <div class="macete"><b>Princípio da aula:</b> você só pode cobrar a execução quando disponibiliza os recursos necessários — por isso recursos, prazo e responsáveis devem estar previstos no próprio plano de ação.</div>
+</section>
+
+<!-- 8. MONITORAMENTO -->
+<section id="monitoramento">
+  <h2>8. Implementação, Monitoramento, KPI e Desvios</h2>
+  <div class="two-col">
+    <div class="card gold"><h3>Implementar</h3><p style="font-size:13px;">Alocar recursos, definir cronograma, comunicar e engajar, monitorar continuamente. Planejamento sem implementação não produz resultado.</p></div>
+    <div class="card olive"><h3>KPI</h3><p style="font-size:13px;">Key Performance Indicator: indicador-chave usado para acompanhar desempenho de atividades ou processos críticos da estratégia.</p></div>
+  </div>
+  <h3 style="margin-top:18px;">Tipos de indicador — não confunda</h3>
+  <table>
+    <tr><th>Tipo</th><th>O que mede</th><th>Pergunta</th><th>Exemplo</th></tr>
+    <tr><td><b>Eficiência</b></td><td>Meios, recursos e processos</td><td>Estamos fazendo da melhor maneira?</td><td>Custo médio por operação</td></tr>
+    <tr><td><b>Eficácia</b></td><td>Alcance do resultado pretendido</td><td>Conseguimos atingir o planejado?</td><td>% da meta atingida</td></tr>
+    <tr><td><b>Impacto</b></td><td>Efeitos e transformações mais amplas</td><td>O que mudou por causa disso?</td><td>Aumento da sensação de segurança</td></tr>
+  </table>
+  <div class="macete"><b>Macete:</b> Eficiência = fazer bem | Eficácia = alcançar o resultado | Impacto = o que mudou por causa da ação.</div>
+  <div class="macete"><b>Desvio</b> = diferença entre o PLANEJADO e o REALIZADO. Sequência: MEDIR → COMPARAR → IDENTIFICAR → CORRIGIR. Quanto mais cedo identificado, menor o custo de correção.</div>
+</section>
+
+<!-- 9. ADAPTAÇÃO -->
+<section id="adaptacao">
+  <h2>9. Adaptação, Liderança, Governança e Lições Aprendidas</h2>
+  <p class="deck">Adaptar: monitoramento contínuo + análise de cenários + flexibilidade e agilidade + comunicação eficaz. É melhor ajustar o plano para preservar seu propósito do que manter um plano inadequado até o fracasso.</p>
+  <div class="macete"><b>Resumo prático de governança:</b> OUVIR → MENSURAR → DAR RETORNO → ALINHAR.</div>
+  <div class="trap"><b>Correção:</b> lições aprendidas não registram apenas o que deu errado — também consolidam aprendizados de acertos e adaptações bem-sucedidas (que aí viram "boas práticas": ações replicáveis por terem dado certo).</div>
+</section>
+
+<!-- 10. ANSOFF -->
+<section id="ansoff">
+  <h2>10. Matriz de Ansoff</h2>
+  <p class="deck">Criada por <b>Igor Ansoff</b> (artigo "Strategies for Diversification", Harvard Business Review, 1957) para analisar estratégias de crescimento cruzando Produto × Mercado.</p>
+  <div class="ansoff">
+    <div class="hd"></div><div class="hd">PRODUTO EXISTENTE</div><div class="hd">PRODUTO NOVO</div>
+    <div class="lbl">MERCADO<br>EXISTENTE</div>
+    <div class="cell risk-low"><b>Penetração de mercado</b>Vender mais do mesmo produto no mesmo mercado. Menor risco.</div>
+    <div class="cell risk-mid"><b>Desenvolvimento de produto</b>Produto novo para um mercado que a organização já atende.</div>
+    <div class="lbl">MERCADO<br>NOVO</div>
+    <div class="cell risk-mid"><b>Desenvolvimento de mercado</b>Produto existente levado a um mercado/público ainda não atendido.</div>
+    <div class="cell risk-high"><b>Diversificação</b>Produto novo + mercado novo. Maior risco e maior incerteza.</div>
+  </div>
+  <div class="trap"><b>Pegadinha nº 1 (a mais cobrada):</b> não inverta desenvolvimento de produto com desenvolvimento de mercado. <b>Produto novo + mercado existente = desenvolvimento de PRODUTO</b>. <b>Produto existente + mercado novo = desenvolvimento de MERCADO</b>.</div>
+  <div class="macete"><b>Exemplo real:</b> a Netflix, que já atendia assinantes de streaming (mercado existente), lançando produções próprias (produto novo) fez <i>desenvolvimento de produto</i>. Ao expandir o streaming já existente para novos países (mercado novo, mesmo produto), fez <i>desenvolvimento de mercado</i>. Diversificar seria, por exemplo, a Netflix lançar um serviço de jogos totalmente novo para um público totalmente novo.</div>
+</section>
+
+<!-- 11. MINTZBERG -->
+<section id="mintzberg">
+  <h2>11. Os 5 Ps da Estratégia de Mintzberg</h2>
+  <p class="saiba"><b>Saiba mais:</b> Henry Mintzberg publicou essa formulação no artigo "The Strategy Concept I: Five Ps for Strategy" (1987), como resposta à ideia de que estratégia seria só "um plano formal".</p>
+  <table>
+    <tr><th>P</th><th>Essência</th><th>Exemplo</th></tr>
+    <tr><td><b>Plano (Plan)</b></td><td>Estratégia deliberada, formal e consciente — o que pretendemos fazer, definida antes da ação.</td><td>Plano estratégico escrito para os próximos 4 anos.</td></tr>
+    <tr><td><b>Padrão (Pattern)</b></td><td>Consistência de comportamentos e decisões que se repetem ao longo do tempo, intencional ou não.</td><td>A unidade sempre prioriza ocorrências com vítima ferida, mesmo sem isso estar escrito.</td></tr>
+    <tr><td><b>Posição (Position)</b></td><td>Como a organização se posiciona / se encaixa em relação ao ambiente e aos demais atores.</td><td>Tornar-se a referência estadual em policiamento comunitário.</td></tr>
+    <tr><td><b>Perspectiva (Perspective)</b></td><td>Visão de mundo compartilhada, cultura e valores que moldam as decisões.</td><td>Cultura institucional voltada à proximidade com a comunidade.</td></tr>
+    <tr><td><b>Manobra (Ploy)</b></td><td>Jogada tática específica para surpreender ou superar um "concorrente" — a carta na manga.</td><td>Anunciar publicamente um reforço de efetivo para desestimular uma ação criminosa planejada.</td></tr>
+  </table>
+  <div class="trap"><b>Pegadinha nº 2:</b> Padrão não significa simplesmente "criar protocolo" — protocolo é uma norma escrita (mais próximo de Plano); Padrão é o comportamento que se repete na prática, com ou sem intenção.</div>
+  <div class="trap"><b>Pegadinha nº 3:</b> Posição não é sinônimo de Visão. Posição trata do lugar estratégico da organização em relação ao ambiente/concorrência; Visão é o futuro desejado dentro do caput.</div>
+  <div class="trap"><b>Correção do "ploy":</b> manobra (ploy) envolve tática de engano ou surpresa para superar um rival — não tem relação com "monopólio".</div>
+</section>
+
+<!-- 12. BSC -->
+<section id="bsc">
+  <h2>12. Balanced Scorecard (BSC) e KPI × OKR</h2>
+  <p class="saiba"><b>Saiba mais:</b> criado por Robert Kaplan e David Norton, apresentado no artigo "The Balanced Scorecard — Measures that Drive Performance" (Harvard Business Review, 1992), para traduzir a estratégia em objetivos e medidas de desempenho, geralmente representados em um mapa estratégico.</p>
+  <div class="three-col" style="grid-template-columns:repeat(4,1fr);">
+    <div class="card gold"><h3>Financeira</h3><p style="font-size:12.5px;">Resultados econômico-financeiros / orçamentários.</p></div>
+    <div class="card olive"><h3>Clientes</h3><p style="font-size:12.5px;">Valor entregue e percepção dos clientes/cidadãos.</p></div>
+    <div class="card blue"><h3>Processos internos</h3><p style="font-size:12.5px;">Processos críticos para executar a estratégia.</p></div>
+    <div class="card rust"><h3>Aprendizado e crescimento</h3><p style="font-size:12.5px;">Pessoas, conhecimento e capacidades.</p></div>
+  </div>
+  <div class="macete"><b>Macete:</b> F-C-P-A = Financeira, Clientes, Processos, Aprendizado.</div>
+  <div class="trap"><b>Correção:</b> o mapa estratégico não "substitui" o plano estratégico — ele é uma representação visual da estratégia, muito usada dentro do BSC.</div>
+  <h3 style="margin-top:20px;">KPI × Meta × OKR</h3>
+  <table>
+    <tr><th>Ferramenta</th><th>Função</th><th>Exemplo</th></tr>
+    <tr><td><b>KPI</b></td><td>Acompanha desempenho</td><td>Tempo médio de atendimento: 12 min</td></tr>
+    <tr><td><b>Meta</b></td><td>Define o patamar desejado</td><td>Reduzir para 9 min até dezembro</td></tr>
+    <tr><td><b>OKR</b></td><td>Conecta um objetivo a resultados-chave mensuráveis</td><td>Objetivo + Key Results que demonstram avanço</td></tr>
+  </table>
+  <div class="trap"><b>Pegadinha:</b> KPI mede desempenho; OKR conecta um objetivo a resultados-chave — não são a mesma ferramenta, e KPI não "substitui" meta.</div>
+</section>
+
+<!-- 13. DESIGN THINKING -->
+<section id="design">
+  <h2>13. Design Thinking e Estratégia</h2>
+  <p class="deck">Metodologia (popularizada pela IDEO e pela d.school de Stanford) usada para pensar e gerar boas ideias na formulação de estratégias, centrada no usuário.</p>
+  <div class="chain">
+    <div class="box">1. Empatia</div><span class="arrow">→</span>
+    <div class="box">2. Definição</div><span class="arrow">→</span>
+    <div class="box">3. Ideação</div><span class="arrow">→</span>
+    <div class="box">4. Prototipação</div><span class="arrow">→</span>
+    <div class="box">5. Teste</div>
+  </div>
+  <div class="macete"><b>Macete:</b> E-D-I-P-T = Empatia → Definição → Ideação → Prototipação → Teste.</div>
+  <div class="trap"><b>Atenção:</b> o processo é iterativo — depois de testar, pode-se voltar a etapas anteriores para aprimorar a solução; não é uma linha reta de mão única.</div>
+  <div class="macete"><b>Exemplo:</b> Empatia (entrevistar policiais da ponta sobre o que atrapalha o atendimento ao público) → Definição (o problema é a demora no preenchimento do boletim) → Ideação (propor um app simplificado) → Prototipação (testar o app em uma UPP) → Teste (coletar feedback e ajustar antes de expandir).</div>
+</section>
+
+<!-- 14. SMART FAST -->
+<section id="smart">
+  <h2>14. Objetivos SMART × FAST</h2>
+  <p class="saiba"><b>Saiba mais:</b> SMART foi proposto por George T. Doran (1981). FAST foi proposto por Donald Sull e Charles Sull no artigo "With Goals, FAST Beats SMART" (MIT Sloan Management Review, 2018), como contraponto: os autores argumentam que metas SMART tendem a ser conservadoras e pouco discutidas ao longo do ano.</p>
+  <table>
+    <tr><th>SMART</th><th>Significado</th><th>FAST</th><th>Significado</th></tr>
+    <tr><td>S</td><td>Specific — Específico</td><td>F</td><td>Frequently discussed — discutida com frequência</td></tr>
+    <tr><td>M</td><td>Measurable — Mensurável</td><td>A</td><td>Ambitious — Ambiciosa</td></tr>
+    <tr><td>A</td><td>Achievable — Atingível</td><td>S</td><td>Specific — Específica</td></tr>
+    <tr><td>R</td><td>Relevant — Relevante</td><td>T</td><td>Transparent — Transparente</td></tr>
+    <tr><td>T</td><td>Time-bound — Temporal</td><td></td><td></td></tr>
+  </table>
+  <div class="trap"><b>Correção fina:</b> no FAST, o "F" não é só "frequente" no sentido de medir com frequência — é "frequentemente <u>discutida</u>": a meta deve voltar à pauta em conversas regulares, não só em avaliações anuais.</div>
+  <div class="macete"><b>Leitura de prova:</b> SMART enfatiza a boa formulação técnica do objetivo. FAST enfatiza o acompanhamento vivo: ambição, especificidade, transparência e discussão frequente.</div>
+</section>
+
+<!-- 15. FUTURO / MULTICRITERIO -->
+<section id="futuro">
+  <h2>15. Futurologia e Análise Multicritério</h2>
+  <div class="card gold"><h3>Futurologia</h3><p>Não é adivinhação — é o estudo de tendências, sinais e fatores presentes para compreender possíveis desenvolvimentos futuros. Autores de destaque: Alvin Toffler, Ray Kurzweil, Yuval Noah Harari.</p>
+  <div class="macete"><b>Frase para decorar:</b> "Ler o hoje para compreender as tendências do amanhã."</div></div>
+  <div class="card olive"><h3>Análise Multicritério de Apoio à Decisão</h3><p>Define várias alternativas e vários critérios relevantes, pode atribuir pesos, compara sistematicamente as opções e ajuda a priorizar decisões de forma estruturada (é o mesmo tipo de lógica da Matriz de Decisão Ponderada vista em Processo Decisório).</p>
+  <div class="trap"><b>Pegadinha:</b> o resultado da análise multicritério é um ranking, pontuação ou grau de preferência — <u>não</u> é uma "probabilidade estatística" de ser a melhor opção.</div></div>
+</section>
+
+<!-- FLASHCARDS -->
+<section id="flashcards">
+  <h2>16. Cartões de revisão</h2>
+  <p class="flip-hint">Toque no cartão para virar. Tente responder antes de virar.</p>
+  <div class="grid-cards" id="cardGrid"></div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <h2>17. Quiz de fixação</h2>
+  <p class="deck">30 questões embaralhadas, focadas nos pontos de maior confusão do material. Refaça quantas vezes quiser.</p>
+  <div class="quiz-box">
+    <div class="quiz-top"><span id="qCounter">Questão 1 / 30</span><span id="qScoreLive">Acertos: 0</span></div>
+    <div id="qProgressBar"><div id="qProgressFill"></div></div>
+    <div id="qPrompt"></div>
+    <div id="qOptions"></div>
+    <div id="qExplain"></div>
+    <div class="qbtn-row">
+      <button class="restart" id="restartBtn">reiniciar</button>
+      <button class="next" id="nextBtn" disabled>próxima →</button>
+    </div>
+    <div id="qResult" style="display:none;">
+      <div class="score" id="finalScore"></div>
+      <p id="finalMsg" style="color:var(--ink-dim);"></p>
+      <div class="qbtn-row" style="justify-content:center;">
+        <button class="next" id="retryBtn">refazer quiz</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>Material de revisão compilado a partir das aulas de Planejamento Estratégico e Institucional, das anotações pessoais e de fontes originais dos frameworks citados — CCEM/PMERJ 2026. Uso pessoal de estudo.</footer>
+
+</main>
+</div>
+
+<script>
+const cards = [
+  ["Caput","Missão + Visão + Valores. Definido primeiro, com a cúpula da organização."],
+  ["Missão","Propósito atual: por que a organização existe / o que faz hoje."],
+  ["Visão","Futuro desejado, alcançável — onde a organização quer chegar."],
+  ["Valores","Princípios inegociáveis que orientam decisões e comportamentos."],
+  ["SWOT interno","Forças (positivo) e Fraquezas (negativo) — sob controle da organização."],
+  ["SWOT externo","Oportunidades (positivo) e Ameaças (negativo) — fora do controle direto."],
+  ["Objetivo","O QUE / ONDE quero alcançar. Não precisa ser numérico."],
+  ["Meta","QUANTO + ATÉ QUANDO. Sempre mensurável e com prazo."],
+  ["Indicador","COMO vou medir se a meta foi atingida."],
+  ["5W2H","Usado para ações simples: What, Why, Where, When, Who, How, How much."],
+  ["Projeto","Usado para ações complexas: múltiplos responsáveis, alto custo, longo prazo, riscos."],
+  ["KPI","Indicador-chave de desempenho de um processo ou atividade crítica."],
+  ["Eficiência","Fazer bem — mede meios e recursos (ex.: custo médio por operação)."],
+  ["Eficácia","Alcançar o resultado — mede se a meta planejada foi atingida."],
+  ["Impacto","O que mudou de fato por causa da ação (efeito mais amplo)."],
+  ["Desvio","Diferença entre planejado e realizado. Sequência: medir→comparar→identificar→corrigir."],
+  ["Matriz de Ansoff","Cruza Produto × Mercado (existente/novo) em 4 estratégias de crescimento."],
+  ["Diversificação (Ansoff)","Produto novo + mercado novo = maior risco."],
+  ["Penetração de mercado","Produto existente + mercado existente = menor risco."],
+  ["5 Ps de Mintzberg","Plano, Padrão, Posição, Perspectiva, Manobra (Ploy)."],
+  ["Padrão (Mintzberg)","Consistência de comportamento que se repete — não é 'criar protocolo'."],
+  ["Posição (Mintzberg)","Lugar da organização em relação ao ambiente — não é sinônimo de visão."],
+  ["BSC","Traduz a estratégia em objetivos/medidas nas 4 perspectivas (Kaplan & Norton, 1992)."],
+  ["4 perspectivas do BSC","Financeira, Clientes, Processos internos, Aprendizado e crescimento (FCPA)."],
+  ["OKR","Objetivo + Resultados-chave (Key Results) mensuráveis."],
+  ["Design Thinking (EDIPT)","Empatia → Definição → Ideação → Prototipação → Teste. Processo iterativo."],
+  ["SMART","Specific, Measurable, Achievable, Relevant, Time-bound."],
+  ["FAST","Frequently discussed, Ambitious, Specific, Transparent (Sull & Sull, 2018)."],
+  ["Futurologia","Estudo de tendências e sinais presentes — não é adivinhação."],
+  ["Análise multicritério","Compara alternativas por vários critérios ponderados — gera ranking, não probabilidade."],
+];
+const grid = document.getElementById('cardGrid');
+cards.forEach(([front,back])=>{
+  const el = document.createElement('div');
+  el.className='flip';
+  el.innerHTML = `<div class="flip-inner">
+    <div class="face front"><span>toque para revelar</span><p>${front}</p></div>
+    <div class="face back"><p>${back}</p></div>
+  </div>`;
+  el.addEventListener('click',()=>el.classList.toggle('flipped'));
+  grid.appendChild(el);
+});
+
+const bank = [
+  {q:"No planejamento estratégico, a missão representa:",o:["O propósito atual da organização","A posição pretendida em relação aos concorrentes","Uma meta quantitativa","O ambiente externo","O cenário mais provável"],c:0,e:"Missão = PRESENTE: por que a organização existe / o que faz hoje."},
+  {q:"Na matriz SWOT, qual elemento pertence ao ambiente externo?",o:["Força","Ameaça","Capacidade operacional","Fraqueza","Recurso humano"],c:1,e:"Externo = Oportunidades e Ameaças, fora do controle direto da organização."},
+  {q:"Uma meta diferencia-se de um objetivo estratégico porque:",o:["não possui prazo","está sempre relacionada ao ambiente externo","estabelece um resultado mensurável a ser alcançado, com prazo","substitui a estratégia","não pode ser acompanhada por indicadores"],c:2,e:"Meta = quanto + até quando, sempre mensurável e com prazo definido."},
+  {q:"A ferramenta utilizada para mensurar determinado aspecto do desempenho é denominada:",o:["missão","visão","estratégia","indicador","valor"],c:3,e:"Indicador = como vou medir."},
+  {q:"Na matriz de Ansoff, produto novo destinado a mercado novo caracteriza:",o:["penetração","desenvolvimento de mercado","desenvolvimento de produto","posicionamento","diversificação"],c:4,e:"Produto novo + mercado novo = diversificação (maior risco)."},
+  {q:"O ambiente interno da SWOT compreende:",o:["forças e fraquezas","ameaças e oportunidades","oportunidades e forças","ameaças e fraquezas","mercado e produtos"],c:0,e:"Interno = Forças e Fraquezas, sob maior controle da organização."},
+  {q:"Entre as opções abaixo, qual integra o modelo SMART?",o:["Econômico","Mensurável","Padronizado","Iterativo","Competitivo"],c:1,e:"SMART = Specific, Measurable, Achievable, Relevant, Time-bound."},
+  {q:"Qual alternativa apresenta corretamente uma das perspectivas clássicas do BSC?",o:["Concorrência","Ameaças","Processos internos","Diversificação","Futurologia"],c:2,e:"BSC = Financeira, Clientes, Processos internos, Aprendizado e crescimento."},
+  {q:"Uma organização identifica excelentes sistemas de inteligência, enquanto cresce uma modalidade criminosa. O primeiro é uma força; o segundo é:",o:["uma estratégia","uma fraqueza","uma meta","uma ameaça","um indicador"],c:3,e:"Crescimento de um risco externo = ameaça."},
+  {q:"Uma organização cria um serviço completamente novo para um público que ainda não atende. Na matriz de Ansoff, trata-se de:",o:["desenvolvimento de mercado","penetração","desenvolvimento de produto","posicionamento","diversificação"],c:4,e:"Produto novo + mercado novo = diversificação."},
+  {q:"Qual sequência representa corretamente as fases do Design Thinking?",o:["Empatia → Definição → Ideação → Prototipação → Teste","Diagnóstico → SWOT → Estratégia → Meta → KPI","Definição → Empatia → Teste → Ideação → Prototipação","Ideação → Definição → Empatia → Teste → Controle","Empatia → Planejamento → Execução → Controle → Avaliação"],c:0,e:"Macete EDIPT: Empatia, Definição, Ideação, Prototipação, Teste."},
+  {q:"Em Mintzberg, uma ação específica utilizada como 'carta na manga' corresponde a:",o:["padrão","manobra (ploy)","perspectiva","posição","plano"],c:1,e:"Manobra (ploy) = jogada tática para surpreender/superar um rival."},
+  {q:"Qual alternativa diferencia corretamente KPI de OKR?",o:["KPI é sempre financeiro e OKR sempre operacional","KPI representa missão; OKR representa visão","KPI acompanha desempenho, enquanto OKR relaciona objetivos a resultados-chave mensuráveis","KPI substitui metas, enquanto OKR substitui o planejamento","São exatamente a mesma ferramenta"],c:2,e:"KPI mede desempenho; OKR conecta objetivo a resultados-chave (Key Results)."},
+  {q:"Qual alternativa corresponde principalmente a um indicador de eficiência?",o:["Redução de 20% na criminalidade","Aumento da percepção de segurança","Redução das ocorrências","Custo médio por operação realizada","Aumento da confiança institucional"],c:3,e:"Eficiência mede meios/recursos: custo médio por operação."},
+  {q:"Na matriz de Ansoff, vender um produto já existente para um mercado ainda não atendido caracteriza:",o:["diversificação","penetração","desenvolvimento de produto","estratégia emergente","desenvolvimento de mercado"],c:4,e:"Produto existente + mercado novo = desenvolvimento de mercado."},
+  {q:"Entre os 5 Ps de Mintzberg, 'ações e decisões recorrentes que formam uma consistência de comportamento' correspondem a:",o:["padrão","posição","perspectiva","plano","manobra"],c:0,e:"Padrão = consistência de comportamento ao longo do tempo."},
+  {q:"Qual combinação apresenta corretamente duas características do FAST?",o:["Financeiro e atingível","Ambicioso e transparente","Temporal e mensurável","Padronizado e relevante","Atingível e econômico"],c:1,e:"FAST = Frequently discussed, Ambitious, Specific, Transparent."},
+  {q:"Uma organização estabelece 'aumentar a confiança da população' e determina 'elevar de 63% para 75% até dez/2028'. A segunda declaração constitui:",o:["indicador","estratégia","meta","valor","visão"],c:2,e:"Quanto + até quando = meta."},
+  {q:"O comando verifica mensalmente a diferença entre resultados realizados e planejados, corrigindo imediatamente. Essa atividade corresponde a:",o:["definição de missão","análise ambiental","delimitação de escopo","análise de desvios","desenvolvimento de produto"],c:3,e:"Comparar planejado × realizado e corrigir = análise de desvios."},
+  {q:"Uma estratégia tem múltiplos responsáveis, alto orçamento, 3 anos de duração, riscos relevantes e atividades interdependentes. O mais adequado é:",o:["utilizar exclusivamente a SWOT","substituir a estratégia por KPI","usar apenas uma lista de tarefas","limitar-se à missão e visão","estruturá-la como projeto"],c:4,e:"Alta complexidade, prazo longo e múltiplos responsáveis → projeto, não 5W2H."},
+  {q:"Objetivo: reduzir o tempo de resposta policial. A medida 'tempo médio de resposta policial' é:",o:["indicador","valor","missão","objetivo","visão"],c:0,e:"A métrica usada para medir é o indicador."},
+  {q:"Uma organização detecta uma oportunidade externa, mas tem uma deficiência interna que impede seu aproveitamento. A relação cruzada predominante é:",o:["força × ameaça","fraqueza × oportunidade","força × oportunidade","ameaça × oportunidade","fraqueza × força"],c:1,e:"Fraqueza impedindo aproveitar oportunidade = cruzamento Fraqueza × Oportunidade."},
+  {q:"Uma corporação usa uma ferramenta para representar seus objetivos nas perspectivas financeira, clientes, processos e aprendizado. Está associada a:",o:["FAST","Design Thinking","Balanced Scorecard","SMART","Ansoff"],c:2,e:"As 4 perspectivas clássicas são a marca registrada do BSC."},
+  {q:"Uma unidade altera rapidamente sua estratégia numa crise e depois registra a ação, pois deu bons resultados e pode ser replicada. Esse registro é:",o:["fraqueza","análise multicritério","KPI","boa prática","missão"],c:3,e:"Ação que deu certo e pode ser replicada = boa prática (não é só 'lição aprendida' de erro)."},
+  {q:"Um decisor escolhe entre 5 projetos, define critérios com pesos e compara sistematicamente as alternativas. O procedimento caracteriza:",o:["SWOT","Design Thinking","5W2H","Ansoff","análise multicritério de apoio à decisão"],c:4,e:"Vários critérios + pesos + comparação sistemática = análise multicritério."},
+  {q:"Segundo Fayol, a organização possuía originalmente quantas funções (além da administrativa)?",o:["6 funções, sendo a administrativa uma delas","Apenas 4 funções: PODC","3 funções: planejar, executar, controlar","2 funções: interna e externa","5 funções, idênticas aos 5 Ps de Mintzberg"],c:0,e:"Fayol: técnicas, comerciais, financeiras, de segurança, contábeis e administrativas (6 no total)."},
+  {q:"No Ciclo PDCA, a etapa 'Do' corresponde a:",o:["Planejar metas e estratégias","Executar as ações planejadas","Monitorar e corrigir desvios","Definir a visão de longo prazo","Avaliar a missão"],c:1,e:"Plan (planejar) → Do (executar) → Check/Control (monitorar e ajustar)."},
+  {q:"No nível tático dos níveis organizacionais, o foco principal é:",o:["a execução direta das atividades do dia a dia","a visão de longo prazo da organização","o desdobramento dos planos estratégicos por área","a definição de valores institucionais","a criação de produtos novos"],c:2,e:"Tático = desdobramento de planos; Operacional = execução; Estratégico = visão de longo prazo."},
+  {q:"Sobre 'padrão' nos 5 Ps de Mintzberg, é correto afirmar que:",o:["é sinônimo de protocolo escrito","é a consistência de comportamento que se repete, intencional ou não","é o mesmo que a visão da organização","refere-se exclusivamente a manobras contra concorrentes","é sempre definido antes da ação, como o plano"],c:1,e:"Padrão ≠ protocolo. É o comportamento que se repete na prática, com ou sem intenção prévia."},
+  {q:"Em relação ao FAST (Sull & Sull, 2018), a letra 'F' significa:",o:["Financeiro","Formal","Frequently discussed — discutida com frequência","Fixo","Funcional"],c:2,e:"F = Frequently discussed: a meta deve ser revisitada em discussões regulares, não só em avaliações anuais."},
+];
+
+let order = [], idx = 0, score = 0, answered = false;
+const qCounter=document.getElementById('qCounter'),qScoreLive=document.getElementById('qScoreLive'),
+      qPrompt=document.getElementById('qPrompt'),qOptions=document.getElementById('qOptions'),
+      qExplain=document.getElementById('qExplain'),nextBtn=document.getElementById('nextBtn'),
+      progressFill=document.getElementById('qProgressFill'),qResult=document.getElementById('qResult'),
+      quizTop=document.querySelector('.quiz-top');
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function startQuiz(){
+  order = shuffle([...Array(bank.length).keys()]);
+  idx=0; score=0; answered=false;
+  qResult.style.display='none';
+  quizTop.style.display='flex';
+  document.getElementById('qProgressBar').style.display='block';
+  qPrompt.style.display='block'; qOptions.style.display='block';
+  nextBtn.style.display='inline-block';
+  renderQuestion();
+}
+function renderQuestion(){
+  answered=false;
+  const item = bank[order[idx]];
+  qCounter.textContent = `Questão ${idx+1} / ${bank.length}`;
+  qScoreLive.textContent = `Acertos: ${score}`;
+  progressFill.style.width = ((idx)/bank.length*100)+'%';
+  qPrompt.textContent = item.q;
+  qExplain.style.display='none';
+  qOptions.innerHTML='';
+  item.o.forEach((optText,i)=>{
+    const b = document.createElement('button');
+    b.className='opt'; b.textContent = optText;
+    b.addEventListener('click',()=>selectOption(i,item));
+    qOptions.appendChild(b);
+  });
+  nextBtn.disabled = true;
+}
+function selectOption(i,item){
+  if(answered) return;
+  answered = true;
+  const opts = qOptions.querySelectorAll('.opt');
+  opts.forEach((btn,j)=>{
+    btn.disabled = true;
+    if(j===item.c) btn.classList.add('correct');
+    else if(j===i) btn.classList.add('wrong');
+  });
+  if(i===item.c) score++;
+  qScoreLive.textContent = `Acertos: ${score}`;
+  qExplain.style.display='block';
+  qExplain.textContent = item.e;
+  nextBtn.disabled = false;
+}
+nextBtn.addEventListener('click',()=>{
+  if(idx < bank.length-1){ idx++; renderQuestion(); }
+  else{
+    progressFill.style.width='100%';
+    quizTop.style.display='none';
+    document.getElementById('qProgressBar').style.display='none';
+    qPrompt.style.display='none'; qOptions.style.display='none';
+    qExplain.style.display='none'; nextBtn.style.display='none';
+    document.querySelector('.qbtn-row').style.display='none';
+    qResult.style.display='block';
+    document.getElementById('finalScore').textContent = `${score} / ${bank.length}`;
+    const pct = score/bank.length;
+    let msg = pct===1 ? "Perfeito — domínio total do conteúdo." :
+              pct>=0.8 ? "Muito bom. Revise só os itens que errou." :
+              pct>=0.6 ? "Bom caminho — releia as pegadinhas das seções que errou." :
+              "Releia a cadeia lógica, o SWOT e a matriz de Ansoff com calma antes de tentar de novo.";
+    document.getElementById('finalMsg').textContent = msg;
+  }
+});
+document.getElementById('restartBtn').addEventListener('click',startQuiz);
+document.getElementById('retryBtn').addEventListener('click',()=>{
+  document.querySelector('.qbtn-row').style.display='flex';
+  startQuiz();
+});
+startQuiz();
+</script>
+</body>
+</html>

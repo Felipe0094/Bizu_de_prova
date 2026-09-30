@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Planejamento Estratégico — Dossiê de Estudo | CCEM 2026</title>
 <style>
 :root{
@@ -47,7 +47,13 @@ section h2 small{font-size:13px;color:var(--gold-dim);font-family:"IBM Plex Sans
 .card.gold{border-left:3px solid var(--gold);} .card.olive{border-left:3px solid var(--olive);} .card.rust{border-left:3px solid var(--rust);} .card.blue{border-left:3px solid var(--blue);}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-@media(max-width:700px){.two-col,.three-col{grid-template-columns:1fr;}}
+.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+@media(max-width:700px){.two-col,.three-col{grid-template-columns:1fr;}.four-col{grid-template-columns:1fr 1fr;}}
+@media(max-width:420px){.four-col{grid-template-columns:1fr;}}
+.table-scroll{overflow-x:auto;margin:10px 0 18px;-webkit-overflow-scrolling:touch;}
+.table-scroll table{margin:0;min-width:480px;}
+.ansoff-scroll{overflow-x:auto;margin:18px 0;-webkit-overflow-scrolling:touch;}
+.ansoff-scroll .ansoff{margin:0;min-width:460px;}
 .macete{background:linear-gradient(90deg,rgba(201,162,39,.10),transparent);border:1px dashed var(--gold-dim);border-radius:var(--radius);padding:11px 16px;font-size:13.5px;margin:12px 0;}
 .macete b{color:var(--gold);}
 .trap{background:linear-gradient(90deg,rgba(168,84,52,.14),transparent);border:1px solid var(--rust-dim);border-radius:var(--radius);padding:11px 16px;font-size:13.5px;margin:12px 0;}
@@ -182,7 +188,7 @@ footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-dim);fo
 <section id="fayol">
   <h2>2. Funções administrativas (Fayol) e Ciclo PDCA</h2>
   <p class="deck">Base histórica do planejamento como função da administração.</p>
-  <div class="three-col" style="grid-template-columns:repeat(4,1fr);">
+  <div class="four-col">
     <div class="card gold"><h3>Planejamento</h3><p style="font-size:13px;">Definir metas e estratégias.</p></div>
     <div class="card olive"><h3>Organização</h3><p style="font-size:13px;">Estruturar recursos e atividades.</p></div>
     <div class="card blue"><h3>Direção</h3><p style="font-size:13px;">Liderança e monitoramento.</p></div>
@@ -299,7 +305,7 @@ footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-dim);fo
 <section id="ansoff">
   <h2>10. Matriz de Ansoff</h2>
   <p class="deck">Criada por <b>Igor Ansoff</b> (artigo "Strategies for Diversification", Harvard Business Review, 1957) para analisar estratégias de crescimento cruzando Produto × Mercado.</p>
-  <div class="ansoff">
+  <div class="ansoff-scroll"><div class="ansoff">
     <div class="hd"></div><div class="hd">PRODUTO EXISTENTE</div><div class="hd">PRODUTO NOVO</div>
     <div class="lbl">MERCADO<br>EXISTENTE</div>
     <div class="cell risk-low"><b>Penetração de mercado</b>Vender mais do mesmo produto no mesmo mercado. Menor risco.</div>
@@ -307,7 +313,7 @@ footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-dim);fo
     <div class="lbl">MERCADO<br>NOVO</div>
     <div class="cell risk-mid"><b>Desenvolvimento de mercado</b>Produto existente levado a um mercado/público ainda não atendido.</div>
     <div class="cell risk-high"><b>Diversificação</b>Produto novo + mercado novo. Maior risco e maior incerteza.</div>
-  </div>
+  </div></div>
   <div class="trap"><b>Pegadinha nº 1 (a mais cobrada):</b> não inverta desenvolvimento de produto com desenvolvimento de mercado. <b>Produto novo + mercado existente = desenvolvimento de PRODUTO</b>. <b>Produto existente + mercado novo = desenvolvimento de MERCADO</b>.</div>
   <div class="macete"><b>Exemplo real:</b> a Netflix, que já atendia assinantes de streaming (mercado existente), lançando produções próprias (produto novo) fez <i>desenvolvimento de produto</i>. Ao expandir o streaming já existente para novos países (mercado novo, mesmo produto), fez <i>desenvolvimento de mercado</i>. Diversificar seria, por exemplo, a Netflix lançar um serviço de jogos totalmente novo para um público totalmente novo.</div>
 </section>
@@ -333,7 +339,7 @@ footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-dim);fo
 <section id="bsc">
   <h2>12. Balanced Scorecard (BSC) e KPI × OKR</h2>
   <p class="saiba"><b>Saiba mais:</b> criado por Robert Kaplan e David Norton, apresentado no artigo "The Balanced Scorecard — Measures that Drive Performance" (Harvard Business Review, 1992), para traduzir a estratégia em objetivos e medidas de desempenho, geralmente representados em um mapa estratégico.</p>
-  <div class="three-col" style="grid-template-columns:repeat(4,1fr);">
+  <div class="four-col">
     <div class="card gold"><h3>Financeira</h3><p style="font-size:12.5px;">Resultados econômico-financeiros / orçamentários.</p></div>
     <div class="card olive"><h3>Clientes</h3><p style="font-size:12.5px;">Valor entregue e percepção dos clientes/cidadãos.</p></div>
     <div class="card blue"><h3>Processos internos</h3><p style="font-size:12.5px;">Processos críticos para executar a estratégia.</p></div>
@@ -429,6 +435,13 @@ footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-dim);fo
 </div>
 
 <script>
+document.querySelectorAll('table').forEach(t=>{
+  const wrap = document.createElement('div');
+  wrap.className = 'table-scroll';
+  t.parentNode.insertBefore(wrap, t);
+  wrap.appendChild(t);
+});
+
 const cards = [
   ["Caput","Missão + Visão + Valores. Definido primeiro, com a cúpula da organização."],
   ["Missão","Propósito atual: por que a organização existe / o que faz hoje."],

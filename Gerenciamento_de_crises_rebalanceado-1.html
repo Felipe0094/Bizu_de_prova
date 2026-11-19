@@ -1,0 +1,3166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>Gerenciamento de Crises e Negociação — Guia de Estudos e Simulado (50 Questões)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: warm stone-white paper */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      /* Ink */
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      /* Rules */
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+      --border-strong: #c8c4b8;
+
+      /* Accents */
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --on-secondary: #ffffff;
+      --tertiary: #785008;
+      --error: #b42318;
+      --on-error: #ffffff;
+
+      /* Tinted semantic surfaces (no inline colors in body) */
+      --gold-soft: #f5e6c4;
+      --slate-soft: #e7f0f3;
+      --positive: #2b6e52;
+      --positive-soft: #e6f2ec;
+      --warning: #9a5b00;
+      --warning-soft: #fdf2dc;
+      --error-soft: #fbeae8;
+      --focus: #1f4e5f;
+
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      /* Fonts */
+      --font-headline: 'Source Serif 4', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --hairline-rule: 1px solid var(--outline-variant);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.125rem, 1.35rem + 3.2vw, 3.6rem);
+      --headline-size: clamp(1.5rem, 1.15rem + 1.6vw, 2.25rem);
+      --subhead-size: clamp(1.125rem, 1.02rem + 0.5vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.09375rem);
+      --label-size: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      overflow-x: clip;
+      scroll-behavior: smooth;
+    }
+    body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 68ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    strong { font-weight: 600; color: var(--on-surface); }
+
+    /* Dossier bars & badges */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.6875rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--badge-radius);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      background: var(--slate-soft);
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--badge-radius);
+    }
+
+    /* Masthead / Hero */
+    .hero-block {
+      padding-top: var(--space-md);
+      border-bottom: var(--hairline-rule);
+      padding-bottom: var(--space-xl);
+    }
+    .hero-title {
+      font-size: var(--display-size);
+      line-height: 1.08;
+      max-width: 22ch;
+      margin-bottom: var(--space-sm);
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      color: var(--secondary);
+      line-height: 1.4;
+      max-width: 60ch;
+      margin-bottom: var(--space-lg);
+    }
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    /* Cards & Callouts */
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .figure-card .value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem);
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+    }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .bizu-callout {
+      background: var(--gold-soft);
+      border-left: 4px solid var(--data-2);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      margin-top: var(--space-md);
+    }
+    .bizu-callout-title {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tertiary);
+      margin-bottom: var(--space-xs);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .example-box {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-left: 4px solid var(--secondary);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      margin-top: var(--space-md);
+    }
+    .example-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      margin-bottom: var(--space-xs);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .trap-box {
+      background: var(--error-soft);
+      border-left: 4px solid var(--error);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      margin-top: var(--space-md);
+    }
+    .trap-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--error);
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      border-radius: var(--rounded);
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  border-color var(--dur-micro) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-out);
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover { background: var(--secondary); }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border-color: var(--border-strong);
+    }
+    .btn-secondary:hover { background: var(--surface-container-high); }
+    .btn-gold {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary-container);
+    }
+    .btn-gold:hover { background: var(--gold-soft); border-color: var(--data-2); }
+    .btn-sm {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      font-size: 0.875rem;
+    }
+
+    /* Topic Jump Nav & Mastery Tracker */
+    .bizu-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .bizu-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      text-decoration: none;
+      color: var(--on-surface);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .bizu-nav-item:hover {
+      background: var(--surface-container);
+      border-color: var(--secondary);
+    }
+    .bizu-nav-item.is-done {
+      border-left: 3px solid var(--positive);
+      background: var(--positive-soft);
+    }
+
+    /* Progress bar */
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: var(--surface-container-high);
+      border-radius: var(--rounded);
+      overflow: hidden;
+      margin: var(--space-sm) 0;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--secondary);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .progress-fill.is-positive { background: var(--positive); }
+
+    /* Section styling */
+    .study-section {
+      padding-top: var(--space-lg);
+      scroll-margin-top: var(--space-lg);
+    }
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .section-title {
+      font-size: var(--headline-size);
+      line-height: 1.15;
+    }
+    .section-sub {
+      font-weight: 600;
+      color: var(--secondary);
+      margin-top: var(--space-xs);
+      font-size: 1rem;
+    }
+    .mastery-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: 1px solid var(--border-strong);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .mastery-toggle.active {
+      background: var(--positive-soft);
+      border-color: var(--positive);
+      color: var(--positive);
+    }
+
+    /* Two-column editorial grid inside sections */
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .card-wrapper { container-type: inline-size; }
+
+    /* Tables */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface-variant);
+      background: var(--surface-container);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--section-rule);
+    }
+    td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--hairline-rule);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* Interactive widgets inside narrative */
+    .interactive-panel {
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+    .panel-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--hairline-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .panel-title {
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      font-weight: 600;
+    }
+
+    /* Classifier drill */
+    .drill-item {
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      background: var(--background);
+      margin-bottom: var(--space-sm);
+    }
+    .drill-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+    .choice-chip {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border: 1px solid var(--border-strong);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .choice-chip:hover { background: var(--surface-container-high); }
+    .choice-chip.selected-correct {
+      background: var(--positive-soft);
+      border-color: var(--positive);
+      color: var(--positive);
+    }
+    .choice-chip.selected-wrong {
+      background: var(--error-soft);
+      border-color: var(--error);
+      color: var(--error);
+    }
+    .feedback-inline {
+      margin-top: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.9rem;
+      display: none;
+    }
+    .feedback-inline.show { display: block; }
+    .feedback-inline.ok { background: var(--positive-soft); color: var(--on-surface); border-left: 3px solid var(--positive); }
+    .feedback-inline.err { background: var(--error-soft); color: var(--on-surface); border-left: 3px solid var(--error); }
+
+    /* Stepper for Fases de Confrontação */
+    .stepper-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .step-tab {
+      min-height: 52px;
+      padding: var(--space-sm);
+      text-align: left;
+      background: var(--surface-container);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .step-tab.active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .step-tab .step-code {
+      display: block;
+      font-family: var(--font-label);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    .step-tab .step-name {
+      display: block;
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+
+    /* Checklist for Primeiro Interventor */
+    .checklist-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      background: var(--background);
+      margin-bottom: var(--space-sm);
+      cursor: pointer;
+      min-height: 48px;
+    }
+    .checklist-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--secondary);
+      flex-shrink: 0;
+    }
+    .checklist-row.checked {
+      background: var(--positive-soft);
+      border-color: var(--positive);
+    }
+
+    /* 15 Rules Grid */
+    .rules-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .rule-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .rule-card.is-trap {
+      border-top: 3px solid var(--data-2);
+    }
+    .rule-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .rule-tag {
+      font-family: var(--font-label);
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      padding: 0.125rem 0.4rem;
+      border-radius: var(--badge-radius);
+      background: var(--gold-soft);
+      color: var(--tertiary);
+      font-weight: 600;
+    }
+    .rule-example {
+      margin-top: var(--space-xs);
+      padding-top: var(--space-xs);
+      border-top: var(--hairline-rule);
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* SVG Diagram container */
+    .diagram-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+    }
+    .diagram-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Simulado 50Q */
+    .simulado-controls {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+    .control-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface-variant);
+    }
+    select.form-select {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-xl) var(--space-xs) var(--space-md);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--on-surface);
+      background-color: var(--background);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--rounded);
+      cursor: pointer;
+    }
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+    }
+    .kpi-mini {
+      background: var(--surface-container);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--card-border);
+    }
+    .kpi-mini-label {
+      font-family: var(--font-label);
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+    }
+    .kpi-mini-val {
+      font-family: var(--font-headline);
+      font-size: 1.5rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--on-surface);
+    }
+
+    .question-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+    }
+    .q-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+      padding-bottom: var(--space-xs);
+      border-bottom: var(--hairline-rule);
+    }
+    .q-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      align-items: center;
+    }
+    .q-tag-source {
+      font-family: var(--font-label);
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--badge-radius);
+      background: var(--slate-soft);
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    .q-tag-inedita {
+      font-family: var(--font-label);
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--badge-radius);
+      background: var(--gold-soft);
+      color: var(--tertiary);
+      font-weight: 600;
+    }
+    .q-stem {
+      font-weight: 600;
+      font-size: 1.03125rem;
+      line-height: 1.5;
+      margin-bottom: var(--space-md);
+      color: var(--on-surface);
+    }
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .opt-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      width: 100%;
+      min-height: 46px;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      line-height: 1.45;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .opt-btn:hover:not(:disabled) {
+      background: var(--surface-container);
+      border-color: var(--secondary);
+    }
+    .opt-letter {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.8125rem;
+      min-width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--badge-radius);
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .opt-btn.is-selected {
+      background: var(--slate-soft);
+      border-color: var(--secondary);
+      box-shadow: inset 0 0 0 1px var(--secondary);
+    }
+    .opt-btn.is-selected .opt-letter {
+      background: var(--secondary);
+      color: var(--on-secondary);
+    }
+    .opt-btn.is-correct {
+      background: var(--positive-soft);
+      border-color: var(--positive);
+      box-shadow: inset 0 0 0 1px var(--positive);
+    }
+    .opt-btn.is-correct .opt-letter {
+      background: var(--positive);
+      color: var(--on-secondary);
+    }
+    .opt-btn.is-wrong {
+      background: var(--error-soft);
+      border-color: var(--error);
+      box-shadow: inset 0 0 0 1px var(--error);
+    }
+    .opt-btn.is-wrong .opt-letter {
+      background: var(--error);
+      color: var(--on-error);
+    }
+    .q-rationale {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      background: var(--surface-container);
+      border-left: 4px solid var(--secondary);
+      font-size: 0.925rem;
+      display: none;
+    }
+    .q-rationale.show { display: block; }
+    .q-rationale.is-correct-box { border-left-color: var(--positive); background: var(--positive-soft); }
+    .q-rationale.is-wrong-box { border-left-color: var(--error); background: var(--error-soft); }
+
+    /* Topic performance bar list */
+    .topic-stat-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+      gap: var(--space-sm);
+      align-items: center;
+      padding: var(--space-xs) 0;
+      border-bottom: var(--hairline-rule);
+      font-size: 0.85rem;
+    }
+    .topic-stat-row:last-child { border-bottom: none; }
+
+    /* Pagination bar */
+    .pagination-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin: var(--space-md) 0;
+    }
+    .page-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .page-pill {
+      min-height: 44px;
+      min-width: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .page-pill.active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    /* Footer */
+    .sources-footer {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-2xl);
+      color: var(--on-surface-variant);
+      font-size: 0.875rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 760px) {
+      .hero-layout, .two-col {
+        grid-template-columns: 1fr;
+      }
+      .stepper-tabs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .figure-card, .interactive-panel, .question-card, .simulado-controls {
+        padding: var(--space-md);
+      }
+      .topic-stat-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <!-- MASTHEAD / HERO -->
+    <header class="hero-block">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Bizu da Prova • VC</span>
+          <span class="dossier-meta">CCEM • ESPM • Gerenciamento de Crises e Negociação</span>
+        </div>
+        <span class="dossier-meta" id="header-progress-label">0 / 10 Tópicos Dominados</span>
+      </div>
+
+      <h1 class="hero-title">Gerenciamento de Crises e Negociação</h1>
+      <p class="standfirst">Guia interativo de revisão estratégica focado nos dez pontos de prova, com casos práticos policiais, simuladores de decisão e banco de 50 questões comentadas.</p>
+
+      <div class="hero-layout">
+        <div class="figure-card">
+          <div class="dossier-bar" style="margin-bottom: var(--space-sm);">
+            <span class="dossier-meta">Roteiro Prioritário — 10 Temas do Bizu</span>
+            <span class="index-num" id="mastery-pct-badge">0%</span>
+          </div>
+          <div class="progress-track" aria-label="Progresso de revisão dos 10 temas">
+            <div class="progress-fill" id="mastery-progress-bar" style="width: 0%;"></div>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--on-surface-variant); margin-bottom: var(--space-sm);">
+            Marque cada tema conforme revisar os conceitos e os exemplos operacionais. Os links abaixo levam diretamente a cada módulo ou ao simulado final.
+          </p>
+          <div class="bizu-nav-grid" id="bizu-nav-grid">
+            <a class="bizu-nav-item" href="#tema-01" data-nav-topic="1"><span>01. Crise (FBI)</span><span class="index-num">T01</span></a>
+            <a class="bizu-nav-item" href="#tema-02" data-nav-topic="2"><span>02. Gerenciamento</span><span class="index-num">T02</span></a>
+            <a class="bizu-nav-item" href="#tema-03" data-nav-topic="3"><span>03. Objetivos</span><span class="index-num">T03</span></a>
+            <a class="bizu-nav-item" href="#tema-04" data-nav-topic="4"><span>04. Características</span><span class="index-num">T04</span></a>
+            <a class="bizu-nav-item" href="#tema-05" data-nav-topic="5"><span>05. Fases Confront.</span><span class="index-num">T05</span></a>
+            <a class="bizu-nav-item" href="#tema-06" data-nav-topic="6"><span>06. Critérios de Ação</span><span class="index-num">T06</span></a>
+            <a class="bizu-nav-item" href="#tema-07" data-nav-topic="7"><span>07. 1º Interventor</span><span class="index-num">T07</span></a>
+            <a class="bizu-nav-item" href="#tema-08" data-nav-topic="8"><span>08. Rapport</span><span class="index-num">T08</span></a>
+            <a class="bizu-nav-item" href="#tema-09" data-nav-topic="9"><span>09. Itens Negoc.</span><span class="index-num">T09</span></a>
+            <a class="bizu-nav-item" href="#tema-10" data-nav-topic="10"><span>10. As 15 Regras</span><span class="index-num">T10</span></a>
+          </div>
+          <div style="margin-top: var(--space-md); display: flex; flex-wrap: wrap; gap: var(--space-sm);">
+            <a href="#simulado-50" class="btn btn-primary">Ir para o Simulado (50 Questões)</a>
+            <a href="#tema-01" class="btn btn-secondary">Começar do Tema 01</a>
+          </div>
+        </div>
+
+        <aside class="aside-box">
+          <div class="dossier-meta" style="margin-bottom: var(--space-xs); color: var(--secondary); font-weight: 600;">Como Usar Este Dossiê</div>
+          <p style="font-size: 0.9375rem;">
+            Cada um dos dez temas listados no roteiro da prova possui pelo menos uma questão garantida. Este guia integra a base doutrinária dos slides de Comando e Controle, Psicologia do Criminoso, Conflitos e Comunicação às distinções literais cobradas em prova.
+          </p>
+          <div class="bizu-callout" style="margin-top: var(--space-sm);">
+            <div class="bizu-callout-title">Regra de Ouro da Prova</div>
+            <p style="font-size: 0.9rem;">
+              Não misture as listas: <strong>Objetivos do Gerenciamento</strong> (2) são diferentes dos <strong>Objetivos da Negociação</strong> (4); <strong>Características da Crise</strong> (4) são diferentes dos <strong>Critérios de Ação</strong> (3); e a <strong>sequência geral de opções táticas</strong> difere da <strong>sequência do FBI</strong>.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <!-- TEMA 01: DEFINIÇÃO DE CRISE SEGUNDO O FBI -->
+    <section class="study-section" id="tema-01">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Tema 01 do Bizu</span>
+          <span class="dossier-meta">Conceituação • Aula 01 (Slide 4) &amp; Apostila (Slide 10)</span>
+        </div>
+        <button type="button" class="mastery-toggle" id="mastery-btn-1" onclick="toggleTopicMastery(1)">Marcar como Revisado</button>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Definição de Crise Segundo o FBI</h2>
+          <p class="section-sub">Crise não é “ocorrência grande”; é uma mudança na natureza do problema de decisão.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="figure-card">
+            <div class="dossier-meta" style="margin-bottom: var(--space-xs);">Conceito Literal de Prova (FBI)</div>
+            <p style="font-family: var(--font-headline); font-size: 1.25rem; line-height: 1.4; color: var(--on-surface);">
+              “Um evento ou situação crucial, que exige uma resposta especial das autoridades militares, a fim de assegurar uma solução aceitável.”
+            </p>
+            <p style="font-size: 0.9rem; color: var(--on-surface-variant); margin-top: var(--space-sm);">
+              Nota didática: Na apresentação de Comando e Controle (Aula 01, Slide 4), essa formulação é atribuída expressamente ao FBI. Na Apostila (Slide 10), aparece com a mesma redação (“autoridades militares”), acompanhada de cinco exemplos clássicos: <strong>roubo frustrado, ameaça de bomba, enchente, incêndio e situação envolvendo pessoa emocionalmente perturbada</strong>.
+            </p>
+          </div>
+
+          <div class="example-box">
+            <div class="example-label">Exemplos Práticos Comparativos</div>
+            <p><strong>Ocorrência Convencional:</strong> Um furto em residência sem moradores no local. Há rotina definida: guarnição isola, registra ocorrência e aciona perícia. Não é crise.</p>
+            <p><strong>Conflito sem Crise:</strong> Dois vizinhos discutem em volume elevado por vaga de garagem, sem armas nem risco iminente de dano grave. Demanda mediação ou orientação legal.</p>
+            <p><strong>Crise (Conceito FBI):</strong> Um assalto a joalheria é frustrado pela chegada da viatura; dois criminosos armados mantêm quatro funcionários trancados nos fundos. O evento é crucial, rompe a rotina do patrulhamento ordinário e exige resposta especial (isolamento, comando, negociação e contingência tática) para assegurar solução aceitável.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Dimensão</th>
+                  <th>Ocorrência Convencional</th>
+                  <th>Crise</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Previsibilidade</strong></td>
+                  <td>Maior</td>
+                  <td>Reduzida</td>
+                </tr>
+                <tr>
+                  <td><strong>Tempo</strong></td>
+                  <td>Relativamente disponível</td>
+                  <td>Comprimido</td>
+                </tr>
+                <tr>
+                  <td><strong>Informação</strong></td>
+                  <td>Mais estável</td>
+                  <td>Fragmentada / contraditória</td>
+                </tr>
+                <tr>
+                  <td><strong>Risco</strong></td>
+                  <td>Administrável</td>
+                  <td>Elevado ou crescente</td>
+                </tr>
+                <tr>
+                  <td><strong>Comando</strong></td>
+                  <td>Rotina</td>
+                  <td>Estrutura intensificada</td>
+                </tr>
+                <tr>
+                  <td><strong>Decisão</strong></td>
+                  <td>Procedimental</td>
+                  <td>Adaptativa e crítica</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bizu-callout">
+            <div class="bizu-callout-title">Tríade de Memorização</div>
+            <p style="font-size: 0.9375rem;">
+              <strong>Evento crucial</strong> + <strong>Resposta especial</strong> + <strong>Solução aceitável</strong>. Lembre-se ainda de que a crise pode ter origem não criminal (enchente severa, incêndio estrutural) ou comportamental (surto armado).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mini-exercício interativo Tema 01 -->
+      <div class="interactive-panel">
+        <div class="panel-header">
+          <span class="panel-title">Treino Rápido — Ocorrência, Conflito ou Crise?</span>
+          <span class="dossier-meta">Classifique os 3 cenários reais abaixo</span>
+        </div>
+        <div class="drill-item">
+          <p><strong>Cenário A:</strong> Durante festa comunitária, boato de disparo gera correria, vias são bloqueadas, redes sociais espalham vídeos conflitantes e múltiplas agências precisam coordenar prioridades imediatamente.</p>
+          <div class="drill-actions">
+            <button type="button" class="choice-chip" onclick="checkMiniDrill('d1a', 'ocorrencia', 'crise', this)">Ocorrência Convencional</button>
+            <button type="button" class="choice-chip" onclick="checkMiniDrill('d1a', 'conflito', 'crise', this)">Conflito Simples</button>
+            <button type="button" class="choice-chip" onclick="checkMiniDrill('d1a', 'crise', 'crise', this)">Crise</button>
+          </div>
+          <div class="feedback-inline" id="fb-d1a"></div>
+        </div>
+        <div class="drill-item" style="margin-bottom: 0;">
+          <p><strong>Cenário B:</strong> Duas equipes de policiamento discordam por rádio sobre quem deve assumir a condução administrativa de uma abordagem já estabilizada e sem reféns.</p>
+          <div class="drill-actions">
+            <button type="button" class="choice-chip" onclick="checkMiniDrill('d1b', 'ocorrencia', 'conflito', this)">Apenas Ocorrência</button>
+            <button type="button" class="choice-chip" onclick="checkMiniDrill('d1b', 'conflito', 'conflito', this)">Conflito Organizacional</button>
+            <button type="button" class="choice-chip" onclick="checkMiniDrill('d1b', 'crise', 'conflito', this)">Crise do FBI</button>
+          </div>
+          <div class="feedback-inline" id="fb-d1b"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA 02: CONCEITO DE GERENCIAMENTO DE CRISE -->
+    <section class="study-section" id="tema-02">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Tema 02 do Bizu</span>
+          <span class="dossier-meta">Processo &amp; C3I • Apostila (Slide 12) &amp; Aula 01</span>
+        </div>
+        <button type="button" class="mastery-toggle" id="mastery-btn-2" onclick="toggleTopicMastery(2)">Marcar como Revisado</button>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Conceito de Gerenciamento de Crises</h2>
+          <p class="section-sub">Não é uma ciência exata: cada crise apresenta variáveis, atores e riscos irrepetíveis.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="figure-card">
+            <div class="dossier-meta" style="margin-bottom: var(--space-xs);">Definição Doutrinária (Slide 12)</div>
+            <p style="font-family: var(--font-headline); font-size: 1.25rem; line-height: 1.4;">
+              É o processo de <strong>identificar, obter e aplicar os recursos necessários</strong> à <strong>antecipação, prevenção e resolução</strong> de uma crise.
+            </p>
+            <p style="margin-top: var(--space-sm); font-size: 0.9375rem;">
+              Sob a ótica de Comando e Controle (C3I — Comando, Controle, Comunicações e Informação), gerenciar significa transformar informação imperfeita em ação coordenada, mantendo capacidade contínua de adaptação e reavaliação.
+            </p>
+          </div>
+
+          <div class="example-box">
+            <div class="example-label">Exemplo Prático nos Dois Eixos do Conceito</div>
+            <p><strong>1. Ação (Identificar, Obter e Aplicar Recursos):</strong> Em uma ocorrência de indivíduo barricado com arma de fogo, o comandante <em>identifica</em> pelos Elementos Essenciais de Informação (EEI) que se trata de 3º grau de risco (ameaça extraordinária), <em>obtém</em> apoio da Unidade de Operações Especiais, negociadores e equipe médica, e <em>aplica</em> esses meios de forma coordenada por níveis (estratégico, operacional e tático).</p>
+            <p><strong>2. Finalidade (Antecipação, Prevenção e Resolução):</strong> Antes de uma manifestação de alto potencial conflituoso, o Estado-Maior mapeia lideranças e rotas críticas (<em>antecipação e prevenção</em>). Caso ocorra invasão com retenção de pessoas, emprega negociação e plano específico para encerrar o evento (<em>resolução</em>).</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="figure-card" style="margin-bottom: var(--space-md);">
+            <div class="dossier-meta" style="margin-bottom: var(--space-sm);">4 Graus de Risco &amp; Nível de Resposta (Slide 17)</div>
+            <div class="table-wrap" style="border: none;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Grau</th>
+                    <th>Classificação</th>
+                    <th>Resposta Prevista</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="index-num">1º</span></td>
+                    <td><strong>Alto Risco</strong></td>
+                    <td>Tropa local</td>
+                  </tr>
+                  <tr>
+                    <td><span class="index-num">2º</span></td>
+                    <td><strong>Altíssimo Risco</strong></td>
+                    <td>Escalão superior da tropa local</td>
+                  </tr>
+                  <tr>
+                    <td><span class="index-num">3º</span></td>
+                    <td><strong>Ameaça Extraordinária</strong></td>
+                    <td>OM + recursos especiais (Op. Especiais)</td>
+                  </tr>
+                  <tr>
+                    <td><span class="index-num">4º</span></td>
+                    <td><strong>Ameaça Exótica</strong></td>
+                    <td>Recursos do nível 3 + recursos exóticos</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="aside-box">
+            <div class="dossier-meta" style="margin-bottom: var(--space-xs); color: var(--secondary); font-weight: 600;">3 Tipos de Causadores (Slide 19)</div>
+            <p style="font-size: 0.9rem;">
+              A identificação do causador direciona a negociação (Slide 23): <strong>1) Criminoso profissional ou comum</strong> (motivação instrumental); <strong>2) Emocionalmente perturbado</strong> (momentâneo ou psicótico); <strong>3) Fanático</strong> (ex.: terroristas por motivação política ou religiosa).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA 03: OBJETIVOS DO GERENCIAMENTO DE CRISE -->
+    <section class="study-section" id="tema-03">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Tema 03 do Bizu</span>
+          <span class="dossier-meta">Finalidade Superior • Apostila (Slide 15) &amp; Aula 02 (Slides 5–6)</span>
+        </div>
+        <button type="button" class="mastery-toggle" id="mastery-btn-3" onclick="toggleTopicMastery(3)">Marcar como Revisado</button>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Objetivos do Gerenciamento de Crises</h2>
+          <p class="section-sub">Dois pilares inegociáveis que orientam toda decisão do comandante na cena crítica.</p>
+        </div>
+      </div>
+
+      <div class="card-grid" style="margin-bottom: var(--space-md);">
+        <div class="figure-card" style="border-top: 4px solid var(--positive);">
+          <div class="dossier-meta" style="color: var(--positive);">Objetivo Nº 1 — Prioridade Absoluta</div>
+          <h3 style="font-size: 1.5rem; margin: var(--space-xs) 0;">Preservar Vidas</h3>
+          <p style="font-size: 0.9375rem;">
+            Abrange quatro grupos em ordem de proteção: <strong>vítimas e reféns</strong>; <strong>terceiros e comunidade</strong>; <strong>policiais e demais respondedores</strong>; e <strong>também considerar a vida do causador da crise</strong>.
+          </p>
+        </div>
+
+        <div class="figure-card" style="border-top: 4px solid var(--secondary);">
+          <div class="dossier-meta" style="color: var(--secondary);">Objetivo Nº 2 — Legitimidade Estatal</div>
+          <h3 style="font-size: 1.5rem; margin: var(--space-xs) 0;">Aplicar a Lei</h3>
+          <p style="font-size: 0.9375rem;">
+            Garantir que o desfecho ocorra sob o império da lei, mediante decisão <strong>legal, necessária e proporcional</strong>, sem barganhar a impunidade nem agir fora dos limites jurídicos.
+          </p>
+        </div>
+      </div>
+
+      <div class="trap-box">
+        <div class="trap-label">Pegadinha Clássica de Prova — Não Confunda!</div>
+        <p style="font-size: 0.9375rem;">
+          <strong>Objetivos do Gerenciamento de Crises (Slide 15):</strong> 1) Preservar vidas; 2) Aplicar a lei.<br>
+          <strong>Objetivos da Negociação (Slide 27):</strong> 1) Ganhar tempo; 2) Abrandar as exigências; 3) Colher informações; 4) Prover suporte tático. (Na Aula 02, Slide 13: ganhar tempo, reduzir tensão, abrandar exigências e ampliar alternativas). Se a questão perguntar os objetivos do <em>gerenciamento</em>, marque apenas <strong>preservar vidas e aplicar a lei</strong>!
+        </p>
+      </div>
+
+      <div class="example-box">
+        <div class="example-label">Exemplo Prático de Tensão entre os Dois Objetivos</div>
+        <p><strong>Situação:</strong> Assaltante cercado em agência bancária exige que a polícia recolha as viaturas e o deixe fugir de carro levando o dinheiro roubado, prometendo liberar os reféns na esquina seguinte.</p>
+        <p><strong>Análise Doutrinária:</strong> Permitir a fuga irrestrita com armamento e produto de crime violaria o objetivo de <strong>aplicar a lei</strong> e ampliaria o risco a terceiros. Por outro lado, invadir de imediato sob fogo cruzado violaria a <strong>preservação de vidas</strong>. A resposta técnica usa a negociação para ganhar tempo, conter o perímetro e conduzir o causador a uma rendição segura, preservando todas as vidas e submetendo-o à lei.</p>
+      </div>
+    </section>
+
+    <!-- TEMA 04: CARACTERÍSTICAS DA CRISE -->
+    <section class="study-section" id="tema-04">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Tema 04 do Bizu</span>
+          <span class="dossier-meta">Atributos Essenciais • Apostila (Slide 11) &amp; Aula 01</span>
+        </div>
+        <button type="button" class="mastery-toggle" id="mastery-btn-4" onclick="toggleTopicMastery(4)">Marcar como Revisado</button>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Características da Crise</h2>
+          <p class="section-sub">Quatro marcas estruturais que diferenciam a crise do trabalho policial rotineiro.</p>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        <div class="figure-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xs);">
+            <span class="index-num">01</span>
+            <span class="dossier-meta">Fator Surpresa</span>
+          </div>
+          <h3 style="font-size: 1.25rem; margin-bottom: var(--space-xs);">Imprevisibilidade</h3>
+          <p style="font-size: 0.9rem;">Crises eclodem sem aviso prévio, quebrando a normalidade. Envolvem informação incompleta, relatos contraditórios, comportamento dinâmico dos atores e efeito cascata das decisões.</p>
+          <p style="font-size: 0.85rem; color: var(--secondary); margin-top: var(--space-xs);"><strong>Exemplo:</strong> Chamada 190 relata um único suspeito, mas três minutos depois populares chegam ao local e surge relato não confirmado de segunda vítima armada.</p>
+        </div>
+
+        <div class="figure-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xs);">
+            <span class="index-num">02</span>
+            <span class="dossier-meta">Urgência Decisória</span>
+          </div>
+          <h3 style="font-size: 1.25rem; margin-bottom: var(--space-xs);">Compressão do Tempo</h3>
+          <p style="font-size: 0.9rem;">A janela de decisão se estreita drasticamente. Menos tempo + mais variáveis elevam a chance de erro. Gera o <em>paradoxo da decisão</em>: quanto maior a urgência, menor a informação confiável.</p>
+          <p style="font-size: 0.85rem; color: var(--secondary); margin-top: var(--space-xs);"><strong>Exemplo:</strong> Durante crise em restaurante, comandante não pode esperar laudo completo; precisa decidir com <em>suficiência decisória</em> enquanto reavalia.</p>
+        </div>
+
+        <div class="figure-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xs);">
+            <span class="index-num">03</span>
+            <span class="dossier-meta">Alto Risco</span>
+          </div>
+          <h3 style="font-size: 1.25rem; margin-bottom: var(--space-xs);">Ameaça de Vida</h3>
+          <p style="font-size: 0.9rem;">Risco iminente à integridade física e à existência humana (reféns, terceiros, policiais e até o próprio causador). É o eixo que organiza todas as prioridades da operação.</p>
+          <p style="font-size: 0.85rem; color: var(--secondary); margin-top: var(--space-xs);"><strong>Exemplo:</strong> Indivíduo com galão de combustível e isqueiro trancado em creche transforma imediatamente a proteção de vidas na prioridade absoluta.</p>
+        </div>
+
+        <div class="figure-card" style="border-top: 3px solid var(--data-2);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xs);">
+            <span class="index-num">04</span>
+            <span class="dossier-meta">Slide 11 — Atenção!</span>
+          </div>
+          <h3 style="font-size: 1.25rem; margin-bottom: var(--space-xs);">Necessidade de Ação Técnica</h3>
+          <p style="font-size: 0.9rem;">A crise não se resolve por improviso ou rotina comum. Segundo o Slide 11, a ação técnica <strong>exige</strong>:</p>
+          <ul style="margin: var(--space-xs) 0 0 1.1rem; padding: 0; font-size: 0.875rem;">
+            <li><strong>Postura organizacional não rotineira</strong></li>
+            <li><strong>Planejamento analítico especial</strong></li>
+            <li><strong>Considerações legais especiais</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="trap-box">
+        <div class="trap-label">Bizu de Prova — Separe Características das Exigências</div>
+        <p style="font-size: 0.9375rem;">
+          A Apostila alerta expressamente: não confunda as <strong>4 características da crise</strong> (imprevisibilidade, compressão do tempo, ameaça de vida, necessidade de ação técnica) com as <strong>3 exigências que decorrem da ação técnica</strong> (postura organizacional não rotineira, planejamento analítico especial, considerações legais especiais).
+        </p>
+      </div>
+    </section>
+
+    <!-- TEMA 05: FASES DE CONFRONTAÇÃO -->
+    <section class="study-section" id="tema-05">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Tema 05 do Bizu</span>
+          <span class="dossier-meta">Ciclo Operacional • Apostila (Slides 20–22) &amp; Aula 02 (Slide 12)</span>
+        </div>
+        <button type="button" class="mastery-toggle" id="mastery-btn-5" onclick="toggleTopicMastery(5)">Marcar como Revisado</button>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Fases de Confrontação e Opções Táticas</h2>
+          <p class="section-sub">Ordem cronológica rigorosa da Apostila e distinção entre a sequência geral e a sequência do FBI.</p>
+        </div>
+      </div>
+
+      <!-- Interactive Stepper -->
+      <div class="interactive-panel" style="margin-top: 0;">
+        <div class="panel-header">
+          <span class="panel-title">Linha do Tempo Interativa das 4 Fases de Confrontação</span>
+          <span class="dossier-meta">Clique em cada fase para explorar o exemplo prático</span>
+        </div>
+
+        <div class="stepper-tabs" role="tablist" aria-label="Fases de Confrontação">
+          <button type="button" class="step-tab active" onclick="selectPhase(1, this)">
+            <span class="step-code">Fase 01</span>
+            <span class="step-name">Pré-confrontação</span>
+          </button>
+          <button type="button" class="step-tab" onclick="selectPhase(2, this)">
+            <span class="step-code">Fase 02</span>
+            <span class="step-name">Resposta Imediata</span>
+          </button>
+          <button type="button" class="step-tab" onclick="selectPhase(3, this)">
+            <span class="step-code">Fase 03</span>
+            <span class="step-name">Plano Específico</span>
+          </button>
+          <button type="button" class="step-tab" onclick="selectPhase(4, this)">
+            <span class="step-code">Fase 04 • Crítica</span>
+            <span class="step-name">Resolução</span>
+          </button>
+        </div>
+
+        <div class="figure-card" id="phase-detail-box" style="background: var(--background);">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top: var(--space-lg);">
+        <div class="figure-card">
+          <div class="dossier-meta" style="margin-bottom: var(--space-xs);">Sequência Geral das Opções Táticas (Slide 22)</div>
+          <ol style="margin: var(--space-xs) 0 0 1.2rem; padding: 0; font-size: 0.9375rem;">
+            <li><strong>Negociação</strong></li>
+            <li><strong>Negociação tática</strong></li>
+            <li><strong>Negociação em conjunto com ações táticas</strong></li>
+            <li><strong>Ações táticas ou assalto</strong></li>
+          </ol>
+          <p style="font-size: 0.85rem; color: var(--on-surface-variant); margin-top: var(--space-sm);">
+            Obs.: Na Aula 02 (Slide 12), as alternativas táticas são agrupadas em: Negociação, Técnicas Não Letais, Tiro de Comprometimento e Assalto Tático.
+          </p>
+        </div>
+
+        <div class="figure-card" style="border-top: 3px solid var(--data-2);">
+          <div class="dossier-meta" style="color: var(--tertiary); margin-bottom: var(--space-xs);">Sequência Atribuída ao FBI (Slide 22)</div>
+          <ol style="margin: var(--space-xs) 0 0 1.2rem; padding: 0; font-size: 0.9375rem;">
+            <li><strong>Negociação</strong></li>
+            <li><strong>Uso de agentes químicos não letais</strong></li>
+            <li><strong>Tiro de neutralização por sniper</strong></li>
+            <li><strong>Assalto</strong></li>
+          </ol>
+          <p style="font-size: 0.85rem; color: var(--error); margin-top: var(--space-sm); font-weight: 600;">
+            Bizu: Se o enunciado disser “segundo o FBI”, use esta segunda lista. Nunca misture as duas sequências!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA 06: CRITÉRIOS DE AÇÃO DOUTRINÁRIOS -->
+    <section class="study-section" id="tema-06">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Tema 06 do Bizu</span>
+          <span class="dossier-meta">Filtro Decisório • Apostila (Slide 16) &amp; Aula 02 (Slide 7)</span>
+        </div>
+        <button type="button" class="mastery-toggle" id="mastery-btn-6" onclick="toggleTopicMastery(6)">Marcar como Revisado</button>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Critérios de Ação Doutrinários</h2>
+          <p class="section-sub">Toda ação policial em crise precisa passar simultaneamente pelos três filtros de decisão.</p>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        <div class="figure-card">
+          <span class="index-num">Critério 01</span>
+          <h3 style="font-size: 1.3rem; margin: var(--space-xs) 0;">Necessidade</h3>
+          <p style="font-size: 0.9375rem;"><strong>Pergunta-chave (Aula 02):</strong> “A ação é realmente necessária?”</p>
+          <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">
+            Impede ações precipitadas ou uso de força quando há tempo e espaço seguro para conter e negociar.
+          </p>
+        </div>
+
+        <div class="figure-card">
+          <span class="index-num">Critério 02</span>
+          <h3 style="font-size: 1.3rem; margin: var(--space-xs) 0;">Validade do Risco</h3>
+          <p style="font-size: 0.9375rem;"><strong>Pergunta-chave (Aula 02):</strong> “Há respaldo jurídico e operacional? Os benefícios justificam o risco?”</p>
+          <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">
+            Avalia se a probabilidade e a gravidade do dano decorrente da intervenção são menores do que o risco de não agir ou de esperar.
+          </p>
+        </div>
+
+        <div class="figure-card">
+          <span class="index-num">Critério 03</span>
+          <h3 style="font-size: 1.3rem; margin: var(--space-xs) 0;">Aceitabilidade</h3>
+          <p style="font-size: 0.9375rem;"><strong>Três dimensões expressas (Slide 16):</strong> <strong>Legal, Moral e Ética.</strong></p>
+          <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-top: var(--space-xs);">
+            “As consequências são justificáveis?” Mesmo uma tática eficiente é proibida se violar a lei, a moral ou a ética policial.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Decision Filter -->
+      <div class="interactive-panel">
+        <div class="panel-header">
+          <span class="panel-title">Laboratório dos Critérios de Ação — Avalie a Decisão</span>
+          <span class="dossier-meta">Identifique qual critério foi violado em cada cenário</span>
+        </div>
+
+        <div class="drill-item">
+          <p><strong>Caso 1:</strong> Em uma barricada com refém em estado estável (o causador apenas pede água e está conversando), o comandante ordena entrada tática explosiva imediata apenas para liberar o trânsito da avenida antes do horário de pico.</p>
+          <div class="drill-actions">
+            <button type="button" class="choice-chip" onclick="checkMiniDrill('d6a', 'nec', 'nec', this)">Fere a Necessidade (e Validade do Risco)</button>
+            <button type="button" class="choice-chip" onclick="checkMiniDrill('d6a', 'ok', 'nec', this)">Atende aos três critérios</button>
+          </div>
+          <div class="feedback-inline" id="fb-d6a"></div>
+        </div>
+
+        <div class="drill-item" style="margin-bottom: 0;">
+          <p><strong>Caso 2:</strong> Para forçar o sequestrador a se entregar, um oficial sugere ameaçar prender a mãe idosa do causador sem ordem judicial ou mandado, simulando uma prisão ilegal na frente das câmeras.</p>
+          <div class="drill-actions">
+            <button type="button" class="choice-chip" onclick="checkMiniDrill('d6b', 'aceit', 'aceit', this)">Fere a Aceitabilidade (Legal, Moral e Ética)</button>
+            <button type="button" class="choice-chip" onclick="checkMiniDrill('d6b', 'val', 'aceit', this)">É uma técnica válida de pressão</button>
+          </div>
+          <div class="feedback-inline" id="fb-d6b"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA 07: MEDIDAS DO PRIMEIRO INTERVENTOR -->
+    <section class="study-section" id="tema-07">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Tema 07 do Bizu</span>
+          <span class="dossier-meta">Primeiros Minutos • Apostila (Slides 18, 21) &amp; Aula 02 (Slide 8)</span>
+        </div>
+        <button type="button" class="mastery-toggle" id="mastery-btn-7" onclick="toggleTopicMastery(7)">Marcar como Revisado</button>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Medidas do Primeiro Interventor</h2>
+          <p class="section-sub">O que a primeira guarnição no local faz nos primeiros minutos define o sucesso ou o fracasso da crise.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="figure-card">
+            <div class="dossier-meta" style="margin-bottom: var(--space-xs);">Síntese Apostila + Aula 02 (Slide 8)</div>
+            <p>
+              Na Apostila (Fase 2 — Resposta Imediata), a tríade clássica é: <strong>conter, isolar e iniciar as negociações</strong>.
+            </p>
+            <p>
+              A Aula 02 detalha as seis medidas práticas do primeiro interventor sob o princípio operacional de <strong>ganhar tempo</strong> (<em>estabilizar → coletar → avaliar → decidir → executar → reavaliar</em>):
+            </p>
+            <ol style="margin: var(--space-xs) 0 0 1.2rem; padding: 0; font-size: 0.9375rem;">
+              <li><strong>Reconhecer a crise</strong> (perceber que não é ocorrência comum).</li>
+              <li><strong>Isolar e conter</strong> (perímetro interno e externo; impedir fuga e entrada de curiosos/familiares).</li>
+              <li><strong>Proteger / retirar vítimas</strong> que estejam em área externa ou alcançável em segurança.</li>
+              <li><strong>Estabelecer comando</strong> inicial e disciplina de rádio (CECOPOM/190).</li>
+              <li><strong>Coletar informação (EEI)</strong>: causadores, reféns, ponto crítico, letalidade das armas, distinguindo fato de boato.</li>
+              <li><strong>Acionar recursos especializados</strong> e o escalão superior conforme o grau de risco.</li>
+            </ol>
+          </div>
+
+          <div class="example-box">
+            <div class="example-label">Caso Prático — “Cenário Alfa” (Aula 02, Slide 19)</div>
+            <p>
+              <strong>Situação:</strong> Você comanda o policiamento local e sua guarnição chega primeiro a uma loja onde um ex-funcionário demitido mantém duas pessoas sob ameaça com arma de fogo. O supervisor da loja está do lado de fora, não vê o interior, só ouve gritos e algazarra. Curiosos começam a filmar na calçada.
+            </p>
+            <p>
+              <strong>Conduta Correta do 1º Interventor:</strong> Não entrar às cegas na loja. Afastar e isolar curiosos e terceiros (perímetro), conter as saídas do imóvel para evitar deslocamento do causador, buscar abrigo com linha visual segura, colher EEI com o supervisor (identidade do ex-funcionário, planta da loja, tipo de arma se vista antes, número exato de reféns), estabelecer comunicação inicial calma para ganhar tempo e acionar imediatamente o escalão superior e a equipe especializada.
+            </p>
+          </div>
+        </div>
+
+        <div class="interactive-panel" style="margin-top: 0;">
+          <div class="panel-header">
+            <span class="panel-title">Simulador de Checklist — 1º Interventor</span>
+            <span class="index-num" id="checklist-count">0 / 6</span>
+          </div>
+          <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-bottom: var(--space-sm);">
+            Marque as 6 providências imediatas para consolidar a sequência operacional dos primeiros minutos:
+          </p>
+          <label class="checklist-row" data-check-idx="0">
+            <input type="checkbox" onchange="toggleChecklist(0, this)">
+            <div><strong>1. Reconhecer a crise</strong><br><span style="font-size: 0.85rem; color: var(--on-surface-variant);">Aplicar o Teste de Suficiência: deixar o modo rotineiro e acionar protocolo de crise.</span></div>
+          </label>
+          <label class="checklist-row" data-check-idx="1">
+            <input type="checkbox" onchange="toggleChecklist(1, this)">
+            <div><strong>2. Isolar e conter o ponto crítico</strong><br><span style="font-size: 0.85rem; color: var(--on-surface-variant);">Impedir ampliação da crise, bloquear acessos e afastar populares/imprensa do perímetro interno.</span></div>
+          </label>
+          <label class="checklist-row" data-check-idx="2">
+            <input type="checkbox" onchange="toggleChecklist(2, this)">
+            <div><strong>3. Proteger / retirar vítimas em risco</strong><br><span style="font-size: 0.85rem; color: var(--on-surface-variant);">Evacuar clientes próximos ou áreas adjacentes sem expor a equipe a fogo cruzado.</span></div>
+          </label>
+          <label class="checklist-row" data-check-idx="3">
+            <input type="checkbox" onchange="toggleChecklist(3, this)">
+            <div><strong>4. Estabelecer comando e canal único</strong><br><span style="font-size: 0.85rem; color: var(--on-surface-variant);">Evitar ruído semântico no rádio; reportar fonte, horário e grau de certeza ao CECOPOM/Comando.</span></div>
+          </label>
+          <label class="checklist-row" data-check-idx="4">
+            <input type="checkbox" onchange="toggleChecklist(4, this)">
+            <div><strong>5. Coletar EEI (Elementos Essenciais de Informação)</strong><br><span style="font-size: 0.85rem; color: var(--on-surface-variant);">Causadores, reféns, ponto crítico, letalidade das armas; nunca tratar boato como fato confirmado.</span></div>
+          </label>
+          <label class="checklist-row" data-check-idx="5" style="margin-bottom: 0;">
+            <input type="checkbox" onchange="toggleChecklist(5, this)">
+            <div><strong>6. Acionar recursos especializados e iniciar contato</strong><br><span style="font-size: 0.85rem; color: var(--on-surface-variant);">Ganhar tempo mantendo postura abrigada e aguardando o negociador/equipe tática.</span></div>
+          </label>
+          <div class="feedback-inline" id="checklist-done-msg" style="margin-top: var(--space-sm);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA 08: CONCEITO DE RAPPORT -->
+    <section class="study-section" id="tema-08">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Tema 08 do Bizu</span>
+          <span class="dossier-meta">Vínculo &amp; Influência • Apostila (Slide 37) &amp; Aulas 03 e 05</span>
+        </div>
+        <button type="button" class="mastery-toggle" id="mastery-btn-8" onclick="toggleTopicMastery(8)">Marcar como Revisado</button>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Conceito de Rapport</h2>
+          <p class="section-sub">O elo de confiança que viabiliza a negociação — sem jamais transferir poder decisório ao negociador.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="figure-card">
+            <div class="dossier-meta" style="margin-bottom: var(--space-xs);">Definição da Aula (Slide 37 — grafado “Raport”)</div>
+            <p style="font-family: var(--font-headline); font-size: 1.25rem; line-height: 1.4;">
+              Rapport é o <strong>elo de confiança entre o negociador e o agente causador da crise</strong>.
+            </p>
+            <p style="margin-top: var(--space-sm); font-size: 0.9375rem;">
+              <strong>Encadeamento lógico da Apostila:</strong> Sem contato não há conversa → sem conversa não há barganha → sem barganha não há negociação → sem negociação não há solução pacífica.
+            </p>
+          </div>
+
+          <div class="diagram-card" style="margin-top: var(--space-md);">
+            <div class="dossier-meta" style="margin-bottom: var(--space-sm);">Escada da Mudança Comportamental (FBI / Aula 03)</div>
+            <svg class="diagram-svg" viewBox="0 0 600 170" role="img" aria-label="Escada da Mudança Comportamental: Escuta Ativa, Empatia, Rapport, Influência e Mudança Comportamental">
+              <rect x="8" y="116" width="108" height="44" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1"/>
+              <text x="62" y="136" text-anchor="middle" font-family="var(--font-body)" font-size="11" font-weight="700" fill="var(--on-surface)">1. Escuta Ativa</text>
+              <text x="62" y="151" text-anchor="middle" font-family="var(--font-label)" font-size="9" fill="var(--on-surface-variant)">Ouvir sem julgar</text>
+
+              <rect x="126" y="92" width="108" height="44" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)" stroke-width="1"/>
+              <text x="180" y="112" text-anchor="middle" font-family="var(--font-body)" font-size="11" font-weight="700" fill="var(--on-surface)">2. Empatia</text>
+              <text x="180" y="127" text-anchor="middle" font-family="var(--font-label)" font-size="9" fill="var(--on-surface-variant)">Validar emoção</text>
+
+              <rect x="244" y="68" width="112" height="44" rx="4" fill="var(--primary-container)" stroke="var(--outline)" stroke-width="1.5"/>
+              <text x="300" y="88" text-anchor="middle" font-family="var(--font-body)" font-size="12" font-weight="700" fill="var(--on-primary-container)">3. RAPPORT</text>
+              <text x="300" y="103" text-anchor="middle" font-family="var(--font-label)" font-size="9" fill="var(--on-primary-container)">Elo de confiança</text>
+
+              <rect x="366" y="44" width="108" height="44" rx="4" fill="var(--slate-soft)" stroke="var(--secondary)" stroke-width="1"/>
+              <text x="420" y="64" text-anchor="middle" font-family="var(--font-body)" font-size="11" font-weight="700" fill="var(--secondary)">4. Influência</text>
+              <text x="420" y="79" text-anchor="middle" font-family="var(--font-label)" font-size="9" fill="var(--on-surface-variant)">Opções seguras</text>
+
+              <rect x="484" y="20" width="108" height="44" rx="4" fill="var(--positive-soft)" stroke="var(--positive)" stroke-width="1.5"/>
+              <text x="538" y="40" text-anchor="middle" font-family="var(--font-body)" font-size="11" font-weight="700" fill="var(--positive)">5. Mudança</text>
+              <text x="538" y="55" text-anchor="middle" font-family="var(--font-label)" font-size="9" fill="var(--positive)">Rendição / acordo</text>
+            </svg>
+          </div>
+        </div>
+
+        <div>
+          <div class="aside-box">
+            <div class="dossier-meta" style="color: var(--secondary); font-weight: 600; margin-bottom: var(--space-xs);">Papel do Negociador &amp; Comunicação (Slides 29–45)</div>
+            <ul style="margin: 0 0 var(--space-sm) 1.1rem; padding: 0; font-size: 0.9rem;">
+              <li>É o <strong>único canal de ligação</strong> dos causadores com o exterior.</li>
+              <li><strong>“Quem decide não negocia, quem negocia não decide.”</strong></li>
+              <li>Na primeira abordagem: apresentar nome e instituição, perguntar como chamar a pessoa e o que está acontecendo, fazer perguntas descritivas, usar linguagem compreensível e <strong>não imitar gírias ou trejeitos</strong>.</li>
+              <li><strong>Indicadores de bom andamento (Slide 32):</strong> ausência de mortes, redução dos incidentes emocionais, menos referências à violência, fala mais lenta, liberação de reféns, prazos fatais transcorridos sem incidentes e (conforme registro literal da aula) diminuição da duração de cada conversa.</li>
+            </ul>
+          </div>
+
+          <div class="example-box">
+            <div class="example-label">Exemplo Prático de Rapport por Perfil (Aula 03)</div>
+            <p style="font-size: 0.9rem;">
+              <strong>Perfil Psicótico (“Eles estão dentro das paredes”):</strong> Não debata a alucinação nem concorde que há pessoas nas paredes. Construa rapport validando a emoção: <em>“Eu entendo que isso pareça muito assustador para você agora. Quero ajudar a deixar este espaço seguro, vamos dar um passo de cada vez.”</em><br>
+              <strong>Perfil Deprimido (“Não há mais nada a perder”):</strong> Use escuta ativa e vínculo realista, sem moralismos (“pense na sua família”): <em>“Percebo o quanto essa perda está pesando para você. O que ainda importa hoje para conversarmos com calma?”</em>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="figure-card" style="margin-top: var(--space-md);">
+        <div class="dossier-meta" style="margin-bottom: var(--space-xs);">Complemento de Prova — Síndrome de Estocolmo (Slides 56–57)</div>
+        <div class="two-col" style="gap: var(--space-md);">
+          <div>
+            <strong>Componentes dos Capturados (Slide 56):</strong> Sentimentos positivos e de afeto em relação aos causadores; sentimentos negativos em relação às autoridades (após libertação: empatia, compaixão, débito e gratidão).
+          </div>
+          <div>
+            <strong>Componentes dos Captores (Slide 57):</strong> Sentimentos positivos em relação aos capturados; diminuição da ansiedade; diminuição da violência contra os capturados.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA 09: ITENS NEGOCIÁVEIS E NÃO NEGOCIÁVEIS -->
+    <section class="study-section" id="tema-09">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Tema 09 do Bizu</span>
+          <span class="dossier-meta">Triagem de Demandas • Apostila (Slides 46–47)</span>
+        </div>
+        <button type="button" class="mastery-toggle" id="mastery-btn-9" onclick="toggleTopicMastery(9)">Marcar como Revisado</button>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Itens Negociáveis e Não Negociáveis</h2>
+          <p class="section-sub">A linha divisória entre o que mantém o vínculo e o que compromete a doutrina e a vida.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="figure-card" style="border-top: 4px solid var(--positive);">
+          <div class="dossier-meta" style="color: var(--positive);">Slide 46 — Não afetam as recomendações doutrinárias</div>
+          <h3 style="font-size: 1.35rem; margin: var(--space-xs) 0;">Itens Negociáveis</h3>
+          <ul style="margin: var(--space-sm) 0 0 1.2rem; padding: 0;">
+            <li><strong>Alimentação</strong> (ex.: água, sanduíche, refeição simples).</li>
+            <li><strong>Bebidas não alcoólicas</strong> (ex.: água mineral, suco, café).</li>
+            <li><strong>Dinheiro</strong> (consta expressamente como negociável na aula!).</li>
+            <li><strong>Remédios benignos</strong> (ex.: insulina, anti-hipertensivo, analgésico comum).</li>
+            <li><strong>Transportes</strong> — <em>condição expressa:</em> <strong>somente se houver vantagem tática</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="figure-card" style="border-top: 4px solid var(--error);">
+          <div class="dossier-meta" style="color: var(--error);">Slide 47 — Afetam as recomendações doutrinárias</div>
+          <h3 style="font-size: 1.35rem; margin: var(--space-xs) 0;">Itens Não Negociáveis</h3>
+          <ul style="margin: var(--space-sm) 0 0 1.2rem; padding: 0;">
+            <li><strong>Troca de reféns</strong> (proibição absoluta: ética, risco e abalo do vínculo).</li>
+            <li><strong>Bebidas alcoólicas e remédios entorpecentes</strong> (reduzem controle e elevam imprevisibilidade).</li>
+            <li><strong>Fornecimento de armas</strong> (ou munição).</li>
+            <li><strong>Libertação de presos</strong>.</li>
+            <li><strong>Itens amorais</strong> (pedidos ofensivos à dignidade ou ilegalidades graves).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Interactive Demand Classifier -->
+      <div class="interactive-panel">
+        <div class="panel-header">
+          <span class="panel-title">Simulador de Triagem — Classifique o Pedido do Causador</span>
+          <span class="index-num" id="demand-score">0 / 6 respondidos</span>
+        </div>
+        <div id="demand-drill-container"></div>
+      </div>
+    </section>
+
+    <!-- TEMA 10: AS 15 REGRAS BÁSICAS DE NEGOCIAÇÃO -->
+    <section class="study-section" id="tema-10">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Tema 10 do Bizu</span>
+          <span class="dossier-meta">Conduta em Cena • Apostila (Slides 64–79)</span>
+        </div>
+        <button type="button" class="mastery-toggle" id="mastery-btn-10" onclick="toggleTopicMastery(10)">Marcar como Revisado</button>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">As 15 Regras Básicas de Negociação</h2>
+          <p class="section-sub">Numeração preservada dos slides 64 a 79, acompanhada de aplicação prática em ocorrência.</p>
+        </div>
+      </div>
+
+      <div class="rules-filter-row">
+        <button type="button" class="btn btn-primary btn-sm" id="filter-rules-all" onclick="filterRules('all')">Todas as 15 Regras</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="filter-rules-traps" onclick="filterRules('trap')">Foco nas Pegadinhas (7 Regras)</button>
+      </div>
+
+      <div class="card-grid" id="rules-grid"></div>
+    </section>
+
+    <!-- SIMULADO INTERATIVO 50 QUESTÕES -->
+    <section class="study-section" id="simulado-50">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Simulado Final • 50 Questões</span>
+          <span class="dossier-meta">25 Baseadas nas Fontes + 25 Inéditas com Casos Práticos</span>
+        </div>
+        <span class="dossier-meta" id="simulado-status-badge">Modo Estudo Ativo</span>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Simulado Completo de Preparação para a Prova</h2>
+          <p class="section-sub">Cinco questões para cada um dos 10 temas do Bizu, com gabarito comentado e diagnóstico por assunto.</p>
+        </div>
+      </div>
+
+      <div class="simulado-controls">
+        <div class="control-grid">
+          <div class="field-group">
+            <label class="field-label" for="filter-origin">Origem das Questões</label>
+            <select id="filter-origin" class="form-select" onchange="applySimuladoFilters()">
+              <option value="all">Todas (50 questões)</option>
+              <option value="fonte">Baseadas nas Fontes (25 questões)</option>
+              <option value="inedita">Inéditas — Casos Práticos (25 questões)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="filter-topic">Tema do Bizu</label>
+            <select id="filter-topic" class="form-select" onchange="applySimuladoFilters()">
+              <option value="all">Todos os 10 Temas</option>
+              <option value="1">01. Definição de Crise (FBI)</option>
+              <option value="2">02. Conceito de Gerenciamento</option>
+              <option value="3">03. Objetivos do Gerenciamento</option>
+              <option value="4">04. Características da Crise</option>
+              <option value="5">05. Fases de Confrontação</option>
+              <option value="6">06. Critérios de Ação</option>
+              <option value="7">07. Medidas do 1º Interventor</option>
+              <option value="8">08. Conceito de Rapport</option>
+              <option value="9">09. Itens Negociáveis / Não Neg.</option>
+              <option value="10">10. As 15 Regras Básicas</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="filter-status">Situação</label>
+            <select id="filter-status" class="form-select" onchange="applySimuladoFilters()">
+              <option value="all">Todas</option>
+              <option value="unanswered">Não respondidas</option>
+              <option value="wrong">Apenas erradas</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="quiz-mode-select">Modo de Aplicação</label>
+            <select id="quiz-mode-select" class="form-select" onchange="changeQuizMode(this.value)">
+              <option value="study">Modo Estudo (Feedback na hora)</option>
+              <option value="exam">Modo Prova (Corrigir ao final)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-mini">
+            <div class="kpi-mini-label">Respondidas</div>
+            <div class="kpi-mini-val" id="kpi-answered">0 / 50</div>
+          </div>
+          <div class="kpi-mini">
+            <div class="kpi-mini-label">Acertos</div>
+            <div class="kpi-mini-val" id="kpi-correct" style="color: var(--positive);">0</div>
+          </div>
+          <div class="kpi-mini">
+            <div class="kpi-mini-label">Erros</div>
+            <div class="kpi-mini-val" id="kpi-wrong" style="color: var(--error);">0</div>
+          </div>
+          <div class="kpi-mini">
+            <div class="kpi-mini-label">Aproveitamento</div>
+            <div class="kpi-mini-val" id="kpi-accuracy">—</div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center; justify-content: space-between;">
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm);">
+            <button type="button" class="btn btn-gold btn-sm" id="btn-submit-exam" onclick="submitExamMode()" style="display: none;">Corrigir Prova Completa</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleStatsPanel()">Ver Desempenho por Tema</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="exportReport()">Exportar Relatório (.txt)</button>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-reset-simulado" onclick="resetSimulado(this)">Reiniciar Simulado</button>
+        </div>
+
+        <div id="topic-breakdown-panel" style="display: none; margin-top: var(--space-md); padding-top: var(--space-md); border-top: var(--hairline-rule);">
+          <div class="dossier-meta" style="margin-bottom: var(--space-sm);">Diagnóstico por Tema do Bizu</div>
+          <div id="topic-breakdown-rows"></div>
+        </div>
+      </div>
+
+      <!-- Pagination top -->
+      <div class="pagination-bar">
+        <span class="dossier-meta" id="showing-count-label">Exibindo 10 questões</span>
+        <div class="page-pills" id="pagination-top"></div>
+      </div>
+
+      <!-- Questions container -->
+      <div id="questions-container"></div>
+
+      <!-- Pagination bottom -->
+      <div class="pagination-bar">
+        <span class="dossier-meta" id="showing-count-bottom"></span>
+        <div class="page-pills" id="pagination-bottom"></div>
+      </div>
+    </section>
+
+    <footer class="sources-footer">
+      <div class="dossier-meta" style="margin-bottom: var(--space-xs);">Fontes de Referência do Material</div>
+      <p>
+        Conteúdo integralmente fundamentado na <em>Apostila de Estudo para a VC — Gerenciamento de Crises e Negociação (CCEM)</em>, no roteiro prioritário <em>Bizu de Prova</em> e nas apresentações da disciplina de Gestão de Conflitos e Gerenciamento de Crises da ESPM / PMERJ (Aulas 01 a 06: Comando e Controle, Fundamentos e Alternativas Táticas, Psicologia do Criminoso e Perfis de Crise, Técnicas de Negociação e Síndromes, Gerenciamento de Conflitos e Prática de Comunicação).
+      </p>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================================
+    // DATA: 15 REGRAS BÁSICAS (Slides 64–79 da Apostila)
+    // =========================================================================
+    const RULES_DATA = [
+      { num: `01`, title: `Estabilizar e conter a situação`, trap: false, desc: `Reduzir os ânimos e impedir que o evento se expanda geográfica ou emocionalmente.`, ex: `Ao chegar a uma ocorrência com pessoa armada em loja, manter perímetro isolado e adotar postura calma em vez de gritar ordens simultâneas.` },
+      { num: `02`, title: `Escolher a ocasião correta para o contato`, trap: false, desc: `Evitar aproximação precipitada; aguardar o momento seguro e adequado após o isolamento inicial.`, ex: `Esperar o causador cessar disparos ou se afastar da janela antes de iniciar o diálogo pelo canal disponível.` },
+      { num: `03`, title: `Procurar ganhar tempo`, trap: false, desc: `Permitir amadurecimento das decisões, coleta de inteligência (EEI) e redução da descarga emocional.`, ex: `Usar perguntas descritivas abertas (“O que aconteceu antes de chegarmos?”) para baixar o ritmo e dar tempo ao planejamento tático.` },
+      { num: `04`, title: `Deixar o indivíduo falar`, trap: false, desc: `Ouvir ativamente ajuda a reduzir a ansiedade do causador e revela motivações e informações vitais.`, ex: `Permitir que o ex-funcionário explique sua demissão usando pausas e encorajadores mínimos (“Entendo, continue…”).` },
+      { num: `05`, title: `Não oferecer nada e deixar que ele peça`, trap: true, desc: `A aula desaconselha ofertas espontâneas; cada concessão deve partir de demanda do causador e gerar contrapartida ou ganho de tempo.`, ex: `Nunca dizer “Quer que eu traga comida ou carro?”. Aguarde que o próprio indivíduo manifeste suas necessidades.` },
+      { num: `06`, title: `Evitar atenção frequente às vítimas e não chamá-las de reféns`, trap: true, desc: `Não supervalorize os reféns como moeda de troca; use expressões neutras como “as pessoas que estão aí”.`, ex: `Perguntar “Como estão as pessoas que estão aí com você?” em vez de “Os reféns estão bem? Não machuque os reféns!”.` },
+      { num: `07`, title: `Ser tão honesto quanto possível`, trap: false, desc: `Preservar a confiança. Se o negociador cair em descrédito por mentira descoberta, recomenda-se sua substituição definitiva.`, ex: `Se algo não pode ser entregue em 5 minutos, não prometa; informe que dependerá de avaliação do comando.` },
+      { num: `08`, title: `Atender exigências não absurdas por menores que sejam`, trap: false, desc: `Atender demandas básicas (água, papel higiênico, atendimento médico) mantém o relacionamento e ganha tempo.`, ex: `Fornecer garrafas de água mineral e medicação básica solicitada ajuda a consolidar o rapport.` },
+      { num: `09`, title: `Nunca dizer não`, trap: true, desc: `Significa evitar uma negativa seca (“Não vou dar!”). Não significa dizer sempre sim: o negociador registra o pedido e encaminha a quem decide.`, ex: `Diante de pedido de arma: “Anotei o que você pediu e vou repassar para a autoridade responsável avaliar; enquanto isso, me diga como estão as pessoas aí.”` },
+      { num: `10`, title: `Procurar abrandar as exigências`, trap: false, desc: `Reduzir demandas desproporcionais e prazos rígidos para patamares mais razoáveis e negociáveis.`, ex: `Se o causador pede fuga imediata para outro estado, redirecionar a conversa para garantias de integridade física na rendição.` },
+      { num: `11`, title: `Nunca estabelecer e procurar não aceitar prazo fatal`, trap: true, desc: `Prazos fatais (“ultimatos”) comprometem a confiança e sabotam o objetivo central de ganhar tempo.`, ex: `Se o causador disser “Quero resposta até 15h00!”, evitar validar o relógio como gatilho e preencher o tempo com diálogo sobre necessidades.` },
+      { num: `12`, title: `Não fazer sugestões alternativas`, trap: true, desc: `O negociador não inventa soluções por conta própria; o slide admite exceção apenas mediante anuência do gerente da crise.`, ex: `Não oferecer “Que tal sair por outra porta de táxi?” sem aprovação expressa do comandante da cena.` },
+      { num: `13`, title: `Não envolver pessoas civis na negociação`, trap: true, desc: `Slide 78 e Slide 44: não usar civis, religiosos, psicólogos externos ou familiares como interlocutores (e nunca em negociação tática).`, ex: `Recusar o pedido de um pastor local ou da esposa do causador para ir até a porta negociar diretamente.` },
+      { num: `14`, title: `Não permitir qualquer troca de reféns`, trap: true, desc: `Proibição por aspecto ético, possível aumento do risco e abalo do vínculo já instalado com o causador.`, ex: `Recusar oferta de um policial ou familiar para entrar no lugar de um cliente mantido em cativeiro.` },
+      { num: `15`, title: `Evitar negociar cara a cara`, trap: true, desc: `Expõe o negociador ao risco de ser capturado ou agredido. Se ocorrer contato direto no Brasil, observar distância nunca inferior a dez metros.`, ex: `Priorizar telefone, rádio ou diálogo através de coberturas; só ir ao contato visual com rapport prévio, rota de escape e >= 10 m.` }
+    ];
+
+    // =========================================================================
+    // DATA: PHASES STEPPER (Tema 05)
+    // =========================================================================
+    const PHASES_DATA = {
+      1: {
+        badge: `Fase 01 • Antecede o Evento Crítico`,
+        title: `Pré-confrontação`,
+        body: `É tudo o que ocorre antes de a crise eclodir. Envolve prevenção, planejamento prévio, treinamento das equipes, leitura de sinais de alerta em conflitos latentes e manutenção de protocolos operacionais.`,
+        example: `Exemplo prático: Antes de um clássico de futebol ou grande evento urbano, o Estado-Maior mapeia pontos críticos, define canais de rádio sem ruído semântico e deixa equipes especializadas de sobreaviso.`
+      },
+      2: {
+        badge: `Fase 02 • Primeiros Minutos`,
+        title: `Resposta Imediata`,
+        body: `Inicia-se com a deflagração da crise. Segundo a Apostila (Slide 21), suas três medidas centrais são: <strong>conter, isolar e iniciar as negociações</strong>. A Aula 02 acrescenta: reconhecer a crise, proteger vítimas, estabelecer comando, coletar EEI e acionar especialistas.`,
+        example: `Exemplo prático: Viatura chega a um roubo frustrado em supermercado. Os policiais isolam a quadra, contêm o assaltante no interior, protegem clientes na calçada, colhem EEI e iniciam contato abrigado para ganhar tempo.`
+      },
+      3: {
+        badge: `Fase 03 • Elaboração e Escolha`,
+        title: `Plano Específico`,
+        body: `Com a cena contida e informações (EEI) coletadas, o comandante e seu Estado-Maior elaboram e escolhem qual solução será adotada: <strong>solução negociada, solução tática ou solução transferida</strong>.`,
+        example: `Exemplo prático: Após mapear croquis da residência e o perfil emocional do causador, o comandante opta por manter a negociação real como via principal, mantendo plano de contingência tática pronto caso o risco suba.`
+      },
+      4: {
+        badge: `Fase 04 • Mais Delicada do Material`,
+        title: `Resolução`,
+        body: `É a <strong>implementação do plano específico</strong> escolhido na fase anterior. A Apostila destaca expressamente que esta é a <strong>fase mais delicada</strong> de todo o gerenciamento da crise, pois qualquer falha na execução ou coordenação gera dano irreversível.`,
+        example: `Exemplo prático: O momento exato da rendição combinada (saída do causador desarmado e recepção das vítimas sem pânico) ou a execução coordenada de uma entrada tática após o esgotamento seguro da negociação.`
+      }
+    };
+
+    // =========================================================================
+    // DATA: DEMANDS DRILL (Tema 09)
+    // =========================================================================
+    const DEMANDS_DRILL = [
+      { id: `dm1`, text: `“Estou com muita sede, manda duas garrafas de água mineral e dois sanduíches.”`, correct: `neg`, explain: `Correto! Alimentação e bebidas não alcoólicas são itens negociáveis (Slide 46) e atendem à Regra 8 (exigência não absurda para manter vínculo e ganhar tempo).` },
+      { id: `dm2`, text: `“Quero que tragam uma garrafa de uísque para eu me acalmar.”`, correct: `nao`, explain: `Correto! Bebidas alcoólicas são expressamente NÃO negociáveis (Slide 47), pois alteram o estado mental e aumentam o risco de impulsividade e violência.` },
+      { id: `dm3`, text: `“Exijo um carro abastecido na porta para sair daqui com um refém.”`, correct: `cond`, explain: `Atenção à condição! Transportes constam no Slide 46 como negociáveis, porém SOMENTE se houver vantagem tática (nunca como concessão automática nem permitindo fuga descontrolada com refém).` },
+      { id: `dm4`, text: `“Quero R$ 10.000 em dinheiro vivo agora para liberar um dos funcionários.”`, correct: `neg`, explain: `Correto! Segundo o Slide 46 da Apostila, dinheiro consta expressamente na lista de itens negociáveis (desde que conduzido estrategicamente pelo comando).` },
+      { id: `dm5`, text: `“Soltem meu irmão que está preso no presídio e me mandem uma pistola .40.”`, correct: `nao`, explain: `Correto! Libertação de presos e fornecimento de armas são itens expressamente NÃO negociáveis (Slide 47).` },
+      { id: `dm6`, text: `“Minha mãe refém é diabética e precisa de insulina; e eu quero dois calmantes tarja preta fortes para mim.”`, correct: `cond`, explain: `Diferencie os dois pedidos! A insulina é remédio benigno (negociável, Slide 46 + atendimento médico da Regra 8). Já os calmantes entorpecentes são NÃO negociáveis (Slide 47).` }
+    ];
+
+    // =========================================================================
+    // DATA: SIMULADO 50 QUESTÕES (5 por Tema do Bizu: 25 Fontes + 25 Inéditas)
+    // =========================================================================
+    const TOPICS_META = {
+      1: `01. Definição de Crise (FBI)`,
+      2: `02. Conceito de Gerenciamento`,
+      3: `03. Objetivos do Gerenciamento`,
+      4: `04. Características da Crise`,
+      5: `05. Fases de Confrontação`,
+      6: `06. Critérios de Ação`,
+      7: `07. Medidas do 1º Interventor`,
+      8: `08. Conceito de Rapport`,
+      9: `09. Itens Negociáveis e Não Neg.`,
+      10: `10. As 15 Regras Básicas`
+    };
+
+    const QUESTIONS = [
+      // --- TEMA 01: DEFINIÇÃO DE CRISE (FBI) ---
+      {
+        id: 1, topic: 1, origin: `fonte`,
+        stem: `Conforme a conceituação atribuída ao FBI nos slides de aula (Aula 01, Slide 4) e reproduzida na Apostila (Slide 10), uma crise é definida como:`,
+        options: [
+          `Qualquer ocorrência policial com grande quantidade de viaturas e cobertura jornalística imediata.`,
+          `Todo conflito interpessoal em que duas partes divergem sobre interesses patrimoniais, exigindo assalto tático obrigatório.`,
+          `Uma operação rotineira de policiamento ostensivo conduzida exclusivamente pelo negociador com poder decisório pleno.`,
+          `Um evento ou situação crucial, que exige uma resposta especial das autoridades militares, a fim de assegurar uma solução aceitável.`
+        ],
+        answer: 3,
+        rationale: `Definição literal do Slide 4 (Aula 01) e Slide 10 (Apostila): “evento ou situação crucial, que exige uma resposta especial das autoridades militares, a fim de assegurar uma solução aceitável”. A letra A erra porque crise não é sinônimo de “ocorrência grande” (Aula 01, Slide 4).`
+      },
+      {
+        id: 2, topic: 1, origin: `fonte`,
+        stem: `Na comparação doutrinária entre ocorrência convencional, conflito e crise apresentada na Aula 01 (Slides 5 e 6), é correto afirmar que:`,
+        options: [
+          `Todo conflito entre cidadãos configura automaticamente uma crise policial de alto risco.`,
+          `Uma ocorrência convencional possui informação fragmentada e decisão exclusivamente adaptativa.`,
+          `Uma crise pode conter conflito, mas nem todo conflito é uma crise; na crise, a decisão passa de procedimental para adaptativa e crítica.`,
+          `A diferença entre ocorrência convencional e crise resume-se apenas ao número de policiais empregados no turno.`
+        ],
+        answer: 2,
+        rationale: `Slide 5 e 6 da Aula 01: “Uma crise pode conter conflito; nem todo conflito é uma crise.” Enquanto a ocorrência convencional tem previsibilidade maior e decisão procedimental, a crise altera a natureza do problema decisório (decisão adaptativa e crítica).`
+      },
+      {
+        id: 3, topic: 1, origin: `inedita`,
+        stem: `[Caso Prático] Uma equipe de rádio-patrulha atende a dois chamados no mesmo plantão. No Chamado 1, dois motoristas discutem verbalmente após pequena colisão sem vítimas. No Chamado 2, um assaltante cercado após tentativa frustrada de roubo a farmácia mantém três pessoas trancadas sob ameaça de arma de fogo. À luz do conceito do FBI, qual cenário configura crise e por quê?`,
+        options: [
+          `Apenas o Chamado 2, pois representa um evento crucial que rompe a rotina operacional e exige resposta especial para assegurar solução aceitável.`,
+          `Ambos configuram crise, pois envolvem desentendimento humano e presença de viatura policial.`,
+          `Apenas o Chamado 1, porque exige mediação de trânsito e registro administrativo imediato.`,
+          `Nenhum dos dois, pois o conceito do FBI restringe-se exclusivamente a ataques terroristas internacionais.`
+        ],
+        answer: 0,
+        rationale: `O roubo frustrado com reféns é um dos exemplos expressos da Apostila (Slide 10). O Chamado 1 é um conflito/ocorrência ordinária resolúvel por protocolo comum; o Chamado 2 rompe a rotina decisória e exige resposta especial.`
+      },
+      {
+        id: 4, topic: 1, origin: `inedita`,
+        stem: `[Caso Prático] Após forte temporal na Região Metropolitana, uma encosta desliza e uma enchente grave isola moradores em área de risco iminente, exigindo coordenação extraordinária entre PM, Bombeiros e Defesa Civil. Considerando os exemplos do Slide 10 da Apostila, essa situação:`,
+        options: [
+          `Enquadra-se no conceito de crise, pois a aula cita expressamente enchentes, incêndios e ameaças de bomba entre os exemplos de crise.`,
+          `Não pode ser tratada como crise, porque não há criminoso armado nem exigência de resgate financeiro.`,
+          `Configura apenas ocorrência administrativa de rotina sem necessidade de estrutura intensificada de comando.`,
+          `Deve ser resolvida por negociação real entre o comandante da cena e os moradores.`
+        ],
+        answer: 0,
+        rationale: `O Slide 10 da Apostila lista expressamente entre os exemplos de crise: roubo frustrado, ameaça de bomba, enchente, incêndio e situação envolvendo pessoa emocionalmente perturbada. Nem toda crise tem origem criminal.`
+      },
+      {
+        id: 5, topic: 1, origin: `inedita`,
+        stem: `[Caso Prático] Diante de um indivíduo em surto emocional trancado em um apartamento com faca e mantendo um familiar sob ameaça, o comandante local afirma: “Trata-se apenas de uma ocorrência grande de briga doméstica; vamos resolver pelos procedimentos rotineiros de patrulhamento”. Essa postura contraria a doutrina porque:`,
+        options: [
+          `Crise é definida pela capacidade de ser resolvida exclusivamente por boletim de ocorrência padrão.`,
+          `Situações com faca não oferecem ameaça de vida nem compressão do tempo.`,
+          `Crise não é sinônimo de “ocorrência grande”, mas uma mudança na natureza do problema decisório que exige resposta especial (e inclui pessoa emocionalmente perturbada).`,
+          `A doutrina exige que ocorrências familiares sejam sempre encaminhadas a civis religiosos sem intervenção policial.`
+        ],
+        answer: 2,
+        rationale: `A Aula 01 (Slide 4) destaca literalmente: “Crise não é sinônimo de ‘ocorrência grande’. É uma mudança na natureza do problema de decisão.” E a Apostila (Slide 10) cita pessoa emocionalmente perturbada como exemplo clássico de crise.`
+      },
+
+      // --- TEMA 02: CONCEITO DE GERENCIAMENTO DE CRISE ---
+      {
+        id: 6, topic: 2, origin: `fonte`,
+        stem: `Segundo o Slide 12 da Apostila, gerenciamento de crises é o processo de:`,
+        options: [
+          `Atender integralmente às exigências do causador para abreviar o tempo da ocorrência.`,
+          `Identificar, obter e aplicar os recursos necessários à antecipação, prevenção e resolução de uma crise.`,
+          `Substituir o comandante da cena pelo negociador especialista em psicologia clínica.`,
+          `Aplicar fórmulas matemáticas exatas que garantem resultados idênticos em todas as ocorrências.`
+        ],
+        answer: 1,
+        rationale: `Redação exata do Slide 12 da Apostila: “identificar, obter e aplicar os recursos necessários à antecipação, prevenção e resolução de uma crise”.`
+      },
+      {
+        id: 7, topic: 2, origin: `fonte`,
+        stem: `Por que o material didático (Slide 12 da Apostila) ressalta que o gerenciamento de crises NÃO é uma ciência exata?`,
+        options: [
+          `Porque não existem critérios doutrinários nem objetivos definidos para orientar a tomada de decisão.`,
+          `Porque a aplicação da lei é facultativa durante eventos críticos urbanos.`,
+          `Porque cada crise apresenta situações únicas, dinâmicas e irrepetíveis.`,
+          `Porque as decisões tomadas pelo Estado-Maior não sofrem influência da informação disponível.`
+        ],
+        answer: 2,
+        rationale: `Conforme o Slide 12 da Apostila, o gerenciamento de crises não é uma ciência exata justamente porque “cada crise apresenta situações únicas”.`
+      },
+      {
+        id: 8, topic: 2, origin: `inedita`,
+        stem: `[Caso Prático] Meses antes de um grande festival com alta densidade populacional, o comando policial mapeia vulnerabilidades urbanas, treina operadores do 190 para triagem de sinais críticos e alinha canais entre batalhões e órgãos parceiros. À luz do conceito de gerenciamento de crises, essa atuação materializa principalmente as etapas de:`,
+        options: [
+          `Assalto tático e tiro de comprometimento.`,
+          `Negociação tática pós-ruptura e troca de reféns.`,
+          `Antecipação e prevenção da crise.`,
+          `Resolução de crise de 4º grau após colapso do perímetro.`
+        ],
+        answer: 2,
+        rationale: `O conceito de gerenciamento não abrange apenas a resposta após o evento eclodir, mas também a antecipação e a prevenção (identificar, obter e aplicar recursos previamente — Slide 12 Apostila e Aula 06 Slide 3).`
+      },
+      {
+        id: 9, topic: 2, origin: `inedita`,
+        stem: `[Caso Prático] Durante uma crise com reféns no centro comercial, a Central 190 (CECOPOM) recebe relatos parciais e imagens de redes sociais. O oficial responsável recusa-se a mobilizar recursos especiais dizendo: “Só vou decidir depois de ter 100% de certeza de tudo o que ocorre lá dentro”. Segundo a Aula 01 (Slides 12 e 33), essa postura ignora que:`,
+        options: [
+          `O comandante deve esperar certeza absoluta mesmo que o prazo fatal expire.`,
+          `Em crises, o comandante busca suficiência decisória e reavalia continuamente, pois quem espera todas as informações provavelmente decidirá tarde demais.`,
+          `Informações vindas do 190 não servem como sensor de consciência situacional.`,
+          `A negociação substitui integralmente a estrutura de Comando e Controle.`
+        ],
+        answer: 1,
+        rationale: `Aula 01 (Slide 12, 21 e 33): “O comandante não espera certeza absoluta; busca suficiência decisória.” “Em uma crise, o comandante que espera possuir todas as informações antes de decidir provavelmente decidirá tarde demais.”`
+      },
+      {
+        id: 10, topic: 2, origin: `inedita`,
+        stem: `[Caso Prático] Em uma ocorrência crítica, um indivíduo barricado em laboratório anuncia possuir agente químico/biológico letal dispersável, além de armamento pesado. Na classificação dos graus de risco (Slide 17 da Apostila), para identificar, obter e aplicar os recursos adequados, o comando enquadra o evento como:`,
+        options: [
+          `1º grau (Alto risco), resolvido exclusivamente pela tropa local ordinária.`,
+          `2º grau (Altíssimo risco), com resposta do escalão superior da tropa local sem meios especiais.`,
+          `4º grau (Ameaça exótica), exigindo os recursos do nível 3 acrescidos de recursos exóticos.`,
+          `3º grau (Ameaça extraordinária), dispensando recursos além das operações especiais convencionais.`
+        ],
+        answer: 2,
+        rationale: `Slide 17 da Apostila e Slide 9 da Aula 02: 1º Alto risco (tropa local); 2º Altíssimo risco (escalão superior da tropa local); 3º Ameaça extraordinária (OM + recursos especiais); 4º Ameaça exótica (recursos do nível 3 + recursos exóticos, como defesa QBRN/especializada).`
+      },
+
+      // --- TEMA 03: OBJETIVOS DO GERENCIAMENTO DE CRISE ---
+      {
+        id: 11, topic: 3, origin: `fonte`,
+        stem: `Quais são, expressamente, os dois objetivos do gerenciamento de crises segundo o Slide 15 da Apostila e os Slides 5 e 6 da Aula 02?`,
+        options: [
+          `Ganhar tempo e abrandar exigências.`,
+          `Colher informações e prover suporte tático.`,
+          `Neutralizar o causador a qualquer custo e evitar exposição na mídia.`,
+          `Preservar vidas e aplicar a lei.`
+        ],
+        answer: 3,
+        rationale: `Slide 15 da Apostila: “Os objetivos do gerenciamento são preservar vidas e aplicar a lei.” Ganhar tempo, abrandar exigências, colher informações e prover suporte tático são objetivos da NEGOCIAÇÃO (Slide 27).`
+      },
+      {
+        id: 12, topic: 3, origin: `fonte`,
+        stem: `Um candidato em revisão confunde os objetivos do gerenciamento de crises com os objetivos da negociação. Assinale a alternativa que separa CORRETAMENTE os dois conjuntos de acordo com a Apostila (Slides 15 e 27):`,
+        options: [
+          `Gerenciamento: ganhar tempo e prover suporte tático; Negociação: aplicar a lei e preservar vidas.`,
+          `Gerenciamento: preservar vidas e aplicar a lei; Negociação: ganhar tempo, abrandar exigências, colher informações e prover suporte tático.`,
+          `Gerenciamento: real e tática; Negociação: legal, moral e ética.`,
+          `Ambos possuem exatamente os mesmos quatro objetivos listados no slide 27.`
+        ],
+        answer: 1,
+        rationale: `O Bizu do item 4.1 da Apostila é explícito: “Gerenciamento: preservar vidas e aplicar a lei. Negociação: tempo, exigências, informações e suporte tático.”`
+      },
+      {
+        id: 13, topic: 3, origin: `inedita`,
+        stem: `[Caso Prático] Durante o planejamento da fase de plano específico em uma ocorrência de barricada doméstica sem reféns (apenas o causador armado em crise depressiva), um integrante da equipe pergunta quais vidas entram no escopo do Objetivo nº 1 (“Preservar vidas”). Conforme a Aula 02 (Slide 5), a resposta correta é:`,
+        options: [
+          `Vítimas e reféns, terceiros e comunidade, policiais e demais respondedores — devendo-se também considerar a vida do causador da crise.`,
+          `Apenas as vidas de vítimas e reféns; a vida do causador é irrelevante no planejamento policial.`,
+          `Somente os policiais da equipe tática e o comandante da cena.`,
+          `Exclusivamente os familiares que aguardam no perímetro externo.`
+        ],
+        answer: 0,
+        rationale: `O Slide 5 da Aula 02 enumera expressamente sob “PRESERVAR VIDAS”: Vítimas e reféns; Terceiros e comunidade; Policiais e demais respondedores; e “Também considerar a vida do causador da crise”.`
+      },
+      {
+        id: 14, topic: 3, origin: `inedita`,
+        stem: `[Caso Prático] Após cinco horas de negociação em um roubo a banco frustrado, o criminoso propõe liberar os seis reféns caso o comandante garanta por escrito que ele sairá livre pela porta da frente sem ser preso ou processado. A recusa dessa proposta fundamenta-se diretamente no segundo objetivo do gerenciamento de crises, porque:`,
+        options: [
+          `Dinheiro e liberdade de fuga sem controle são exigências não absurdas da Regra 8.`,
+          `O negociador tem autonomia para assinar salvo-conduto penal em nome do Judiciário.`,
+          `Aplicar a lei exige que a decisão seja legal, necessária e proporcional, impedindo pactos de impunidade.`,
+          `Preservar vidas significa sempre conceder qualquer pedido criminal para encerrar a crise rápido.`
+        ],
+        answer: 2,
+        rationale: `Aula 02 (Slide 6): Preservação da vida caminha com Aplicação da lei (decisão legal, necessária e proporcional). Garantir impunidade ou libertação ilícita viola o objetivo nº 2.`
+      },
+      {
+        id: 15, topic: 3, origin: `inedita`,
+        stem: `[Caso Prático] Em uma tentativa de assalto em loja movimentada, o primeiro interventor avista o assaltante atrás do balcão mantendo uma funcionária sob mira. Mesmo havendo grande circulação de clientes na linha de tiro, um policial sugere efetuar disparos imediatos para “resolver logo e prender em flagrante”. Tal conduta deve ser impedida pelo comando porque:`,
+        options: [
+          `Disparos em flagrante dispensam qualquer avaliação de risco ou proporcionalidade.`,
+          `Viola o Objetivo nº 1 (Preservação da vida de reféns e terceiros), que é o eixo prioritário das escolhas operacionais.`,
+          `A aplicação da lei sempre prevalece sobre a integridade física de terceiros e reféns.`,
+          `O primeiro interventor não tem o dever de conter e isolar o ponto crítico.`
+        ],
+        answer: 1,
+        rationale: `Aula 01 (Slide 14) e Aula 02 (Slide 5): A preservação da vida é o Objetivo nº 1 e o eixo que organiza prioridades, riscos e escolhas. Atirar com terceiros e reféns em risco imediato inverte a prioridade doutrinária.`
+      },
+
+      // --- TEMA 04: CARACTERÍSTICAS DA CRISE ---
+      {
+        id: 16, topic: 4, origin: `fonte`,
+        stem: `Qual alternativa reúne exclusivamente as quatro características da crise previstas no Slide 11 da Apostila e no Slide 4 da Aula 02?`,
+        options: [
+          `Aceitabilidade, validade do risco, necessidade e legalidade.`,
+          `Pré-confrontação, resposta imediata, plano específico e resolução.`,
+          `Rapport, escuta ativa, empatia e barganha.`,
+          `Imprevisibilidade, compressão do tempo, ameaça de vida e necessidade de ação técnica.`
+        ],
+        answer: 3,
+        rationale: `Slide 11 da Apostila: Imprevisibilidade; compressão do tempo; ameaça de vida; necessidade de ação técnica. As outras opções listam critérios de ação (A), fases de confrontação (C) e técnicas de comunicação (D).`
+      },
+      {
+        id: 17, topic: 4, origin: `fonte`,
+        stem: `Segundo o Slide 11 da Apostila, a característica da “necessidade de ação técnica” exige do aparato policial:`,
+        options: [
+          `Manutenção estrita das rotinas administrativas ordinárias sem alteração do comando.`,
+          `Abolição do planejamento analítico em razão da urgência da situação.`,
+          `Postura organizacional não rotineira, planejamento analítico especial e considerações legais especiais.`,
+          `Transferência imediata da tomada de decisão aos familiares do causador.`
+        ],
+        answer: 2,
+        rationale: `Slide 11 da Apostila: “A ação técnica exige postura organizacional não rotineira, planejamento analítico especial e considerações legais especiais.”`
+      },
+      {
+        id: 18, topic: 4, origin: `inedita`,
+        stem: `[Caso Prático] Às 22h40, o 190 recebe chamada de homem armado em residência. Às 22h43, a equipe relata possível vítima; às 22h46, familiares chegam ao local; às 22h49, vídeos circulam nas redes; às 22h52, surge relato não confirmado de uma terceira vítima. Uma segunda guarnição chega e relata cenário distinto da primeira. Essa evolução exemplifica intensamente a característica da:`,
+        options: [
+          `Imprevisibilidade, marcada por informação incompleta, fontes contraditórias, comportamento dinâmico e efeito cascata.`,
+          `Previsibilidade administrativa, típica de ocorrências convencionais.`,
+          `Estabilidade informacional, que permite aguardar certeza absoluta antes de qualquer contenção.`,
+          `Aceitabilidade ética das ações policiais.`
+        ],
+        answer: 0,
+        rationale: `Esse é exatamente o Caso RJ 1 / Exercício da Aula 01 (Slides 10, 20 e 28–29), demonstrando os quatro elementos da Imprevisibilidade: informação incompleta, informação contraditória, comportamento dinâmico e efeito cascata.`
+      },
+      {
+        id: 19, topic: 4, origin: `inedita`,
+        stem: `[Caso Prático] Em um incidente de atirador ativo ou barricada com risco crescente, o comandante percebe que a janela decisória está se estreitando rapidamente e que “quanto maior a urgência, menor a disponibilidade de informação confiável”. Esse fenômeno ilustra:`,
+        options: [
+          `A fase de resolução já concluída com sucesso.`,
+          `A ausência de ameaça à vida no teatro de operações.`,
+          `A compressão do tempo e o chamado paradoxo da decisão.`,
+          `A dispensa de reavaliação contínua após a primeira decisão.`
+        ],
+        answer: 2,
+        rationale: `Aula 01 (Slides 12 e 13): Na Compressão do Tempo, menos tempo + mais variáveis aumentam o risco de erro, gerando o Paradoxo da Decisão (“Quanto maior a urgência, menor pode ser a disponibilidade de informação confiável”).`
+      },
+      {
+        id: 20, topic: 4, origin: `inedita`,
+        stem: `[Caso Prático] Em uma questão discursiva de prova, o examinador pede que o oficial diferencie “características da crise” de “exigências da ação técnica”. Assinale a assertiva que faz essa distinção SEM erros:`,
+        options: [
+          `Postura organizacional não rotineira é uma característica da crise, enquanto ameaça de vida é uma exigência da ação técnica.`,
+          `Validade do risco e necessidade são características da crise; imprevisibilidade é um critério de ação.`,
+          `Não há distinção entre características da crise, exigências da ação técnica e critérios de ação.`,
+          `Compressão do tempo e ameaça de vida são características da crise; considerações legais especiais e planejamento analítico especial são exigências decorrentes da necessidade de ação técnica.`
+        ],
+        answer: 3,
+        rationale: `Conforme o Bizu do item 1.2 da Apostila: não confundir as 4 características (imprevisibilidade, compressão do tempo, ameaça de vida, necessidade de ação técnica) com as 3 exigências que decorrem da ação técnica (postura não rotineira, planejamento analítico especial e considerações legais especiais).`
+      },
+
+      // --- TEMA 05: FASES DE CONFRONTAÇÃO ---
+      {
+        id: 21, topic: 5, origin: `fonte`,
+        stem: `Conforme os Slides 20 e 21 da Apostila, qual é a sequência cronológica correta das quatro fases de confrontação?`,
+        options: [
+          `Resposta imediata → Pré-confrontação → Resolução → Plano específico.`,
+          `Plano específico → Pré-confrontação → Resposta imediata → Resolução.`,
+          `Pré-confrontação → Resposta imediata → Plano específico → Resolução.`,
+          `Pré-confrontação → Plano específico → Resposta imediata → Negociação.`
+        ],
+        answer: 2,
+        rationale: `Slide 20–21 da Apostila: 1) Pré-confrontação (antecede o evento); 2) Resposta imediata (conter, isolar e iniciar negociações); 3) Plano específico (elaboração e escolha); 4) Resolução (implementação).`
+      },
+      {
+        id: 22, topic: 5, origin: `fonte`,
+        stem: `Qual das fases de confrontação é expressamente considerada a “fase mais delicada” no material da Apostila (Slide 21)?`,
+        options: [
+          `Pré-confrontação.`,
+          `Resposta imediata.`,
+          `Resolução.`,
+          `Plano específico.`
+        ],
+        answer: 2,
+        rationale: `Item 3.1 da Apostila (Slide 21): “4. Resolução: implementação do plano específico, considerada a fase mais delicada no material.”`
+      },
+      {
+        id: 23, topic: 5, origin: `fonte`,
+        stem: `Se o enunciado da questão perguntar qual é a sequência de opções táticas atribuída expressamente ao FBI no Slide 22 da Apostila, a alternativa correta é:`,
+        options: [
+          `Negociação; uso de agentes químicos não letais; tiro de neutralização por sniper; assalto.`,
+          `Negociação; negociação tática; negociação em conjunto com ações táticas; ações táticas ou assalto.`,
+          `Assalto; agentes químicos; tiro de neutralização; negociação.`,
+          `Tiro de neutralização; negociação tática; contenção; pré-confrontação.`
+        ],
+        answer: 0,
+        rationale: `Bizu do Slide 22: não misture as duas listas! A sequência geral é (A). A sequência atribuída ao FBI é (B): negociação → uso de agentes químicos não letais → tiro de neutralização por sniper → assalto.`
+      },
+      {
+        id: 24, topic: 5, origin: `inedita`,
+        stem: `[Caso Prático] Após duas horas de crise em uma agência lotérica já devidamente isolada e contida, com a negociação em curso e os croquis do prédio analisados, o gerente da crise reúne seu Estado-Maior para elaborar e escolher entre manter a solução negociada ou preparar solução tática. Em qual fase de confrontação encontra-se o evento?`,
+        options: [
+          `Pré-confrontação, pois a equipe ainda está planejando antes da eclosão do fato.`,
+          `Resposta imediata, pois o isolamento ainda está sendo iniciado pela primeira viatura.`,
+          `Resolução, pois o plano já foi escolhido e está sendo fisicamente executado no momento.`,
+          `Plano específico, que corresponde à elaboração e escolha da solução (tática, negociada ou transferida).`
+        ],
+        answer: 3,
+        rationale: `O Bizu 3.1 da Apostila alerta: “Escolher o plano e implementá-lo são fases diferentes.” Elaborar e escolher a solução pertencem à fase de Plano Específico; implementar o plano pertence à fase de Resolução.`
+      },
+      {
+        id: 25, topic: 5, origin: `inedita`,
+        stem: `[Caso Prático] Um batalhão realiza exercícios simulados de gerenciamento de crises com suas guarnições ordinárias, revisa protocolos de comunicação em ciclo fechado e mapeia pontos vulneráveis de sua área antes que qualquer evento crítico ocorra. Essa atividade situa-se na fase de:`,
+        options: [
+          `Pré-confrontação.`,
+          `Resposta imediata.`,
+          `Plano específico.`,
+          `Resolução.`
+        ],
+        answer: 0,
+        rationale: `A Pré-confrontação é a fase que antecede o evento crítico (Slide 20–21 Apostila), envolvendo preparo, planejamento prévio, treinamento e prevenção antes da eclosão da crise.`
+      },
+
+      // --- TEMA 06: CRITÉRIOS DE AÇÃO DOUTRINÁRIOS ---
+      {
+        id: 26, topic: 6, origin: `fonte`,
+        stem: `São critérios de ação doutrinários que orientam a tomada de decisão no gerenciamento de crises (Slide 16 da Apostila e Slide 7 da Aula 02):`,
+        options: [
+          `Surpresa, rapidez e força máxima.`,
+          `Imprevisibilidade, compressão do tempo e ameaça de vida.`,
+          `Escuta ativa, paráfrase e rotulação emocional.`,
+          `Aceitabilidade, validade do risco e necessidade.`
+        ],
+        answer: 3,
+        rationale: `Slide 16 da Apostila e Slide 7 da Aula 02: os três critérios de ação são Aceitabilidade (legal, moral e ética), Validade do risco e Necessidade.`
+      },
+      {
+        id: 27, topic: 6, origin: `fonte`,
+        stem: `No critério doutrinário da aceitabilidade (Slide 16 da Apostila), a ação policial deve ser avaliada expressamente sob as dimensões:`,
+        options: [
+          `Financeira, midiática e eleitoral.`,
+          `Legal, moral e ética.`,
+          `Logística, balística e climática.`,
+          `Exclusivamente emocional e subjetiva.`
+        ],
+        answer: 1,
+        rationale: `Item 1.4 da Apostila (Slide 16): a aceitabilidade deve ser considerada nas dimensões legal, moral e ética.`
+      },
+      {
+        id: 28, topic: 6, origin: `inedita`,
+        stem: `[Caso Prático] Em um sequestro em loja, o causador aceita se render, joga a arma ao chão e sai com as mãos sobre a cabeça obedecendo às ordens. Um integrante sugere o uso de munição de impacto controlado ou força contundente “para garantir que ele não tente nada”. À luz dos critérios de ação (Aula 02, Slide 7), essa sugestão deve ser rejeitada por violar primordialmente o critério da:`,
+        options: [
+          `Necessidade (“A ação é realmente necessária?”), uma vez que a ameaça cessou e a rendição está em curso.`,
+          `Imprevisibilidade, pois o suspeito já não oferece surpresa.`,
+          `Pré-confrontação, pois a fase já havia terminado.`,
+          `Barganha material, já que não foram oferecidos itens negociáveis.`
+        ],
+        answer: 0,
+        rationale: `Diante de rendição efetiva e controlada sem resistência ou ameaça atual, o emprego de força adicional não passa pelo crivo da Necessidade (nem da proporcionalidade/aceitabilidade).`
+      },
+      {
+        id: 29, topic: 6, origin: `inedita`,
+        stem: `[Caso Prático] Sem ter confirmação visual do posicionamento dos três reféns dentro de uma residência escura e com paredes frágeis, e estando o causador em diálogo colaborativo pelo telefone, um oficial propõe invadir de imediato ou efetuar disparo através da janela contra uma silhueta indefinida. Essa decisão falha no critério da:`,
+        options: [
+          `Validade do risco (os riscos operacionais e à vida superam gravemente qualquer benefício e não há respaldo técnico/informação suficiente).`,
+          `Honestidade do negociador (Regra 7).`,
+          `Tipologia do causador como fanático político.`,
+          `Síndrome de Estocolmo invertida.`
+        ],
+        answer: 0,
+        rationale: `Pelo critério da Validade do risco (e requisitos do tiro de comprometimento/assalto tático na Aula 02 Slides 15–16), não se pode assumir risco desproporcional às cegas quando há canal de negociação ativo e ausência de ameaça iminente irreversível.`
+      },
+      {
+        id: 30, topic: 6, origin: `inedita`,
+        stem: `[Caso Prático] Para acelerar o encerramento de uma crise com pessoa em surto psicótico, um policial propõe que o negociador apresente um documento judicial falsificado garantindo imunidade penal absoluta caso o indivíduo saia do imóvel. O comando veta a ideia imediatamente com base no critério da:`,
+        options: [
+          `Compressão do tempo, pois demoraria para imprimir o documento.`,
+          `Classificação de 1º grau de risco.`,
+          `Aceitabilidade (legal, moral e ética), pois as consequências e meios ilícitos não são justificáveis, além de destruir a confiança (Regra 7).`,
+          `Proibição de fornecer alimentos e água.`
+        ],
+        answer: 2,
+        rationale: `Falsificar documento ou simular garantia jurídica ilegal viola diretamente a Aceitabilidade legal, moral e ética (Slide 16) e a Regra 7 (ser tão honesto quanto possível).`
+      },
+
+      // --- TEMA 07: MEDIDAS DO PRIMEIRO INTERVENTOR ---
+      {
+        id: 31, topic: 7, origin: `fonte`,
+        stem: `Na Apostila (Slide 21), as três medidas essenciais da fase de Resposta Imediata — executadas logo na chegada ao evento crítico — são:`,
+        options: [
+          `Conter, isolar e iniciar as negociações.`,
+          `Assaltar, interrogar e liberar a via pública.`,
+          `Trocar reféns, fornecer transporte e encerrar a coleta de informações.`,
+          `Definir o plano específico, executar o tiro de comprometimento e fazer o debriefing.`
+        ],
+        answer: 0,
+        rationale: `Bizu 3.1 da Apostila (Slide 21): “Conter, isolar e iniciar negociações pertencem à resposta imediata.”`
+      },
+      {
+        id: 32, topic: 7, origin: `fonte`,
+        stem: `Segundo o Slide 8 da Aula 02 (“Resposta imediata: os primeiros minutos”), além de isolar e conter, compõem a atuação do primeiro interventor sob o princípio operacional de ganhar tempo:`,
+        options: [
+          `Microgerenciar cada policial da cena e divulgar hipóteses não confirmadas à imprensa.`,
+          `Iniciar assalto tático imediato antes da chegada de reforços ou avaliação de risco.`,
+          `Entregar o comando da operação a um familiar do causador para acalmar os ânimos.`,
+          `Reconhecer a crise, proteger/retirar vítimas, estabelecer comando, coletar informação e acionar recursos especializados.`
+        ],
+        answer: 3,
+        rationale: `Slide 8 da Aula 02 lista exatamente: Reconhecer a crise; Isolar e conter; Proteger/retirar vítimas; Estabelecer comando; Coletar informação; Acionar recursos especializados — sempre sob o princípio de ganhar tempo.`
+      },
+      {
+        id: 33, topic: 7, origin: `inedita`,
+        stem: `[Caso Prático — Cenário Alfa] Uma guarnição de patrulhamento ordinário é a primeira a chegar a uma loja onde um ex-empregado armado mantém duas pessoas sob ameaça. Populares se aglomeram na calçada filmando e familiares gritam na porta. Qual deve ser a postura prioritária do comandante da primeira guarnição?`,
+        options: [
+          `Entrar imediatamente na loja de arma em punho para surpreender o ex-empregado antes que cheguem reforços.`,
+          `Isolar o perímetro afastando curiosos e familiares, conter o causador no interior da loja, proteger terceiros próximos, estabelecer abrigo e canal inicial calmo, coletar EEI e acionar o escalão superior/equipe especializada.`,
+          `Permitir que o supervisor da loja e a esposa do causador entrem juntos para conversar com ele.`,
+          `Informar pelo rádio aberto que há três vítimas fatais confirmadas, mesmo ouvindo apenas gritos.`
+        ],
+        answer: 1,
+        rationale: `Baseado no Cenário Alfa (Aula 02, Slide 19) e nos primeiros minutos (Slide 8): o 1º interventor NÃO invade às cegas, NÃO envolve civis/familiares e NÃO trata relato não confirmado como fato; ele isola, contém, protege terceiros, coleta EEI, estabelece comando e aciona especialistas.`
+      },
+      {
+        id: 34, topic: 7, origin: `inedita`,
+        stem: `[Caso Prático] Ao chegar primeiro a uma ocorrência onde um homem armado ameaça atentar contra a própria vida e a de uma vizinha na varanda, o policial desce da viatura gritando: “Você está errado, larga essa faca agora ou vamos invadir!”. Conforme as Aulas 03 e 06, esse erro do primeiro interventor provoca:`,
+        options: [
+          `Estabilização imediata da cena pelo choque de autoridade.`,
+          `Ruído psicológico e escalada da tensão (síndrome do “guerreiro”), aumentando a ameaça percebida e reduzindo o tempo seguro.`,
+          `Formação instantânea de rapport por firmeza vocal.`,
+          `Aplicação perfeita da técnica de escuta ativa e reenquadramento.`
+        ],
+        answer: 1,
+        rationale: `Aula 03, 04 e 06: gritos, confronto frontal e disputa de ego (“síndrome do guerreiro”) geram ruído psicológico e elevam a ativação emocional. O primeiro interventor deve baixar a temperatura, estabilizar, conter e ganhar tempo.`
+      },
+      {
+        id: 35, topic: 7, origin: `inedita`,
+        stem: `[Caso Prático] Durante a coleta inicial de Elementos Essenciais de Informação (EEI) pelo primeiro interventor, uma testemunha assustada afirma ter ouvido “que há três homens com fuzis lá dentro”, mas nenhum policial visualizou mais de um indivíduo. Aplicando os ensinamentos do Slide 18 (Apostila) e do Slide 21 (Aula 01), o interventor deve:`,
+        options: [
+          `Registrar o dado explicitamente como relato não confirmado (separando fato, relato e hipótese) enquanto busca confirmação por outras fontes dos EEI.`,
+          `Transmitir via rádio ao comando que “há três fuzis confirmados” para acelerar o envio do BOPE.`,
+          `Descartar totalmente o relato da testemunha e não registrar nada.`,
+          `Ordenar retirada geral do isolamento até que a testemunha assine termo de declaração.`
+        ],
+        answer: 0,
+        rationale: `Bizu 2.2 da Apostila: “Identifique fontes e evite tratar informação ainda não confirmada como certeza.” Aula 01 (Slide 21 e 31): consciência situacional exige distinguir fato, relato e hipótese.`
+      },
+
+      // --- TEMA 08: CONCEITO DE RAPPORT ---
+      {
+        id: 36, topic: 8, origin: `fonte`,
+        stem: `De acordo com o Slide 37 da Apostila, o conceito de Rapport (grafado “Raport” no slide) significa:`,
+        options: [
+          `A autorização formal do comandante para troca de reféns durante a negociação tática.`,
+          `A distância mínima de segurança para o posicionamento do sniper.`,
+          `O elo de confiança entre o negociador e o agente causador da crise.`,
+          `O relatório final redigido após o encerramento da fase de resolução.`
+        ],
+        answer: 2,
+        rationale: `Slide 37 da Apostila: Rapport “é o elo de confiança entre o negociador e o agente causador da crise”.`
+      },
+      {
+        id: 37, topic: 8, origin: `fonte`,
+        stem: `Qual é o encadeamento lógico apresentado na aula (Slide 37 da Apostila) que demonstra a importância do contato e do rapport para o desfecho da crise?`,
+        options: [
+          `Sem assalto não há conversa; sem conversa não há força; sem força não há solução pacífica.`,
+          `Sem prazo fatal não há barganha; sem barganha não há troca de reféns; sem troca não há acordo.`,
+          `Sem interlocutor civil não há empatia; sem empatia não há decisão tática.`,
+          `Sem contato não há conversa; sem conversa não há barganha; sem barganha não há negociação; sem negociação não há solução pacífica.`
+        ],
+        answer: 3,
+        rationale: `Encadeamento literal do Slide 37 da Apostila: “sem contato não há conversa; sem conversa não há barganha; sem barganha não há negociação; sem negociação não há solução pacífica.”`
+      },
+      {
+        id: 38, topic: 8, origin: `inedita`,
+        stem: `[Caso Prático] Após duas horas de diálogo, o negociador conquista forte rapport com o causador, que passa a chamá-lo pelo nome e a confiar apenas nele. Aproveitando esse vínculo, o negociador decide por conta própria autorizar a entrega de um veículo e prometer que ninguém será algemado na saída. Essa conduta está ERRADA porque:`,
+        options: [
+          `Quando há rapport, o comandante da cena perde automaticamente a autoridade operacional.`,
+          `O rapport é um vínculo de confiança, mas NÃO transfere poder decisório ao negociador (“quem decide não negocia, quem negocia não decide”).`,
+          `O negociador deve ser hostil para evitar que o causador confie nele.`,
+          `Veículos são itens sempre proibidos, mesmo quando há vantagem tática.`
+        ],
+        answer: 1,
+        rationale: `Bizu 4.3 e 5.1 da Apostila: Rapport significa vínculo de confiança, NÃO é transferência de poder decisório ao negociador. Todo pedido ou alternativa depende do comandante/gerente da crise.`
+      },
+      {
+        id: 39, topic: 8, origin: `inedita`,
+        stem: `[Caso Prático] Em uma ocorrência de barricada, o causador apresenta discurso desconexo e afirma convictamente que “agentes secretos estão escondidos dentro das paredes para matá-lo”. Para construir rapport e reduzir a ativação emocional segundo a Aula 03 (Perfil Psicótico), o negociador deve:`,
+        options: [
+          `Não confrontar o delírio de forma humilhante nem validar a crença falsa, mas validar a emoção (“Entendo que isso parece muito ameaçador para você”) com frases curtas e previsibilidade.`,
+          `Debater firmemente dizendo: “Isso é delírio, não existe ninguém na parede, caia na real!”.`,
+          `Validar a crença falsa dizendo: “Realmente há agentes aí, mas vamos tirá-los se você abrir a porta”.`,
+          `Falar rapidamente diversas instruções simultâneas para distrair o indivíduo.`
+        ],
+        answer: 0,
+        rationale: `Aula 03 (Perfil Psicótico): “Não confronte o delírio de forma humilhante. Não valide a crença falsa. Valide a emoção: ‘Entendo que isso parece muito ameaçador para você.’ Use linguagem simples e uma instrução por vez.”`
+      },
+      {
+        id: 40, topic: 8, origin: `inedita`,
+        stem: `[Caso Prático] Na primeira abordagem de contato (Slides 38–43 da Apostila) e na Escada da Mudança Comportamental (Aula 03), qual postura do negociador favorece a construção genuína do rapport com um jovem envolvido em roubo frustrado?`,
+        options: [
+          `Imitar as gírias e os trejeitos do causador para parecer “da mesma turma” e perguntar “Por que você fez essa besteira?”.`,
+          `Manter silêncio absoluto e aguardar que o causador redija um bilhete formal antes de qualquer fala.`,
+          `Demonstrar superioridade moral lembrando ao causador que ele destruiu a própria família.`,
+          `Apresentar nome e instituição, perguntar como chamá-lo e o que está acontecendo, usar escuta ativa, linguagem compreensível e evitar imitar gírias ou fazer perguntas acusatórias.`
+        ],
+        answer: 3,
+        rationale: `Slides 38–43 da Apostila: informar nome e instituição, perguntar como chamar a pessoa e o que está acontecendo, usar perguntas descritivas, linguagem compreensível e EVITAR imitar gírias e trejeitos (que soa falso e quebra a confiança).`
+      },
+
+      // --- TEMA 09: ITENS NEGOCIÁVEIS E NÃO NEGOCIÁVEIS ---
+      {
+        id: 41, topic: 9, origin: `fonte`,
+        stem: `Assinale a alternativa que apresenta SOMENTE itens expressamente classificados como negociáveis no Slide 46 da Apostila:`,
+        options: [
+          `Armas, bebidas alcoólicas e libertação de presos.`,
+          `Alimentação, bebidas não alcoólicas e dinheiro.`,
+          `Troca de reféns, dinheiro e remédios benignos.`,
+          `Remédios entorpecentes, alimentação e transporte sem avaliação tática.`
+        ],
+        answer: 1,
+        rationale: `Slide 46 da Apostila: são itens negociáveis alimentação, bebidas não alcoólicas, dinheiro, remédios benignos e transportes (sob condição de vantagem tática).`
+      },
+      {
+        id: 42, topic: 9, origin: `fonte`,
+        stem: `De acordo com o Slide 46 da Apostila, o item “transportes” é classificado como negociável:`,
+        options: [
+          `Em qualquer hipótese, bastando que o causador prometa liberar um refém no trajeto.`,
+          `Somente se houver vantagem tática.`,
+          `Apenas quando o negociador autorizar sozinho sem consultar o gerente da crise.`,
+          `Nunca, pois consta na lista de itens não negociáveis do slide 47.`
+        ],
+        answer: 1,
+        rationale: `Bizu 6.1 da Apostila: “Para transportes, existe condição expressa: somente se houver vantagem tática.”`
+      },
+      {
+        id: 43, topic: 9, origin: `fonte`,
+        stem: `Qual dos itens abaixo consta expressamente no Slide 47 da Apostila como NÃO negociável por afetar as recomendações doutrinárias para uma boa negociação?`,
+        options: [
+          `Libertação de presos.`,
+          `Água mineral.`,
+          `Remédios benignos.`,
+          `Alimentação.`
+        ],
+        answer: 0,
+        rationale: `Slide 47 enumera como não negociáveis: troca de reféns; bebidas alcoólicas e remédios entorpecentes; fornecimento de armas; libertação de presos; e itens amorais.`
+      },
+      {
+        id: 44, topic: 9, origin: `inedita`,
+        stem: `[Caso Prático] Um assaltante cercado em casa lotérica envia três exigências ao negociador: (I) duas caixas de cerveja gelada; (II) R$ 5.000 em cédulas trocadas; (III) um revólver calibre .38 sobressalente. À luz exclusiva dos Slides 46 e 47 da Apostila, como esses itens são classificados respectivamente?`,
+        options: [
+          `I – Negociável; II – Não negociável; III – Não negociável.`,
+          `I – Não negociável; II – Negociável; III – Não negociável.`,
+          `Todos os três são não negociáveis.`,
+          `I – Negociável; II – Negociável; III – Negociável sob vantagem tática.`
+        ],
+        answer: 1,
+        rationale: `Pegadinha clássica: na Apostila (Slide 46), DINHEIRO é item negociável! Já bebidas alcoólicas (cerveja) e fornecimento de armas (revólver) são não negociáveis (Slide 47).`
+      },
+      {
+        id: 45, topic: 9, origin: `inedita`,
+        stem: `[Caso Prático] Durante negociação de quatro horas, o causador afirma que uma senhora refém está passando mal por falta de anti-hipertensivo de uso contínuo (remédio benigno), mas exige que: (1) entreguem também comprimidos entorpecentes para ele relaxar, e (2) um policial desarmado entre para substituir a senhora. Como o comando deve tratar esses pedidos?`,
+        options: [
+          `Aceitar a troca do policial pela senhora por ser gesto humanitário previsto na Regra 14.`,
+          `Atender ao remédio benigno/atendimento médico da senhora; negar os entorpecentes e recusar terminantemente a troca de reféns (evitando negativa seca nas falas do negociador).`,
+          `Entregar os entorpecentes para provocar sonolência no causador e resolver rapidamente.`,
+          `Negar inclusive o anti-hipertensivo da senhora, pois todo medicamento é proibido no slide 47.`
+        ],
+        answer: 1,
+        rationale: `Slide 46–47 e Regras 8, 9 e 14: remédios benignos e atendimento médico são negociáveis e atendíveis (Regra 8). Já remédios entorpecentes e troca de reféns são expressamente não negociáveis.`
+      },
+
+      // --- TEMA 10: AS 15 REGRAS BÁSICAS ---
+      {
+        id: 46, topic: 10, origin: `fonte`,
+        stem: `Segundo o Slide 74 da Apostila, a Regra nº 9 (“Nunca dizer não”) significa:`,
+        options: [
+          `Aceitar automaticamente e cumprir todas as exigências feitas pelo causador.`,
+          `Transferir o poder decisório total ao negociador para que ele atenda às demandas na hora.`,
+          `Proibir o negociador de encerrar qualquer conversa até que o causador se renda.`,
+          `Evitar uma negativa seca, podendo o negociador registrar a demanda e encaminhá-la a quem decide (sem significar dizer sempre sim).`
+        ],
+        answer: 3,
+        rationale: `Slide 74 (Bizu 6.3 e Regra 9): “A regra ‘nunca dizer não’ é explicada como evitar uma negativa seca. Não significa aceitar tudo. O negociador pode registrar a demanda e encaminhá-la a quem decide.”`
+      },
+      {
+        id: 47, topic: 10, origin: `fonte`,
+        stem: `Considerando as Regras 6 e 14 da Apostila (Slides 69–79), assinale a conduta CORRETA durante o diálogo com o causador:`,
+        options: [
+          `Repetir constantemente a palavra “reféns” para sensibilizar o causador quanto ao crime cometido.`,
+          `Permitir troca de reféns quando um terceiro voluntário se oferecer para substituir uma vítima.`,
+          `Fazer sugestões alternativas livres sem consultar o gerente da crise para agilizar o acordo.`,
+          `Evitar atenção frequente às vítimas, não chamá-las de reféns (usar “as pessoas que estão aí”) e não permitir qualquer troca de reféns.`
+        ],
+        answer: 3,
+        rationale: `Regra 6: evitar atenção frequente às vítimas e não chamá-las de reféns (“as pessoas que estão aí”). Regra 14: não permitir qualquer troca de reféns (aspecto ético, risco e abalo do vínculo).`
+      },
+      {
+        id: 48, topic: 10, origin: `inedita`,
+        stem: `[Caso Prático] Um causador exige conversar diretamente com seu pastor e solicita que um psicólogo civil da comunidade assuma a frente da negociação tática. À luz da Regra 13 (Slide 78) e do tópico sobre Interlocutores (Slide 44), a equipe policial deve:`,
+        options: [
+          `Envolver o pastor e o psicólogo civil como negociadores principais para criar empatia religiosa.`,
+          `Não envolver pessoas civis na negociação; religiosos, profissionais do comportamento e familiares não são recomendados como interlocutores e não há seu uso em negociação tática.`,
+          `Permitir apenas que o familiar controle a situação e decida sobre as concessões.`,
+          `Substituir o negociador policial pelo psicólogo civil assim que houver rapport.`
+        ],
+        answer: 1,
+        rationale: `Regra 13 (Slide 78): Não envolver pessoas civis na negociação. Slide 44 (Interlocutores): o material não recomenda religiosos, profissionais do comportamento e familiares como interlocutores e afirma que não há seu uso em negociação tática.`
+      },
+      {
+        id: 49, topic: 10, origin: `inedita`,
+        stem: `[Caso Prático] Pelo telefone, o sequestrador dispara: “Se o carro blindado não chegar em 15 minutos exatos, começo a atirar! Ou vocês querem propor outra coisa?”. Diante dessa fala, aplicando as Regras 11 e 12, o negociador deve:`,
+        options: [
+          `Nunca estabelecer e procurar não aceitar prazo fatal (Regra 11) e não fazer sugestões alternativas sem anuência do gerente da crise (Regra 12).`,
+          `Aceitar o prazo de 15 minutos e imediatamente sugerir um plano alternativo de fuga por iniciativa própria.`,
+          `Estabelecer um contraprazo fatal de 10 minutos para pressionar o criminoso psicologicamente.`,
+          `Dizer “Não aceitamos seu prazo!” de forma seca e desligar o telefone para puni-lo.`
+        ],
+        answer: 0,
+        rationale: `Regra 11: Nunca estabelecer e procurar não aceitar prazo fatal (compromete a confiança e o objetivo de ganhar tempo). Regra 12: Não fazer sugestões alternativas (exceção apenas mediante anuência do gerente da crise).`
+      },
+      {
+        id: 50, topic: 10, origin: `inedita`,
+        stem: `[Caso Prático] Em uma ocorrência no Brasil sem telefone funcional no ponto crítico, avalia-se o contato direto face a face entre negociador e causador. Combinando a Regra 15 (Slide 79) e os Slides 42–45 da Apostila, qual afirmação está estritamente CORRETA?`,
+        options: [
+          `O contato direto face a face é a modalidade mais recomendada pelo FBI por eliminar o risco ao negociador.`,
+          `O negociador deve aproximar-se a menos de dois metros para demonstrar coragem e abordar vários causadores juntos.`,
+          `Caso ocorra contato face a face, não há necessidade de manter rota de escape nem de evitar movimentos bruscos.`,
+          `Deve-se evitar negociar cara a cara; embora usado em situações no Brasil, não é recomendado pelo FBI e exige rapport prévio, acordo de não agressão, rota de escape, não estar sob arma apontada e distância nunca inferior a dez metros.`
+        ],
+        answer: 3,
+        rationale: `Slide 45: contato direto face a face não é recomendado pelo FBI, embora seja utilizado em situações no Brasil. Regra 15 (Slide 79) + 5.2 (Slides 38–43): evitar negociar cara a cara; se necessário, condicionado a rapport, acordo de não agressão, não dialogar sob arma apontada, não abordar mais de um causador por vez, rota de escape, sem movimentos bruscos e distância nunca inferior a 10 metros.`
+      }
+    ];
+
+    // =========================================================================
+    // STATE MANAGEMENT (with Gemini Notebook Shim API)
+    // =========================================================================
+    let appState = {
+      masteredTopics: {},   // { "1": true, ... }
+      quizAnswers: {},      // { "1": 0, ... } (questionId -> chosen option index)
+      quizMode: 'study',    // 'study' | 'exam'
+      examSubmitted: false,
+      checklist: [false, false, false, false, false, false],
+      demandAnswers: {}     // { "dm1": "neg", ... }
+    };
+
+    let currentPhase = 1;
+    let currentRulesFilter = 'all';
+    let simuladoFilters = { origin: 'all', topic: 'all', status: 'all' };
+    let currentPage = 1;
+    const PAGE_SIZE = 10;
+    let showStatsOpen = false;
+
+    async function loadPersistedState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (saved.masteredTopics) appState.masteredTopics = saved.masteredTopics;
+            if (saved.quizAnswers) appState.quizAnswers = saved.quizAnswers;
+            if (saved.quizMode === 'study' || saved.quizMode === 'exam') appState.quizMode = saved.quizMode;
+            if (typeof saved.examSubmitted === 'boolean') appState.examSubmitted = saved.examSubmitted;
+            if (Array.isArray(saved.checklist) && saved.checklist.length === 6) appState.checklist = saved.checklist;
+            if (saved.demandAnswers) appState.demandAnswers = saved.demandAnswers;
+          }
+        } catch (err) {
+          // Graceful fallback if outside host
+        }
+      }
+    }
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          // Ignore outside host
+        }
+      }
+    }
+
+    // =========================================================================
+    // INTERACTIVE HANDLERS (All hoisted `function` declarations)
+    // =========================================================================
+    function toggleTopicMastery(topicId) {
+      const key = String(topicId);
+      appState.masteredTopics[key] = !appState.masteredTopics[key];
+      renderMasteryUI();
+      persistState();
+    }
+
+    function renderMasteryUI() {
+      let count = 0;
+      for (let i = 1; i <= 10; i++) {
+        const done = !!appState.masteredTopics[String(i)];
+        if (done) count++;
+        const btn = document.getElementById('mastery-btn-' + i);
+        if (btn) {
+          btn.classList.toggle('active', done);
+          btn.textContent = done ? 'Tema Revisado ✓' : 'Marcar como Revisado';
+        }
+        const navItem = document.querySelector('[data-nav-topic="' + i + '"]');
+        if (navItem) {
+          navItem.classList.toggle('is-done', done);
+        }
+      }
+      const pct = Math.round((count / 10) * 100);
+      const pctBadge = document.getElementById('mastery-pct-badge');
+      const bar = document.getElementById('mastery-progress-bar');
+      const headerLabel = document.getElementById('header-progress-label');
+      if (pctBadge) pctBadge.textContent = pct + '%';
+      if (bar) {
+        bar.style.width = pct + '%';
+        bar.classList.toggle('is-positive', count === 10);
+      }
+      if (headerLabel) headerLabel.textContent = count + ' / 10 Tópicos Dominados';
+    }
+
+    const MINI_DRILL_MESSAGES = {
+      d1a: {
+        ocorrencia: `Errado. A combinação de pânico coletivo, informação contraditória, risco elevado e ruptura da rotina configura Crise.`,
+        conflito: `Quase lá. Pode haver conflito de fluxos, mas o quadro já rompeu a capacidade ordinária e exige resposta especial.`,
+        crise: `Correto! Crise em grande evento (Aula 01): alta densidade, efeito cascata informacional e necessidade de resposta especial coordenada.`
+      },
+      d1b: {
+        ocorrencia: `Incorreto. Há divergência explícita de papéis e autoridade entre equipes.`,
+        conflito: `Correto! Conflito intraorganizacional/intergrupal sobre autoridade e papéis (Aula 05). Se não administrado, pode escalar, mas ainda não configura crise com ameaça à vida.`,
+        crise: `Incorreto. Nem todo conflito é uma crise — a ocorrência está estabilizada e sem ameaça iminente à vida.`
+      },
+      d6a: {
+        nec: `Correto! A ação não é necessária: a situação está contida, há diálogo e a urgência de trânsito não justifica expor reféns e policiais ao risco de um assalto.`,
+        ok: `Incorreto. Liberar fluxo viário nunca justifica assalto tático se há preservação de vidas pela negociação.`
+      },
+      d6b: {
+        aceit: `Correto! Fere frontalmente a Aceitabilidade nas dimensões legal, moral e ética, além de destruir a credibilidade da instituição.`,
+        val: `Embora haja risco reputacional, a violação mais direta e literal aqui é da Aceitabilidade legal, moral e ética (abuso e fraude).`
+      }
+    };
+
+    function checkMiniDrill(drillId, chosen, correct, btnEl) {
+      const fb = document.getElementById('fb-' + drillId);
+      const parent = btnEl ? btnEl.parentElement : null;
+      if (parent) {
+        const siblings = parent.querySelectorAll('.choice-chip');
+        siblings.forEach(function (b) {
+          b.classList.remove('selected-correct', 'selected-wrong');
+        });
+      }
+      const isOk = chosen === correct;
+      if (btnEl) {
+        btnEl.classList.add(isOk ? 'selected-correct' : 'selected-wrong');
+      }
+      const msg = (MINI_DRILL_MESSAGES[drillId] && MINI_DRILL_MESSAGES[drillId][chosen]) || '';
+      if (fb) {
+        fb.textContent = msg;
+        fb.className = 'feedback-inline show ' + (isOk ? 'ok' : 'err');
+      }
+    }
+
+    function selectPhase(phaseNum, tabBtn) {
+      currentPhase = phaseNum;
+      const tabs = document.querySelectorAll('.step-tab');
+      tabs.forEach(function (t) { t.classList.remove('active'); });
+      if (tabBtn) tabBtn.classList.add('active');
+      renderPhaseDetail();
+    }
+
+    function renderPhaseDetail() {
+      const box = document.getElementById('phase-detail-box');
+      const data = PHASES_DATA[currentPhase];
+      if (!box || !data) return;
+      box.innerHTML =
+        '<div class="dossier-meta" style="color: var(--secondary); margin-bottom: var(--space-xs);">' + data.badge + '</div>' +
+        '<h3 style="font-size: 1.35rem; margin-bottom: var(--space-xs);">' + data.title + '</h3>' +
+        '<p style="font-size: 0.95rem;">' + data.body + '</p>' +
+        '<div class="example-box" style="margin-top: var(--space-sm);">' +
+          '<div class="example-label">Aplicação em Ocorrência</div>' +
+          '<p style="font-size: 0.9rem;">' + data.example + '</p>' +
+        '</div>';
+    }
+
+    function toggleChecklist(idx, inputEl) {
+      appState.checklist[idx] = !!(inputEl && inputEl.checked);
+      renderChecklistUI();
+      persistState();
+    }
+
+    function renderChecklistUI() {
+      let checkedCount = 0;
+      const rows = document.querySelectorAll('.checklist-row');
+      rows.forEach(function (row) {
+        const idx = Number(row.getAttribute('data-check-idx'));
+        const isChecked = !!appState.checklist[idx];
+        if (isChecked) checkedCount++;
+        row.classList.toggle('checked', isChecked);
+        const cb = row.querySelector('input[type="checkbox"]');
+        if (cb) cb.checked = isChecked;
+      });
+      const countEl = document.getElementById('checklist-count');
+      if (countEl) countEl.textContent = checkedCount + ' / 6';
+      const msg = document.getElementById('checklist-done-msg');
+      if (msg) {
+        if (checkedCount === 6) {
+          msg.textContent = 'Checklist concluído! Você estabilizou a cena, colheu EEI confiáveis e preparou a transição segura para o negociador e equipe especializada.';
+          msg.className = 'feedback-inline show ok';
+        } else {
+          msg.className = 'feedback-inline';
+        }
+      }
+    }
+
+    function renderDemandsDrill() {
+      const container = document.getElementById('demand-drill-container');
+      if (!container) return;
+      let html = '';
+      let answeredCount = 0;
+      let correctCount = 0;
+
+      DEMANDS_DRILL.forEach(function (item, idx) {
+        const userAns = appState.demandAnswers[item.id];
+        if (userAns) {
+          answeredCount++;
+          if (userAns === item.correct) correctCount++;
+        }
+        const options = [
+          { code: 'neg', label: 'Negociável' },
+          { code: 'cond', label: 'Negociável sob Condição / Misto' },
+          { code: 'nao', label: 'Não Negociável' }
+        ];
+        html += '<div class="drill-item" style="' + (idx === DEMANDS_DRILL.length - 1 ? 'margin-bottom: 0;' : '') + '">';
+        html += '<p><strong>Pedido ' + (idx + 1) + ':</strong> ' + item.text + '</p>';
+        html += '<div class="drill-actions">';
+        options.forEach(function (opt) {
+          let cls = 'choice-chip';
+          if (userAns === opt.code) {
+            cls += (userAns === item.correct) ? ' selected-correct' : ' selected-wrong';
+          }
+          html += '<button type="button" class="' + cls + '" onclick="answerDemand(\'' + item.id + '\', \'' + opt.code + '\')">' + opt.label + '</button>';
+        });
+        html += '</div>';
+        if (userAns) {
+          const isOk = userAns === item.correct;
+          html += '<div class="feedback-inline show ' + (isOk ? 'ok' : 'err') + '">' + item.explain + '</div>';
+        }
+        html += '</div>';
+      });
+
+      container.innerHTML = html;
+      const scoreEl = document.getElementById('demand-score');
+      if (scoreEl) {
+        scoreEl.textContent = answeredCount + ' / ' + DEMANDS_DRILL.length + ' (' + correctCount + ' acertos)';
+      }
+    }
+
+    function answerDemand(id, code) {
+      appState.demandAnswers[id] = code;
+      renderDemandsDrill();
+      persistState();
+    }
+
+    function filterRules(mode) {
+      currentRulesFilter = mode;
+      const btnAll = document.getElementById('filter-rules-all');
+      const btnTraps = document.getElementById('filter-rules-traps');
+      if (btnAll) {
+        btnAll.className = mode === 'all' ? 'btn btn-primary btn-sm' : 'btn btn-secondary btn-sm';
+      }
+      if (btnTraps) {
+        btnTraps.className = mode === 'trap' ? 'btn btn-primary btn-sm' : 'btn btn-secondary btn-sm';
+      }
+      renderRulesGrid();
+    }
+
+    function renderRulesGrid() {
+      const grid = document.getElementById('rules-grid');
+      if (!grid) return;
+      const list = currentRulesFilter === 'trap'
+        ? RULES_DATA.filter(function (r) { return r.trap; })
+        : RULES_DATA;
+
+      let html = '';
+      list.forEach(function (rule) {
+        html += '<article class="rule-card ' + (rule.trap ? 'is-trap' : '') + '">';
+        html += '<div class="rule-head"><span class="index-num">Regra ' + rule.num + '</span>';
+        if (rule.trap) {
+          html += '<span class="rule-tag">Pegadinha de Prova</span>';
+        }
+        html += '</div>';
+        html += '<h3 style="font-size: 1.075rem; line-height: 1.3;">' + rule.title + '</h3>';
+        html += '<p style="font-size: 0.9rem; margin-bottom: 0;">' + rule.desc + '</p>';
+        html += '<div class="rule-example"><strong>Na prática:</strong> ' + rule.ex + '</div>';
+        html += '</article>';
+      });
+      grid.innerHTML = html;
+    }
+
+    // =========================================================================
+    // SIMULADO ENGINE (50 QUESTÕES)
+    // =========================================================================
+    function getFilteredQuestions() {
+      return QUESTIONS.filter(function (q) {
+        if (simuladoFilters.origin !== 'all' && q.origin !== simuladoFilters.origin) return false;
+        if (simuladoFilters.topic !== 'all' && String(q.topic) !== simuladoFilters.topic) return false;
+        const userAns = appState.quizAnswers[String(q.id)];
+        const hasAns = typeof userAns === 'number';
+        if (simuladoFilters.status === 'unanswered' && hasAns) return false;
+        if (simuladoFilters.status === 'wrong') {
+          if (!hasAns) return false;
+          if (userAns === q.answer) return false;
+        }
+        return true;
+      });
+    }
+
+    function applySimuladoFilters() {
+      const originSel = document.getElementById('filter-origin');
+      const topicSel = document.getElementById('filter-topic');
+      const statusSel = document.getElementById('filter-status');
+      if (originSel) simuladoFilters.origin = originSel.value;
+      if (topicSel) simuladoFilters.topic = topicSel.value;
+      if (statusSel) simuladoFilters.status = statusSel.value;
+      currentPage = 1;
+      renderSimulado();
+    }
+
+    function changeQuizMode(mode) {
+      appState.quizMode = mode;
+      if (mode === 'study') {
+        appState.examSubmitted = false;
+      }
+      renderSimulado();
+      persistState();
+    }
+
+    function selectAnswer(questionId, optIdx) {
+      if (appState.quizMode === 'exam' && appState.examSubmitted) return;
+      appState.quizAnswers[String(questionId)] = optIdx;
+      renderSimulado();
+      persistState();
+    }
+
+    function submitExamMode() {
+      appState.examSubmitted = true;
+      renderSimulado();
+      persistState();
+    }
+
+    function resetSimulado(btn) {
+      if (btn && btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Clique novamente para confirmar';
+        setTimeout(function () {
+          if (btn && btn.dataset.armed === 'true') {
+            btn.dataset.armed = 'false';
+            btn.textContent = 'Reiniciar Simulado';
+          }
+        }, 4000);
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = 'false';
+        btn.textContent = 'Reiniciar Simulado';
+      }
+      appState.quizAnswers = {};
+      appState.examSubmitted = false;
+      currentPage = 1;
+      renderSimulado();
+      persistState();
+    }
+
+    function goToPage(pageNum) {
+      currentPage = pageNum;
+      renderSimulado();
+      const simEl = document.getElementById('questions-container');
+      if (simEl) {
+        simEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function toggleStatsPanel() {
+      showStatsOpen = !showStatsOpen;
+      const panel = document.getElementById('topic-breakdown-panel');
+      if (panel) panel.style.display = showStatsOpen ? 'block' : 'none';
+      if (showStatsOpen) renderTopicBreakdown();
+    }
+
+    function renderTopicBreakdown() {
+      const container = document.getElementById('topic-breakdown-rows');
+      if (!container) return;
+      const revealFeedback = appState.quizMode === 'study' || appState.examSubmitted;
+      let html = '';
+
+      for (let t = 1; t <= 10; t++) {
+        const qs = QUESTIONS.filter(function (q) { return q.topic === t; });
+        let ans = 0;
+        let ok = 0;
+        qs.forEach(function (q) {
+          const u = appState.quizAnswers[String(q.id)];
+          if (typeof u === 'number') {
+            ans++;
+            if (u === q.answer) ok++;
+          }
+        });
+        const pct = ans > 0 && revealFeedback ? Math.round((ok / qs.length) * 100) : 0;
+        const label = revealFeedback
+          ? ok + '/' + qs.length + ' acertos (' + ans + ' resp.)'
+          : ans + '/' + qs.length + ' respondidas';
+        html += '<div class="topic-stat-row">';
+        html += '<div><strong>' + TOPICS_META[t] + '</strong></div>';
+        html += '<div class="progress-track" style="margin: 0;"><div class="progress-fill ' + (pct >= 80 ? 'is-positive' : '') + '" style="width: ' + (revealFeedback ? pct : Math.round((ans / qs.length) * 100)) + '%;"></div></div>';
+        html += '<div class="dossier-meta">' + label + '</div>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+    }
+
+    function renderSimulado() {
+      const modeSel = document.getElementById('quiz-mode-select');
+      if (modeSel) modeSel.value = appState.quizMode;
+
+      const statusBadge = document.getElementById('simulado-status-badge');
+      const submitBtn = document.getElementById('btn-submit-exam');
+      if (statusBadge) {
+        if (appState.quizMode === 'study') {
+          statusBadge.textContent = 'Modo Estudo • Gabarito Imediato';
+        } else if (appState.examSubmitted) {
+          statusBadge.textContent = 'Modo Prova • Corrigido';
+        } else {
+          statusBadge.textContent = 'Modo Prova • Em Andamento';
+        }
+      }
+      if (submitBtn) {
+        submitBtn.style.display = (appState.quizMode === 'exam' && !appState.examSubmitted) ? 'inline-flex' : 'none';
+      }
+
+      // Compute KPIs across all 50 questions
+      const revealFeedback = appState.quizMode === 'study' || appState.examSubmitted;
+      let totalAns = 0;
+      let totalCorrect = 0;
+      let totalWrong = 0;
+      QUESTIONS.forEach(function (q) {
+        const u = appState.quizAnswers[String(q.id)];
+        if (typeof u === 'number') {
+          totalAns++;
+          if (u === q.answer) totalCorrect++;
+          else totalWrong++;
+        }
+      });
+
+      const kpiAns = document.getElementById('kpi-answered');
+      const kpiCor = document.getElementById('kpi-correct');
+      const kpiWrg = document.getElementById('kpi-wrong');
+      const kpiAcc = document.getElementById('kpi-accuracy');
+      if (kpiAns) kpiAns.textContent = totalAns + ' / ' + QUESTIONS.length;
+      if (kpiCor) kpiCor.textContent = revealFeedback ? String(totalCorrect) : '—';
+      if (kpiWrg) kpiWrg.textContent = revealFeedback ? String(totalWrong) : '—';
+      if (kpiAcc) {
+        kpiAcc.textContent = (revealFeedback && totalAns > 0)
+          ? Math.round((totalCorrect / totalAns) * 100) + '%'
+          : '—';
+      }
+
+      if (showStatsOpen) renderTopicBreakdown();
+
+      // Filter & paginate
+      const filtered = getFilteredQuestions();
+      const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const startIdx = (currentPage - 1) * PAGE_SIZE;
+      const slice = filtered.slice(startIdx, startIdx + PAGE_SIZE);
+
+      const countTop = document.getElementById('showing-count-label');
+      const countBot = document.getElementById('showing-count-bottom');
+      const countTxt = filtered.length === 0
+        ? 'Nenhuma questão encontrada para este filtro'
+        : 'Exibindo ' + (startIdx + 1) + '–' + (startIdx + slice.length) + ' de ' + filtered.length + ' questões filtradas';
+      if (countTop) countTop.textContent = countTxt;
+      if (countBot) countBot.textContent = countTxt;
+
+      // Render pagination pills
+      let pagHtml = '';
+      if (totalPages > 1) {
+        for (let p = 1; p <= totalPages; p++) {
+          const rangeStart = (p - 1) * PAGE_SIZE + 1;
+          const rangeEnd = Math.min(filtered.length, p * PAGE_SIZE);
+          pagHtml += '<button type="button" class="page-pill ' + (p === currentPage ? 'active' : '') + '" onclick="goToPage(' + p + ')">Q ' + rangeStart + '–' + rangeEnd + '</button>';
+        }
+      }
+      const pagTop = document.getElementById('pagination-top');
+      const pagBot = document.getElementById('pagination-bottom');
+      if (pagTop) pagTop.innerHTML = pagHtml;
+      if (pagBot) pagBot.innerHTML = pagHtml;
+
+      // Render questions
+      const qContainer = document.getElementById('questions-container');
+      if (!qContainer) return;
+
+      if (slice.length === 0) {
+        qContainer.innerHTML =
+          '<div class="figure-card" style="text-align: center; padding: var(--space-xl);">' +
+            '<p style="margin: 0 auto var(--space-sm);">Nenhuma questão corresponde aos filtros selecionados.</p>' +
+            '<button type="button" class="btn btn-secondary btn-sm" onclick="clearSimuladoFilters()">Limpar Filtros</button>' +
+          '</div>';
+        return;
+      }
+
+      const letters = ['A', 'B', 'C', 'D'];
+      let qHtml = '';
+
+      slice.forEach(function (q) {
+        const userAns = appState.quizAnswers[String(q.id)];
+        const hasAns = typeof userAns === 'number';
+        const showGabarito = (appState.quizMode === 'study' && hasAns) || (appState.quizMode === 'exam' && appState.examSubmitted);
+        const isCorrect = hasAns && userAns === q.answer;
+
+        qHtml += '<article class="question-card" id="question-' + q.id + '">';
+        qHtml += '<div class="q-meta-row">';
+        qHtml += '<div class="q-badges">';
+        qHtml += '<span class="index-num">Questão ' + String(q.id).padStart(2, '0') + '</span>';
+        qHtml += '<span class="' + (q.origin === 'fonte' ? 'q-tag-source' : 'q-tag-inedita') + '">' + (q.origin === 'fonte' ? 'Baseada nas Fontes' : 'Inédita • Caso Prático') + '</span>';
+        qHtml += '</div>';
+        qHtml += '<span class="dossier-meta">' + TOPICS_META[q.topic] + '</span>';
+        qHtml += '</div>';
+
+        qHtml += '<div class="q-stem">' + q.stem + '</div>';
+        qHtml += '<div class="options-list">';
+
+        q.options.forEach(function (optText, oIdx) {
+          let cls = 'opt-btn';
+          if (showGabarito) {
+            if (oIdx === q.answer) cls += ' is-correct';
+            else if (hasAns && oIdx === userAns) cls += ' is-wrong';
+          } else if (hasAns && oIdx === userAns) {
+            cls += ' is-selected';
+          }
+          const disabledAttr = (appState.quizMode === 'exam' && appState.examSubmitted) ? ' disabled' : '';
+          qHtml += '<button type="button" class="' + cls + '" onclick="selectAnswer(' + q.id + ', ' + oIdx + ')"' + disabledAttr + '>';
+          qHtml += '<span class="opt-letter">' + letters[oIdx] + '</span>';
+          qHtml += '<span>' + optText + '</span>';
+          qHtml += '</button>';
+        });
+
+        qHtml += '</div>';
+
+        if (showGabarito) {
+          const ratCls = hasAns ? (isCorrect ? 'is-correct-box' : 'is-wrong-box') : '';
+          const statusTitle = !hasAns
+            ? 'Não respondida — Gabarito: ' + letters[q.answer]
+            : (isCorrect ? 'Correta! Gabarito: ' + letters[q.answer] : 'Incorreta — Gabarito: ' + letters[q.answer]);
+          qHtml += '<div class="q-rationale show ' + ratCls + '">';
+          qHtml += '<div class="dossier-meta" style="margin-bottom: var(--space-xs); color: var(--on-surface); font-weight: 700;">' + statusTitle + '</div>';
+          qHtml += '<p style="margin: 0;">' + q.rationale + '</p>';
+          qHtml += '</div>';
+        }
+        qHtml += '</article>';
+      });
+
+      qContainer.innerHTML = qHtml;
+    }
+
+    function clearSimuladoFilters() {
+      simuladoFilters = { origin: 'all', topic: 'all', status: 'all' };
+      const originSel = document.getElementById('filter-origin');
+      const topicSel = document.getElementById('filter-topic');
+      const statusSel = document.getElementById('filter-status');
+      if (originSel) originSel.value = 'all';
+      if (topicSel) topicSel.value = 'all';
+      if (statusSel) statusSel.value = 'all';
+      currentPage = 1;
+      renderSimulado();
+    }
+
+    function exportReport() {
+      let totalAns = 0;
+      let totalOk = 0;
+      const lines = [
+        'RELATORIO DE DESEMPENHO - GERENCIAMENTO DE CRISES E NEGOCIACAO',
+        '==============================================================',
+        ''
+      ];
+      for (let t = 1; t <= 10; t++) {
+        const qs = QUESTIONS.filter(function (q) { return q.topic === t; });
+        let ans = 0;
+        let ok = 0;
+        qs.forEach(function (q) {
+          const u = appState.quizAnswers[String(q.id)];
+          if (typeof u === 'number') {
+            ans++;
+            totalAns++;
+            if (u === q.answer) { ok++; totalOk++; }
+          }
+        });
+        lines.push(TOPICS_META[t] + ': ' + ok + '/' + qs.length + ' acertos (' + ans + ' respondidas)');
+      }
+      lines.push('');
+      lines.push('TOTAL GERAL: ' + totalOk + '/' + totalAns + ' respondidas (de ' + QUESTIONS.length + ' questoes)');
+      const content = lines.join('\n');
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: 'text/plain',
+          encoding: 'UTF-8',
+          filename: 'desempenho_gerenciamento_crises.txt'
+        });
+      }
+    }
+
+    // =========================================================================
+    // INITIALIZATION
+    // =========================================================================
+    async function initApp() {
+      await loadPersistedState();
+      renderMasteryUI();
+      renderPhaseDetail();
+      renderChecklistUI();
+      renderDemandsDrill();
+      renderRulesGrid();
+      renderSimulado();
+
+      if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+        lucide.createIcons();
+      }
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
